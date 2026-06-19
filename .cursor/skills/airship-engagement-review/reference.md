@@ -12,13 +12,29 @@ Call via MCP `call_airship_api` with `{method, path, params}`.
 | Devices | `/api/reports/devices` | — | Snapshot: unique devices, opted_in / opted_out / uninstalled per platform → **opt-in rate** (authoritative). |
 | Responses | `/api/reports/responses/list` | start, end, limit, (next_page cursor) | Push list: `push_type` (BROADCAST/SEGMENTS/UNICAST/A-B), `sends`, `direct_responses`, `group_id`. |
 | Per-push | `/api/reports/perpush/detail/{push_id}` | — | Sends/direct/influenced per push. |
-| Push body | `/api/reports/perpush/pushbody` | push_id | Base64 creative (notif + Message Center/Email HTML). **404 on some projects.** |
+| Push body | `/api/reports/perpush/pushbody/{push_id}` | `push_id` is a **PATH** param (not query) | Per-push creative (notif + Message Center/Email HTML). Scope `rpt`. **Empty body for UNICAST / Create-and-Send.** |
+| Content Templates | `/api/content/templates` and `/{template_id}` | page_size, page, sort, order | Reusable creatives (`type` email/sms/…) with `content.{subject, html_body, plaintext_body}`. **Scope `tpl` (Content).** This is where template-driven (unicast) campaign creatives live. |
 | Events | `/api/reports/events` | start, end, precision=MONTHLY, page_size, page | name, location, conversion, count, value. **Paginate all pages.** |
 | Activity | `/api/reports/activity/details` | — | Extra granularity if accessible. |
 
 Dates accepted as `YYYY-MM-DD`. To page `responses/list`, follow `next_page`
 (`push_id_start` + `resume_at_time`). A too-narrow window returns only the latest
 (small) sends; target peak-send days to find broadcasts.
+
+### Creative retrieval — which source by send type
+Determine each top campaign's `push_type` from `responses/list`, then pick the source:
+
+| Send type | Has per-push body? | Where the creative lives |
+|---|---|---|
+| **BROADCAST / SEGMENTS / A-B** (mass) | ✅ Yes | `GET /api/reports/perpush/pushbody/{push_id}` → notif text + Message Center / email HTML. |
+| **UNICAST / Create-and-Send** (1:1, automation/journey) | ❌ Empty | per-push body is blank → use the campaign's **Content Template**: `GET /api/content/templates` (scope `tpl`), match by `name`/`type`, read `content.html_body`. |
+
+Rules of thumb:
+- Only call `perpush/pushbody` for **non-unicast** pushes; for unicast it wastes calls and returns nothing.
+- Only scan `/api/content/templates` when the project actually runs **template-driven / unicast** campaigns (automations, journeys, transactional). For a pure-broadcast project the templates list is not the campaign creative — skip it.
+- Legacy `/api/templates` (List/Lookup template) is deprecated and not covered by an active scope on most projects → expect 401; use `/api/content/templates` instead.
+- Render real `html_body` with `scripts/render_email.py` (faithful preview). Reconstruct
+  illustratively (`scripts/render_mocks.py`) **only** when neither source returns content.
 
 ## Definitions
 - **Direct**: action after a direct open of the push.

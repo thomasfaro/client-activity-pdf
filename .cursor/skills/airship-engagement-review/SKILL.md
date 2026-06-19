@@ -27,7 +27,7 @@ data and mark reconstructed visuals as "illustrative reconstruction".
 ```
 - [ ] 1. Brand & business context (web search, cite URLs)
 - [ ] 2. Pull core data: sends, opens, optins, optouts, devices
-- [ ] 3. Pull events (ALL pages) + responses/list for peak days; test pushbody
+- [ ] 3. Pull events (ALL pages) + responses/list for peak days; fetch creatives by send type
 - [ ] 4. Aggregate to JSON; compute totals/averages/peaks/attribution
 - [ ] 5. Generate charts (scripts/airship_charts.py)
 - [ ] 6. Render creative mockups (scripts/render_mocks.py)
@@ -46,8 +46,18 @@ contextual hypothesis.
 Call via MCP `call_airship_api`. Endpoints, params and definitions: see
 [reference.md](reference.md). Key points:
 - Paginate **all** pages of `/events` (`precision=MONTHLY`).
-- For top campaigns, use `responses/list` on peak-send days (iterate `next_page`).
-- Test `perpush/pushbody` once; it returns 404 on some projects → reconstruct creatives.
+- For top campaigns, use `responses/list` on peak-send days (iterate `next_page`) and read
+  each campaign's `push_type`.
+- **Creative retrieval depends on the send type** (full table in `reference.md`):
+  - **BROADCAST / SEGMENTS / A-B** → `GET /api/reports/perpush/pushbody/{push_id}`
+    (`push_id` is a **path** param). Returns notif text + Message Center / email HTML.
+  - **UNICAST / Create-and-Send** → per-push body is **empty**; don't rely on it. The
+    creative lives in the **Content Template**: `GET /api/content/templates` (scope `tpl`),
+    matched by `name`/`type`, then read `content.html_body`.
+  - Only scan `/api/content/templates` when the project runs template-driven / unicast
+    campaigns (automations, journeys, transactional). Skip it for pure-broadcast projects.
+  - Render real `html_body` with `scripts/render_email.py`; reconstruct illustratively
+    only when neither source yields content.
 - `devices` snapshot = authoritative opt-in rate; `optins/optouts` are daily **events**
   (include reinstalls/re-detections), not net base — state this caveat.
 - Custom event `value` is a client-declared counter/weight, **not currency** — never
@@ -67,14 +77,23 @@ Import the styled helpers (Airship palette, k/M formatter, dated axes for time s
 only, no emoji in labels). See the module docstring for available functions:
 stacked daily bars, area+mean line, donut, grouped/h-bars.
 
-### 6. Creative mockups — `scripts/render_mocks.py`
+### 6. Creatives — prefer real, reconstruct only as fallback
+**Real creatives (faithful preview)** — when you have actual HTML (`content.html_body`
+from a Content Template, or decoded Message Center HTML from a per-push body):
 ```bash
-python scripts/render_mocks.py   # see module for render_push() / render_card()
+python scripts/render_email.py creative.html out.png 680
 ```
-Renders iOS lock-screen push and Message Center/in-app cards via Chrome headless with
-auto-crop. Use the client's app branding inside mockups (it depicts their push), keep
-the report chrome Airship-branded. Label all mockups as reconstructions when pushbody
-is unavailable.
+`render_email.py` renders via Chrome headless (tolerates Chrome not exiting; uses a
+timeout) and crops background-aware (works for white AND dark emails).
+
+**Illustrative reconstructions (fallback only)** — when neither `perpush/pushbody`
+(non-unicast) nor `/api/content/templates` (unicast) returns content:
+```bash
+python scripts/render_mocks.py   # render_push() / render_card()
+```
+Renders iOS lock-screen push and Message Center/in-app cards. Use the client's app
+branding inside mockups (it depicts their message), keep the report chrome
+Airship-branded, and clearly **label these as "illustrative reconstruction".**
 
 ### 7. Build report — `scripts/build_report.py`
 Write `report.html` using `@page{size:1240px 1754px;margin:0}` and
@@ -98,6 +117,7 @@ Copy both to `~/Desktop/`.
 - [ ] Brand context researched, sourced, and used in insights/recos
 - [ ] Each insight/reco tagged `[Data]` / `[Brand context]` / `[Data+Context]`
 - [ ] Every visual has a source; glossary + appendix present
+- [ ] Creatives fetched by send type (pushbody for mass; Content Templates for unicast/CaS); real previews used where available, reconstructions labeled only as fallback
 - [ ] No fabricated figures; unavailable data flagged; reconstructions labeled
 - [ ] Top 5 for each present channel; absent channels stated
 - [ ] Events: all pages paginated; location/conversion taxonomy; families
@@ -109,4 +129,6 @@ Python: `matplotlib`, `numpy`, `pillow`, `pymupdf`. Google Chrome (headless) for
 HTML→PDF and mockup rendering.
 
 ## Resources
-- [reference.md](reference.md) — endpoints, params, definitions, Airship palette.
+- [reference.md](reference.md) — endpoints, params, definitions, creative-retrieval table, Airship palette.
+- `scripts/render_email.py` — render a real email / Message Center `html_body` to a cropped PNG.
+- `scripts/render_mocks.py` — illustrative push / in-app reconstructions (fallback only).
