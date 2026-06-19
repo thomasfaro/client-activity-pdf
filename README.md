@@ -14,31 +14,97 @@ The skill lives in [`.cursor/skills/airship-engagement-review/`](.cursor/skills/
   - `render_mocks.py` — push / Message Center / in-app creative mockups (Chrome headless).
   - `build_report.py` — HTML → PDF (Chrome) → stitched PNG (PyMuPDF), with page-count check.
 
+## Install in Cursor
+
+Skills are discovered automatically from `.cursor/skills/` (project) or
+`~/.cursor/skills/` (global). There is no separate Skills settings page — installed
+skills appear under **Cursor Settings → Rules → Agent Decides**.
+
+### Option A — Open this repo as your workspace (recommended)
+
+Best for running reviews from a dedicated project. No extra install step.
+
+1. In Cursor, open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`).
+2. Run **Git: Clone** and paste:
+   ```
+   https://github.com/thomasfaro/client-activity-pdf
+   ```
+3. When prompted, **Open** the cloned folder in Cursor.
+4. Verify the skill loaded: **Cursor Settings** (`Cmd+Shift+J` / `Ctrl+Shift+J`) →
+   **Rules** → look for `airship-engagement-review` under **Agent Decides**.
+5. In Agent chat, ask e.g. *"generate an Airship engagement review for user-XX PROD"*.
+
+The skill auto-loads because this repo already contains `.cursor/skills/airship-engagement-review/`.
+
+### Option B — Use the skill in any existing project (global install)
+
+Keeps the skill available across all your workspaces.
+
+1. Clone this repo anywhere on your machine (Command Palette → **Git: Clone**, or
+   Cursor's integrated terminal):
+   ```bash
+   git clone https://github.com/thomasfaro/client-activity-pdf.git
+   cd client-activity-pdf
+   ```
+2. Run the install script from Cursor's terminal (`Terminal → New Terminal`):
+   ```bash
+   ./install.sh            # symlink → ~/.cursor/skills/ (live updates on git pull)
+   ./install.sh --copy     # copy instead of symlink
+   ```
+3. Reload Cursor: Command Palette → **Developer: Reload Window**.
+4. Verify: **Cursor Settings → Rules → Agent Decides** → `airship-engagement-review`.
+5. Open any project and ask the Agent to run a review (you still need the target
+   project's Airship MCP server configured locally).
+
+To remove: `./install.sh --uninstall`
+
+### Option C — Add to a specific project only
+
+If you want the skill inside one client repo without a global install:
+
+1. Clone this repo (or add it as a submodule).
+2. Copy the skill folder into your project's `.cursor/skills/`:
+   ```bash
+   mkdir -p .cursor/skills
+   cp -R /path/to/client-activity-pdf/.cursor/skills/airship-engagement-review .cursor/skills/
+   ```
+3. Reload Cursor (**Developer: Reload Window**).
+4. Commit `.cursor/skills/airship-engagement-review/` if you want teammates to get it
+   when they open that project.
+
+### GitHub import via Settings (experimental)
+
+Cursor documents a GitHub import under **Cursor Settings → Rules → Project Rules →
+Add Rule → Remote Rule (GitHub)**. Paste the repo URL:
+
+```
+https://github.com/thomasfaro/client-activity-pdf
+```
+
+This flow is designed for `.mdc` rules; skill-only repos may not always register
+under **Agent Decides**. If the skill does not appear after a reload, use Option A, B,
+or C instead.
+
 ## Use it
 
-Two ways:
+Once installed, invoke the skill from Agent chat:
 
-1. **Open this repo as your Cursor workspace.** The skill auto-loads from `.cursor/skills/`.
-   No install needed. Then ask, e.g. *"generate an Airship engagement review for HM PROD"*.
+- Ask naturally: *"generate an Airship engagement review for user-XX PROD"*
+- Or reference it with `@airship-engagement-review` (if shown in the `@` menu)
+- Or type `/airship-engagement-review` in the chat input
 
-2. **Install globally** (available in all your projects) by symlinking it into
-   `~/.cursor/skills/`:
-
-   ```bash
-   ./install.sh            # symlink (live updates from this repo)
-   ./install.sh --copy     # copy instead of symlink
-   ./install.sh --uninstall
-   ```
-
-   Restart/reload Cursor so it picks up `~/.cursor/skills/`.
+The Agent will pull data from the project's Airship MCP server, generate charts and
+mockups, and output a PDF + PNG on your Desktop.
 
 ## Requirements
 
 - Python: `matplotlib`, `numpy`, `pillow`, `pymupdf`
 - Google Chrome (headless) for HTML→PDF and mockup rendering
-- Access to the target project's Airship Reports API via its MCP server
+- Access to the target project's Airship Reports API via its MCP server (configured in
+  your local Cursor MCP settings — credentials are never stored in this repo)
 
 ## Sharing internally
 
-Skills are just files, distributed via git — there is no separate org-level skill
-registry. Clone this repo and use either method above. Pull to get updates.
+Clone this repo and follow one of the install options above. Pull to get updates.
+For team-wide use inside a client project, prefer **Option C** (commit the skill
+folder into that repo's `.cursor/skills/`).
