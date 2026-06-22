@@ -15,11 +15,41 @@ Call via MCP `call_airship_api` with `{method, path, params}`.
 | Push body | `/api/reports/perpush/pushbody/{push_id}` | `push_id` is a **PATH** param (not query) | Per-push creative (notif + Message Center/Email HTML). Scope `rpt`. **Empty body for UNICAST / Create-and-Send.** |
 | Content Templates | `/api/content/templates` and `/{template_id}` | page_size, page, sort, order | Reusable creatives (`type` email/sms/…) with `content.{subject, html_body, plaintext_body}`. **Scope `tpl` (Content).** This is where template-driven (unicast) campaign creatives live. |
 | Events | `/api/reports/events` | start, end, precision=MONTHLY, page_size, page | name, location, conversion, count, value. **Paginate all pages.** |
+| Events per push | `/api/reports/events/summary/perpush/{push_id}` | — | Custom events attributed to one push (name/conversion/location/count/value). Scope `rpt`. |
+| Events per group | `/api/reports/events/summary/pergroup/{group_id}` | — | Custom events attributed to a campaign (all sends in the group). Scope `rpt`. |
+| Experiment overview | `/api/reports/experiment/overview/{push_id}` | — | A/B experiment result summary. Scope `rpt`. |
+| Experiment variant | `/api/reports/experiment/detail/{push_id}/{variant_id}` | — | Per-variant experiment detail. Scope `rpt`. |
 | Activity | `/api/reports/activity/details` | — | Extra granularity if accessible. |
+
+### Non-report endpoints (other scopes — probe and degrade gracefully)
+| Data | Path | Scope | Use |
+|---|---|---|---|
+| Automations / journeys | `/api/pipelines` (+ `/{pipeline_id}`, `/filtered`) | `pln` | Authoritative inventory of automated message pipelines (journeys, triggered, recurring automations). |
+| Schedules | `/api/schedules` (+ `/{schedule_id}`) | `sch` | Scheduled messages incl. **recurring** schedules (cadence in the `schedule` object). |
+| Experiments | `/api/experiments` (+ `/{experiment_id}`, `/scheduled`) | (mgmt) | A/B experiment definitions. May 401/403 — also detect via `push_type == A_B` in `responses/list` + the `rpt` experiment reports above. |
+| Content Templates | `/api/content/templates` (+ `/{template_id}`) | `tpl` | Reusable creatives; see creative-retrieval table. |
+
+These four are **not** under `rpt`. Probe once; if the response is 401/403, note
+"scope `<x>` unavailable on this project" in the report and fall back to the
+reports-only heuristics below. **Never fabricate** automation/experiment data.
 
 Dates accepted as `YYYY-MM-DD`. To page `responses/list`, follow `next_page`
 (`push_id_start` + `resume_at_time`). A too-narrow window returns only the latest
 (small) sends; target peak-send days to find broadcasts.
+
+## Scope of measurement — snapshot (whole base) vs period
+Keep these two families of metrics **strictly separate** in analysis and in the report;
+never mix a snapshot figure with a period figure in the same KPI.
+- **Snapshot / whole base** = `/api/reports/devices` **only**. Point-in-time state of the
+  entire installed base at `date_closed`: `unique_devices`, `opted_in`, `opted_out`,
+  `uninstalled` per platform. This is the **only** source for the **opt-in rate** and
+  installed-base size. Tag these "(snapshot DD/MM)".
+- **Period** = `sends`, `opens`, `optins`, `optouts`, `events`, `responses/list`,
+  per-push/per-group reports — all bounded by the analysis window. `optins`/`optouts`
+  are **event flows during the period**, NOT a net change of the installed base, and they
+  do **not** equal the snapshot `opted_in`/`opted_out` counts. Tag these "(period)".
+- A period opt-in/opt-out **event** balance (sum optins − sum optouts) describes activity
+  flow only; it must never be presented as "the base grew/shrank by X".
 
 ### Creative retrieval — which source by send type
 Determine each top campaign's `push_type` from `responses/list`, then pick the source:
@@ -35,6 +65,82 @@ Rules of thumb:
 - Legacy `/api/templates` (List/Lookup template) is deprecated and not covered by an active scope on most projects → expect 401; use `/api/content/templates` instead.
 - Render real `html_body` with `scripts/render_email.py` (faithful preview). Reconstruct
   illustratively (`scripts/render_mocks.py`) **only** when neither source returns content.
+
+## Campaign typology — one-shot vs automated/recurring
+Goal: separate **one-shot** sends (manual, sent once) from **automated/recurring**
+campaigns (journeys, automations, recurring schedules) and rank/analyse them separately.
+
+Detection, best → fallback:
+1. **Authoritative** — `/api/pipelines` (scope `pln`): every push tied to a pipeline is
+   automated (journey/triggered/recurring). `/api/schedules` (scope `sch`): a `schedule`
+   object with a recurrence rule = recurring.
+2. **Heuristic from reports only** (when `pln`/`sch` unavailable): group `responses/list`
+   pushes by `group_id`, then by **normalized `message_name`** — strip trailing date/ID
+   tokens (e.g. `_07062026`, `_2026-06-07`, trailing UUID/hash, `_v\d+`). A normalized
+   name (or group) recurring on a **regular cadence** (≈daily/weekly/monthly) across the
+   window ⇒ automated/recurring. A unique name sent once ⇒ one-shot.
+   `scripts/classify_campaigns.py` implements this (normalization + grouping + cadence).
+3. `push_type` hints: `UNICAST` / Create-and-Send are typically automation/journey
+   outputs; large `BROADCAST`/`SEGMENTS_PUSH` with a unique name are typically one-shot.
+
+Analysis per type:
+- **One-shot**: reach, direct/influenced rates, creative, single-send attribution.
+- **Automated/recurring**: across occurrences — total + per-occurrence volume, **volume
+  drift** (flag significant increases/drops vs the series median), and **engagement-rate
+  trend** (direct+influenced / sends over time). Aggregate the group via
+  `pergroup/detail` or sum the repeated `perpush/detail`; use `perpush/series` for shape.
+
+## Experiments (A/B) detection
+Always check. Order: (a) probe `/api/experiments` (may 401/403); (b) flag any
+`responses/list` push with `push_type == A_B`; (c) for those `push_id`s pull
+`/api/reports/experiment/overview/{push_id}` and `/experiment/detail/{push_id}/{variant_id}`
+(scope `rpt`) for variant performance + winner. If none found, state "no experiments
+detected in the period".
+
+## Value-bearing custom events
+`value` is a **client-declared counter/weight, not currency**. Flag an event as
+*value-bearing* when **both**: (a) its `name` implies a measurable quantity — e.g.
+`purchase`, `order`, `revenue`, `amount`, `price`, `cart`, `checkout`, `watch`, `vod`,
+`play`, `view_time`, `duration`, `minutes`, `points`, `qty`, `quantity` — **and** (b) its
+aggregated `value` (or per-event avg `value`/`count`) is non-zero. For each flagged event,
+add **per-message attribution** via `events/summary/perpush/{push_id}` on the top messages
+(and `events/summary/pergroup/{group_id}` for recurring campaigns), reporting `direct` /
+`indirect` / `unattributed` count and value. Always restate the not-currency caveat.
+
+## Unicast → recover campaign categories
+For `UNICAST` the `perpush/pushbody` content is empty, but campaign metadata may still be
+recoverable. Best-effort, in order: (a) still call `pushbody` — `push.campaigns.categories`
+and `push.options.message_name` are sometimes present even when `notification` is empty;
+(b) if the push maps to a `/api/pipelines` pipeline, read the pipeline's name/categories;
+(c) parse `message_name` tokens (e.g. `welcome`, `winback`, `abandon`, `transactional`).
+Use the recovered categories to label the campaign **type** in the top-unicast view; if
+nothing is recoverable, label "category unavailable".
+
+## Templates inventory & usage
+From `/api/content/templates` (scope `tpl`): report `total_count`, `type` mix
+(email/sms/…), creation/modification recency, and `feed_references` / `snippet_references`
+(dynamic personalization). **Usage mapping is best-effort** (no direct "where-used" API):
+cross-reference each template `name` against `message_name`/`campaigns.categories` seen in
+pushbodies, and against `/api/pipelines` + `/api/schedules` payloads when those scopes are
+available; use `modified_at` recency as an activity proxy. Label the usage column
+"best-effort".
+
+## Verification & confidence
+Attach to **every** insight/reco a verification basis and a confidence level.
+- **Verification basis**: name the source endpoint(s) and the sanity checks that pass —
+  per-platform sums reconcile with reported totals; rates fall within 0–100%; the sample
+  size (sends/devices/event count behind the figure) is stated; the period is fully
+  covered (all `next_page`/pages pulled); the scope was actually available (not degraded).
+- **Confidence scale**:
+  - **High** — measured `[Data]`, complete (all pages, no 401/403 gaps), large sample,
+    and corroborated by ≥2 signals or reconciling sums.
+  - **Medium** — measured but single-source, partial data, moderate sample, or one
+    heuristic step (e.g. name-normalized recurrence without `pln`).
+  - **Low** — small sample, degraded scope, or `[Brand context]` hypothesis not yet
+    confirmed by data. Brand-context-only insights are capped at **Low**; low-sample or
+    degraded-scope ones at **Medium** max.
+- Low-confidence items must carry a **"to verify"** note stating what would raise
+  confidence (wider window, missing scope `<x>`, larger sample, corroborating source).
 
 ## Definitions
 - **Direct**: action after a direct open of the push.
