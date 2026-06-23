@@ -1,5 +1,14 @@
 # Reference — endpoints, definitions, branding
 
+## MCP access
+
+Each client project is a **separate MCP server** in Cursor (`~/.cursor/mcp.json`).
+The Agent calls `call_airship_api` on that server (e.g. `user-Carrefour PROD`).
+Setup: OAuth credentials in Airship (`rpt` + `tpl` minimum), env vars
+`AIRSHIP_APP_KEY`, `AIRSHIP_CLIENT_ID`, `AIRSHIP_CLIENT_SECRET`, `AIRSHIP_REGION`.
+Full walkthrough: see **Prerequisite — configure the client project as an MCP server**
+in [SKILL.md](SKILL.md).
+
 ## Airship Reports API endpoints
 Call via MCP `call_airship_api` with `{method, path, params}`.
 

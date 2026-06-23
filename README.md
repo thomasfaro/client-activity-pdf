@@ -96,12 +96,74 @@ Once installed, invoke the skill from Agent chat:
 The Agent will pull data from the project's Airship MCP server, generate charts and
 mockups, and output a PDF + PNG on your Desktop.
 
+## Configure client projects as MCP servers in Cursor
+
+The skill does **not** embed Airship credentials. Each client Airship project must be
+wired as a separate MCP server on your machine.
+
+### Step 1 — OAuth in the Airship dashboard (once per project)
+
+1. Open the client's project in Airship Go.
+2. **Settings → Project settings → OAuth** → create or edit a client.
+3. Enable **Allow Basic Auth** (required for Client Secret).
+4. Enable scopes:
+   - **`rpt`** (Reports) — **required** for sends, opens, devices, events, etc.
+   - **`tpl`** (Content) — **required** for template/creative inventory.
+   - Optional: **`pln`**, **`sch`**, experiments — deeper automation / schedule / A/B sections.
+5. Copy **App Key** (Settings → General), **Client ID**, and **Client Secret**.
+6. Note the region: **`eu`** or **`us`**.
+
+### Step 2 — Airship MCP runtime
+
+Install the Airship MCP server (`airship-mcp` from the agent-tools package). You need
+[`uv`](https://docs.astral.sh/uv/) on your PATH and a local clone of the agent-tools
+repo (path used in the config below).
+
+### Step 3 — Cursor MCP config
+
+**Cursor Settings → MCP** (or edit `~/.cursor/mcp.json`). Add **one entry per client**:
+
+```json
+{
+  "mcpServers": {
+    "Carrefour PROD": {
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/agent-tools", "airship-mcp"],
+      "env": {
+        "AIRSHIP_APP_KEY": "<app_key>",
+        "AIRSHIP_CLIENT_ID": "<oauth_client_id>",
+        "AIRSHIP_CLIENT_SECRET": "<oauth_client_secret>",
+        "AIRSHIP_REGION": "eu"
+      }
+    }
+  }
+}
+```
+
+Replace `/path/to/agent-tools` with your local install path. Duplicate the block for
+each client (`GMF PROD`, `M6 PROD`, …) with that project's credentials.
+
+Reload Cursor (**Developer: Reload Window**) or restart the MCP row in Settings.
+
+When you ask the Agent for a review, name the server as configured (e.g.
+*"engagement review for **Carrefour PROD**"*). Internally Cursor addresses it as
+`user-Carrefour PROD`.
+
+### Step 4 — Smoke test
+
+Ask the Agent to call `GET /api/reports/devices` on that MCP server. Expect HTTP 200
+with platform opt-in counts. If you see **401 Expired token**, restart the MCP server.
+If **401 Missing required scope**, add the scope in Airship OAuth settings and restart
+the MCP server.
+
+**Security:** keep `mcp.json` local; never commit credentials to git.
+
 ## Requirements
 
 - Python: `matplotlib`, `numpy`, `pillow`, `pymupdf`
 - Google Chrome (headless) for HTML→PDF and mockup rendering
-- Access to the target project's Airship Reports API via its MCP server (configured in
-  your local Cursor MCP settings — credentials are never stored in this repo)
+- [`uv`](https://docs.astral.sh/uv/) + Airship MCP (`airship-mcp` / agent-tools)
+- One Cursor MCP entry per client project (see above)
 
 ## Sharing internally
 
