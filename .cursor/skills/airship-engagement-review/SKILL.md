@@ -16,8 +16,25 @@ for a CSM/AM. Favor **exhaustiveness** (no page cap). Every figure carries a sou
 (endpoint) and, where useful, a definition. Never fabricate data; label unavailable
 data and mark reconstructed visuals as "illustrative reconstruction".
 
+## Prerequisite — auth token & scopes (do this FIRST)
+Before any data collection, the project's MCP server must authenticate with an Airship
+auth token (OAuth client) that carries the right **scopes**. Create the token in the
+Airship dashboard (Settings → APIs / OAuth) with **at least**:
+- **`rpt`** — Reports API (`/api/reports/*`): sends, opens, optins, optouts, devices,
+  events, responses/list, perpush/pergroup. **Required** — the review cannot run without it.
+- **`tpl`** — Content API (`/api/content/templates`): template inventory & creatives.
+  **Required** whenever the project uses template-driven / unicast campaigns.
+- Optional but recommended for full depth: **`pln`** (pipelines/automations),
+  **`sch`** (schedules), **experiments** (A/B). Missing → degrade gracefully (note
+  "scope `<x>` unavailable"), don't fabricate.
+
+If a call returns **401 `Expired token`**, ask the user to re-authenticate the MCP server
+in Cursor settings, then retry. If it returns **401 `Missing required scope`**, the token
+lacks that scope — add it on the token (report + content at minimum) and reconnect.
+
 ## Inputs (confirm first)
 - **MCP server** for the project (e.g. `user-XX PROD`). Tool: `call_airship_api`.
+- **Auth token with `rpt` + `tpl` scopes** active on that MCP server (see prerequisite above).
 - **Client brand + site URL** (for brand context).
 - **Period**: default trailing ~90 days, `precision=DAILY`. State exact dates.
 - **Language**: default English; offer French.
