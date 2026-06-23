@@ -25,7 +25,8 @@ data and mark reconstructed visuals as "illustrative reconstruction".
 
 ## Workflow
 ```
-- [ ] 1. Brand & business context (web search, cite URLs)
+- [ ] 1. Brand & business context (web search, cite URLs) + confirm INDUSTRY
+       (load benchmarks.md, match industry key for later comparison)
 - [ ] 2. Pull core data: sends, opens, optins, optouts, devices
        (separate SNAPSHOT/whole-base from PERIOD metrics)
 - [ ] 3. Pull events (ALL pages) + responses/list for peak days; fetch creatives by send type
@@ -49,6 +50,10 @@ Web-search the brand: sector, app role, audience/geos & languages, offers/loyalt
 Cross-reference data spikes with brand events. Tag every insight/reco origin:
 `[Data]`, `[Brand context]`, or `[Data+Context]`. Separate measured fact from
 contextual hypothesis.
+**Determine the client's industry** here: deduce it from the brand research, then
+**confirm it with the user**. Load [benchmarks.md](benchmarks.md) and select the
+matching industry key (via its `aliases`); carry it into the benchmarking step. If no
+industry matches, note it and skip benchmark comparisons (don't force a mismatched one).
 
 ### 2-3. Data collection (Airship Reports API)
 Call via MCP `call_airship_api`. Endpoints, params and definitions: see
@@ -87,6 +92,16 @@ Cover all of the following (see `reference.md` for detection logic & definitions
   per platform — all "(snapshot DD/MM)".
 - Period block (`optins/optouts`): opt-in/opt-out **event** flows over the window — never
   framed as net base change, never equated to the snapshot counts.
+
+**Marketing pressure (cross-platform AND per-platform)**
+- Report **both** views (see `reference.md` → "Marketing pressure"):
+  - **Cross-platform**: total sends (all channels) / weeks / total addressable base.
+  - **Per-platform**: one figure per active channel (push iOS, push Android, push blended,
+    email, web push, SMS…) = channel sends / weeks / that channel's own addressable base.
+- **Match the denominator to the channel** (push → push `opted_in`; email → email base;
+  web → web `opted_in`). If a denominator is unavailable (e.g. email = 0 active devices),
+  show sends/week only and flag it. Call out channels far above/below the others
+  (over-solicitation vs under-use). Tag "(period)".
 
 **Campaign typology (one-shot vs automated/recurring)**
 - Classify every campaign. Probe `/api/pipelines` (`pln`) and `/api/schedules` (`sch`);
@@ -127,6 +142,23 @@ Cover all of the following (see `reference.md` for detection logic & definitions
   recency, feeds/snippets. Best-effort usage mapping (label "best-effort") — match names
   vs pushbody `message_name`/categories and vs pipelines/schedules; `modified_at` recency
   as activity proxy.
+
+**Industry benchmarking (position KPIs vs peers)**
+- Using the vertical from step 1, load benchmark values from `benchmarks.json` (human
+  reference: `benchmarks.md`; source: Airship UA Benchmarks workbook). Benchmarked KPIs:
+  `optin_rate`, `direct_open_rate`, `influenced_open_rate`, `sends_per_user_month`,
+  `message_center_read_rate`. Show the **client value next to the vertical median (p50)**
+  and the **[p10–p90] range** and the **gap** (points or ×), tagged `[Data]`.
+- **Compare per device family** (iOS/Android/Web) — never blend platforms against a
+  per-platform benchmark. There is **no blended opt-in** and **no opt-out** benchmark:
+  compare opt-in per platform; for opt-out, state "no benchmark".
+- **Pressure is PER MONTH**: the report's marketing pressure is sends/opted-in user/week →
+  ×~4.33 (or recompute monthly) before comparing to `sends_per_user_month`.
+- **Cite source + quarter + region (global)** beside every comparison. Telecom has no own
+  vertical → use `utility_productivity` (or `all_verticals`) as a **labelled proxy**.
+- If `benchmarks.json` is empty, the vertical/metric doesn't match, or the file is stale,
+  **state "industry benchmark not available" and do not fabricate**.
+- Benchmark comparisons are capped at **Medium** confidence (external/contextual).
 
 **Verification & confidence (apply to every insight/reco)**
 - State the verification basis (source endpoint(s) + sanity checks: sums reconcile, rates
@@ -170,8 +202,9 @@ Copy both to `~/Desktop/`.
 
 ## Report structure (add sections as needed — do not cap pages)
 1. Cover (Airship branding) · 2. Brand & business context (sources) ·
-3. Executive summary (verdict, KPIs with snapshot/period labels, tags + confidence) ·
-4. Volume & channels / pressure (period) ·
+3. Executive summary (verdict, KPIs with snapshot/period labels, **vs industry benchmark
+   where available**, tags + confidence) ·
+4. Volume & channels / **marketing pressure — cross-platform AND per-platform** (period) ·
 5. Engagement (opens, period) ·
 6. Permission & installed base — **two blocks: snapshot/whole-base (rate, base) vs period
    opt-in/opt-out event flows** ·
@@ -188,8 +221,10 @@ Copy both to `~/Desktop/`.
 
 ## Quality gate (before delivery)
 - [ ] Brand context researched, sourced, and used in insights/recos
+- [ ] **Industry confirmed; benchmarked KPIs positioned vs the matching industry benchmark (median/range) with the benchmark's source/date/n/region — or "benchmark not available" stated; never fabricated; comparison confidence ≤ Medium**
 - [ ] Each insight/reco tagged `[Data]` / `[Brand context]` / `[Data+Context]`
 - [ ] **Snapshot (whole-base) vs period metrics kept separate and labelled; opt-in rate only from `/devices`; optin/optout shown as period event flows**
+- [ ] **Marketing pressure reported both cross-platform AND per active channel (push iOS/Android, email, web…); denominator matched to each channel; missing denominators flagged**
 - [ ] **Campaigns classified; two top rankings present (one-shot vs automated/recurring); recurring campaigns analysed for volume drift + engagement trend**
 - [ ] **Experiments checked (probe + A_B); variants/winner shown or "none detected" stated**
 - [ ] **Templates inventory present (count/types/recency/feeds) with best-effort usage mapping**
@@ -205,13 +240,18 @@ Copy both to `~/Desktop/`.
 - [ ] `value` never shown as currency
 
 ## Dependencies
-Python: `matplotlib`, `numpy`, `pillow`, `pymupdf`. Google Chrome (headless) for
-HTML→PDF and mockup rendering.
+Python: `matplotlib`, `numpy`, `pillow`, `pymupdf`, `openpyxl` (benchmark import).
+Google Chrome (headless) for HTML→PDF and mockup rendering.
 
 ## Resources
 - [reference.md](reference.md) — endpoints (reports + pipelines/schedules/experiments/templates),
   snapshot-vs-period, campaign-typology & experiment detection, value-bearing events,
   unicast category recovery, verification & confidence, creative-retrieval table, Airship palette.
+- [benchmarks.md](benchmarks.md) + `benchmarks.json` — Airship UA Benchmarks by vertical ×
+  device family × percentile (opt-in, direct/influenced open, sends/user/month, MC read rate);
+  load to position client KPIs vs peers. Refresh with `scripts/import_benchmarks.py`.
+- `scripts/import_benchmarks.py` — parse an Airship UA Benchmarks `.xlsx` → regenerate
+  `benchmarks.json` + `benchmarks.md` (run once per new quarter).
 - `scripts/classify_campaigns.py` — normalize message names, group, detect cadence; tag each campaign one-shot vs automated/recurring.
 - `scripts/render_email.py` — render a real email / Message Center `html_body` to a cropped PNG.
 - `scripts/render_mocks.py` — illustrative push / in-app reconstructions (fallback only).

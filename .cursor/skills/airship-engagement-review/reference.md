@@ -142,6 +142,31 @@ Attach to **every** insight/reco a verification basis and a confidence level.
 - Low-confidence items must carry a **"to verify"** note stating what would raise
   confidence (wider window, missing scope `<x>`, larger sample, corroborating source).
 
+## Industry benchmarks
+Per-industry peer values used to position the client's KPIs. Source = the **Airship UA
+Benchmarks** workbook (per quarter). Human reference: `benchmarks.md`; machine-readable:
+`benchmarks.json` (scripts read this one). Regenerate when a new quarter ships:
+`python scripts/import_benchmarks.py <UA_Benchmarks.xlsx>`.
+- **Select the vertical** from step 1 (deduced from brand research, confirmed by the user),
+  matching a vertical key via its `aliases` (e.g. retail/grocery → `retail`,
+  bank/insurance → `finance_insurance`, news/TV/publisher → `media`, telecom/operator →
+  `utility_productivity` as nearest proxy — flag the proxy). No match → use `all_verticals`
+  as a labelled baseline or state "no matching vertical".
+- **Compare like-for-like, per device family**: align metric, platform and denominator.
+  Show client value vs the vertical **median (p50)** and the **[p10–p90] range** and the gap.
+  Percentiles legend: **Low=p10, Medium=p50, High=p90**.
+- **Pressure is PER MONTH** (`sends_per_user_month`): the skill's marketing pressure is
+  sends/opted-in user/**week** → multiply by ~4.33 (or recompute monthly) before comparing.
+- **Region = global, no locale split**; the workbook has no `n`. Cite `source + quarter + region`.
+- **Confidence**: benchmark comparisons are external/contextual → cap at **Medium**. If
+  `benchmarks.json` is empty, the vertical/metric doesn't match, or the file is stale,
+  **do not compare** — state "industry benchmark not available". **Never fabricate** a value.
+- Canonical metric keys (must match `benchmarks.json`): `optin_rate` (ios/android),
+  `direct_open_rate` (ios/android/web), `influenced_open_rate` (ios/android),
+  `sends_per_user_month` (ios/android), `message_center_read_rate` (vertical-only).
+  No benchmark exists for opt-out rate or a blended (cross-platform) opt-in rate → compare
+  opt-in per platform; for opt-out, state "no benchmark".
+
 ## Definitions
 - **Direct**: action after a direct open of the push.
 - **Indirect (influenced)**: action after push received without a direct open, within
@@ -151,7 +176,20 @@ Attach to **every** insight/reco a verification basis and a confidence level.
 - **Opt-in rate** = opted_in / unique devices (devices snapshot).
 - **Opt-in/opt-out events**: daily permission state changes; not net base change.
 - **Event `value`**: client-declared counter/weight, **not currency** — never convert to money.
-- **Push pressure** (indicator): sends / weeks / opted-in base.
+- **Marketing pressure** (indicator): messages sent per addressable user per week, over the
+  period. Always report it **two ways**:
+  - **Cross-platform pressure** = total sends (all channels) / weeks / total addressable
+    base. A blended top-line; useful but can mask per-channel over/under-use.
+  - **Per-platform pressure** = channel sends / weeks / that channel's addressable base —
+    compute **one figure per active channel** (push iOS, push Android, push blended, email,
+    web push, SMS…). This is the new required breakdown.
+  - **Denominator must match the channel** (never divide email sends by the push opted-in
+    base): push → `opted_in` (snapshot, `/devices`); email/SMS → that channel's addressable
+    /opted-in count from `/devices` when present; web push → web `opted_in`. If a channel's
+    denominator is unavailable (e.g. email shows 0 active devices), report pressure as
+    sends/week only and flag the missing denominator (cap confidence at Medium).
+  - Weeks = period days / 7. Tag "(period)". Flag channels whose pressure is far above/below
+    the others (over-solicitation risk vs under-use opportunity).
 - **`location` values**: `custom` (app behaviour), `in_app_message` (fullscreen),
   `in_app_pager` (carousels/stories), `ua_mcrap` (Message Center), `ua_interactive_notification`
   (notification buttons).
