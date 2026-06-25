@@ -29,8 +29,8 @@ In the Airship dashboard for the target project:
 1. Project dropdown → **Settings** → **Project settings** → **OAuth**.
 2. Create (or edit) an OAuth client. Enable **Allow Basic Auth** so a Client Secret is
    generated.
-3. Enable scopes — **at minimum for this skill**: `rpt` + `tpl` (see next section).
-   Recommended extras: `pln`, `sch`, and experiment scope if available.
+3. Enable scopes — **exactly the two this skill uses**: `rpt` (Reports) + `tpl` (Content).
+   Do **not** rely on `pln`/`sch`/experiment scopes — this skill never calls those APIs.
 4. Note three values from the dashboard:
    - **App Key** (`AIRSHIP_APP_KEY`) — also under Project settings → **General**.
    - **Client ID** (`AIRSHIP_CLIENT_ID`)
@@ -106,19 +106,21 @@ Use **`PROD` / `DEV` suffixes** when the same brand has multiple Airship project
 
 ## Prerequisite — auth token & scopes (do this FIRST)
 Before any data collection, the project's MCP server must authenticate with an Airship
-auth token (OAuth client) that carries the right **scopes**. Create the token in the
-Airship dashboard (Settings → OAuth) with **at least**:
+auth token (OAuth client) that carries the right **scopes**. This skill calls **only two
+APIs — Reports and Content** — so create the token in the Airship dashboard
+(Settings → OAuth) with **exactly these two scopes**:
 - **`rpt`** — Reports API (`/api/reports/*`): sends, opens, optins, optouts, devices,
   events, responses/list, perpush/pergroup. **Required** — the review cannot run without it.
 - **`tpl`** — Content API (`/api/content/templates`): template inventory & creatives.
   **Required** whenever the project uses template-driven / unicast campaigns.
-- Optional but recommended for full depth: **`pln`** (pipelines/automations),
-  **`sch`** (schedules), **experiments** (A/B). Missing → degrade gracefully (note
-  "scope `<x>` unavailable"), don't fabricate.
+
+**Do NOT call Pipelines (`/api/pipelines`), Schedules (`/api/schedules`) or Experiments
+(`/api/experiments`).** They are out of scope for this skill — never probe them. Derive
+campaign typology and experiment presence from the Reports API only (see Analysis).
 
 If a call returns **401 `Expired token`**, ask the user to re-authenticate the MCP server
 in Cursor settings, then retry. If it returns **401 `Missing required scope`**, the token
-lacks that scope — add it on the token (report + content at minimum) and reconnect.
+lacks that scope — add it on the token (`rpt` + `tpl`) and reconnect.
 
 ## Inputs (confirm first)
 - **MCP server** for the project (e.g. `user-XX PROD`). Tool: `call_airship_api`.
@@ -135,17 +137,19 @@ lacks that scope — add it on the token (report + content at minimum) and recon
 - [ ] 2. Pull core data: sends, opens, optins, optouts, devices
        (separate SNAPSHOT/whole-base from PERIOD metrics)
 - [ ] 3. Pull events (ALL pages) + responses/list for peak days; fetch creatives by send type
-- [ ] 4. Classify campaigns: one-shot vs automated/recurring
-       (probe /pipelines, /schedules; else heuristic via classify_campaigns.py)
-- [ ] 5. Check experiments (probe /experiments; flag A_B; pull experiment reports)
+- [ ] 4. Classify campaigns one-shot vs automated/recurring — REPORTS ONLY
+       (responses/list push_type + classify_campaigns.py heuristic; NO /pipelines, NO /schedules)
+- [ ] 5. Experiments — REPORTS ONLY: detect via push_type == A_B in responses/list and pull
+       experiment reports if present; do NOT call /api/experiments
 - [ ] 6. Templates inventory (/api/content/templates) + best-effort usage mapping
 - [ ] 7. Value-bearing events + per-message attribution (events/summary/perpush|pergroup)
-- [ ] 8. Recover categories for UNICAST sends (best-effort)
+- [ ] 8. Recover categories for UNICAST sends (best-effort, from perpush bodies)
 - [ ] 9. Aggregate to JSON; compute totals/averages/peaks/attribution
 - [ ] 10. Generate charts (scripts/airship_charts.py)
 - [ ] 11. Creatives: real (render_email.py) → reconstruct (render_mocks.py) as fallback
 - [ ] 12. Build HTML report; convert to PDF+PNG (scripts/build_report.py)
 - [ ] 13. Copy deliverables to Desktop; summarize
+ONLY two APIs are allowed: Reports (/api/reports/*) and Content (/api/content/templates).
 Every figure → source endpoint; every insight/reco → origin tag + confidence level.
 ```
 
@@ -176,10 +180,9 @@ Call via MCP `call_airship_api`. Endpoints, params and definitions: see
     campaigns (automations, journeys, transactional). Skip it for pure-broadcast projects.
   - Render real `html_body` with `scripts/render_email.py`; reconstruct illustratively
     only when neither source yields content.
-- **Probe the non-report endpoints** (other scopes) once each and degrade gracefully:
-  `/api/pipelines` (`pln`, automations/journeys), `/api/schedules` (`sch`, recurring),
-  `/api/experiments` (A/B), `/api/content/templates` (`tpl`). On 401/403, note
-  "scope `<x>` unavailable" and fall back to reports-only heuristics; never fabricate.
+- **Use only two APIs: Reports and Content.** Do **not** call `/api/pipelines`,
+  `/api/schedules` or `/api/experiments` — derive campaign typology and experiment
+  presence from the Reports API (`responses/list` push types) only; never fabricate.
 - **Separate SNAPSHOT (whole base) from PERIOD metrics** (see `reference.md` →
   "Scope of measurement"). `devices` = the only source for opt-in **rate** and installed
   base (point-in-time, whole base, tag "(snapshot DD/MM)"). `sends/opens/optins/optouts/
@@ -208,19 +211,20 @@ Cover all of the following (see `reference.md` for detection logic & definitions
   show sends/week only and flag it. Call out channels far above/below the others
   (over-solicitation vs under-use). Tag "(period)".
 
-**Campaign typology (one-shot vs automated/recurring)**
-- Classify every campaign. Probe `/api/pipelines` (`pln`) and `/api/schedules` (`sch`);
-  if unavailable, use the reports-only heuristic (`scripts/classify_campaigns.py`:
-  group by `group_id` + normalized `message_name`, detect cadence).
+**Campaign typology (one-shot vs automated/recurring) — Reports API only**
+- Classify every campaign using the **reports-only heuristic** (`scripts/classify_campaigns.py`:
+  group by `group_id` + normalized `message_name`, detect cadence). Do **not** call
+  `/api/pipelines` or `/api/schedules`.
 - Produce **two separate top rankings**: Top one-shot sends and Top automated/recurring.
 - One-shot: reach, direct/influenced rates, creative.
 - Automated/recurring: per-occurrence volume, **volume drift** vs series median, and
   **engagement-rate trend** over time; flag significant drifts. (`pergroup/detail` or
   summed `perpush/detail`; `perpush/series` for shape.)
 
-**Experiments (always check)**
-- Probe `/api/experiments`; flag `push_type == A_B` in `responses/list`; for those pull
-  `experiment/overview/{push_id}` + `experiment/detail/{push_id}/{variant_id}` (`rpt`).
+**Experiments (Reports API only)**
+- Detect A/B activity via `push_type == A_B` in `responses/list`; for those pull the
+  Reports experiment endpoints `experiment/overview/{push_id}` +
+  `experiment/detail/{push_id}/{variant_id}` (`rpt`). Do **not** call `/api/experiments`.
   Report variants/winner, or state "no experiments detected in the period".
 
 **Events deep dive (push deeper)**
@@ -245,8 +249,8 @@ Cover all of the following (see `reference.md` for detection logic & definitions
 **Templates inventory**
 - From `/api/content/templates` (`tpl`): `total_count`, `type` mix, created/modified
   recency, feeds/snippets. Best-effort usage mapping (label "best-effort") — match names
-  vs pushbody `message_name`/categories and vs pipelines/schedules; `modified_at` recency
-  as activity proxy.
+  vs pushbody `message_name`/categories (Reports + Content only, no pipelines/schedules);
+  `modified_at` recency as activity proxy.
 
 **Industry benchmarking (position KPIs vs peers)**
 - Using the vertical from step 1, load benchmark values from `benchmarks.json` (human
@@ -330,8 +334,8 @@ Copy both to `~/Desktop/`.
 - [ ] Each insight/reco tagged `[Data]` / `[Brand context]` / `[Data+Context]`
 - [ ] **Snapshot (whole-base) vs period metrics kept separate and labelled; opt-in rate only from `/devices`; optin/optout shown as period event flows**
 - [ ] **Marketing pressure reported both cross-platform AND per active channel (push iOS/Android, email, web…); denominator matched to each channel; missing denominators flagged**
-- [ ] **Campaigns classified; two top rankings present (one-shot vs automated/recurring); recurring campaigns analysed for volume drift + engagement trend**
-- [ ] **Experiments checked (probe + A_B); variants/winner shown or "none detected" stated**
+- [ ] **Campaigns classified via Reports API only (responses/list + heuristic); no /pipelines or /schedules calls; two top rankings present (one-shot vs automated/recurring); recurring campaigns analysed for volume drift + engagement trend**
+- [ ] **Experiments detected via push_type == A_B in responses/list (no /api/experiments call); variants/winner shown or "none detected" stated**
 - [ ] **Templates inventory present (count/types/recency/feeds) with best-effort usage mapping**
 - [ ] **Value-bearing events flagged and given per-message attribution where applicable**
 - [ ] **UNICAST campaigns labelled with recovered categories (or "category unavailable")**
@@ -349,7 +353,7 @@ Python: `matplotlib`, `numpy`, `pillow`, `pymupdf`, `openpyxl` (benchmark import
 Google Chrome (headless) for HTML→PDF and mockup rendering.
 
 ## Resources
-- [reference.md](reference.md) — endpoints (reports + pipelines/schedules/experiments/templates),
+- [reference.md](reference.md) — endpoints (Reports + Content templates only),
   snapshot-vs-period, campaign-typology & experiment detection, value-bearing events,
   unicast category recovery, verification & confidence, creative-retrieval table, Airship palette.
 - [benchmarks.md](benchmarks.md) + `benchmarks.json` — Airship UA Benchmarks by vertical ×

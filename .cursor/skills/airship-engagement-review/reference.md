@@ -30,17 +30,21 @@ Call via MCP `call_airship_api` with `{method, path, params}`.
 | Experiment variant | `/api/reports/experiment/detail/{push_id}/{variant_id}` | — | Per-variant experiment detail. Scope `rpt`. |
 | Activity | `/api/reports/activity/details` | — | Extra granularity if accessible. |
 
-### Non-report endpoints (other scopes — probe and degrade gracefully)
-| Data | Path | Scope | Use |
-|---|---|---|---|
-| Automations / journeys | `/api/pipelines` (+ `/{pipeline_id}`, `/filtered`) | `pln` | Authoritative inventory of automated message pipelines (journeys, triggered, recurring automations). |
-| Schedules | `/api/schedules` (+ `/{schedule_id}`) | `sch` | Scheduled messages incl. **recurring** schedules (cadence in the `schedule` object). |
-| Experiments | `/api/experiments` (+ `/{experiment_id}`, `/scheduled`) | (mgmt) | A/B experiment definitions. May 401/403 — also detect via `push_type == A_B` in `responses/list` + the `rpt` experiment reports above. |
-| Content Templates | `/api/content/templates` (+ `/{template_id}`) | `tpl` | Reusable creatives; see creative-retrieval table. |
+### Allowed APIs: Reports + Content ONLY
+This skill calls **only** the Reports API (`/api/reports/*`, scope `rpt`) and the
+Content API (`/api/content/templates`, scope `tpl`).
 
-These four are **not** under `rpt`. Probe once; if the response is 401/403, note
-"scope `<x>` unavailable on this project" in the report and fall back to the
-reports-only heuristics below. **Never fabricate** automation/experiment data.
+**Do NOT call** `/api/pipelines`, `/api/schedules`, or `/api/experiments` (the
+management endpoints). They are out of scope. Instead:
+- **Campaign typology** (one-shot vs automated/recurring): derive from `responses/list`
+  push types + the `classify_campaigns.py` heuristic (group by `group_id` + normalized
+  `message_name`, detect cadence).
+- **Experiments**: detect via `push_type == A_B` in `responses/list`, then read the
+  Reports experiment endpoints (`experiment/overview` / `experiment/detail`, scope `rpt`).
+- **Content Templates**: `/api/content/templates` (+ `/{template_id}`), scope `tpl`.
+
+**Never fabricate** automation/experiment data; if it can't be derived from Reports,
+state "not available from the Reports API".
 
 Dates accepted as `YYYY-MM-DD`. To page `responses/list`, follow `next_page`
 (`push_id_start` + `resume_at_time`). A too-narrow window returns only the latest
@@ -79,17 +83,14 @@ Rules of thumb:
 Goal: separate **one-shot** sends (manual, sent once) from **automated/recurring**
 campaigns (journeys, automations, recurring schedules) and rank/analyse them separately.
 
-Detection, best → fallback:
-1. **Authoritative** — `/api/pipelines` (scope `pln`): every push tied to a pipeline is
-   automated (journey/triggered/recurring). `/api/schedules` (scope `sch`): a `schedule`
-   object with a recurrence rule = recurring.
-2. **Heuristic from reports only** (when `pln`/`sch` unavailable): group `responses/list`
-   pushes by `group_id`, then by **normalized `message_name`** — strip trailing date/ID
-   tokens (e.g. `_07062026`, `_2026-06-07`, trailing UUID/hash, `_v\d+`). A normalized
-   name (or group) recurring on a **regular cadence** (≈daily/weekly/monthly) across the
-   window ⇒ automated/recurring. A unique name sent once ⇒ one-shot.
-   `scripts/classify_campaigns.py` implements this (normalization + grouping + cadence).
-3. `push_type` hints: `UNICAST` / Create-and-Send are typically automation/journey
+Detection — **Reports API only** (do NOT call `/api/pipelines` or `/api/schedules`):
+1. **Heuristic from reports**: group `responses/list` pushes by `group_id`, then by
+   **normalized `message_name`** — strip trailing date/ID tokens (e.g. `_07062026`,
+   `_2026-06-07`, trailing UUID/hash, `_v\d+`). A normalized name (or group) recurring on a
+   **regular cadence** (≈daily/weekly/monthly) across the window ⇒ automated/recurring. A
+   unique name sent once ⇒ one-shot. `scripts/classify_campaigns.py` implements this
+   (normalization + grouping + cadence).
+2. `push_type` hints: `UNICAST` / Create-and-Send are typically automation/journey
    outputs; large `BROADCAST`/`SEGMENTS_PUSH` with a unique name are typically one-shot.
 
 Analysis per type:
@@ -99,9 +100,9 @@ Analysis per type:
   trend** (direct+influenced / sends over time). Aggregate the group via
   `pergroup/detail` or sum the repeated `perpush/detail`; use `perpush/series` for shape.
 
-## Experiments (A/B) detection
-Always check. Order: (a) probe `/api/experiments` (may 401/403); (b) flag any
-`responses/list` push with `push_type == A_B`; (c) for those `push_id`s pull
+## Experiments (A/B) detection — Reports API only
+Do NOT call `/api/experiments`. (a) Flag any `responses/list` push with
+`push_type == A_B`; (b) for those `push_id`s pull
 `/api/reports/experiment/overview/{push_id}` and `/experiment/detail/{push_id}/{variant_id}`
 (scope `rpt`) for variant performance + winner. If none found, state "no experiments
 detected in the period".
@@ -120,8 +121,7 @@ add **per-message attribution** via `events/summary/perpush/{push_id}` on the to
 For `UNICAST` the `perpush/pushbody` content is empty, but campaign metadata may still be
 recoverable. Best-effort, in order: (a) still call `pushbody` — `push.campaigns.categories`
 and `push.options.message_name` are sometimes present even when `notification` is empty;
-(b) if the push maps to a `/api/pipelines` pipeline, read the pipeline's name/categories;
-(c) parse `message_name` tokens (e.g. `welcome`, `winback`, `abandon`, `transactional`).
+(b) parse `message_name` tokens (e.g. `welcome`, `winback`, `abandon`, `transactional`).
 Use the recovered categories to label the campaign **type** in the top-unicast view; if
 nothing is recoverable, label "category unavailable".
 
@@ -130,9 +130,8 @@ From `/api/content/templates` (scope `tpl`): report `total_count`, `type` mix
 (email/sms/…), creation/modification recency, and `feed_references` / `snippet_references`
 (dynamic personalization). **Usage mapping is best-effort** (no direct "where-used" API):
 cross-reference each template `name` against `message_name`/`campaigns.categories` seen in
-pushbodies, and against `/api/pipelines` + `/api/schedules` payloads when those scopes are
-available; use `modified_at` recency as an activity proxy. Label the usage column
-"best-effort".
+pushbodies; use `modified_at` recency as an activity proxy. Label the usage column
+"best-effort". (Reports + Content APIs only — no pipelines/schedules lookups.)
 
 ## Verification & confidence
 Attach to **every** insight/reco a verification basis and a confidence level.

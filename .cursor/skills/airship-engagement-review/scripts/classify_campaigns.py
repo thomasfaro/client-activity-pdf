@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Classify Airship campaigns as one-shot vs automated/recurring from reports data.
 
-The Reports API does not label a push as "automated" or "recurring". When the
-`/api/pipelines` (scope `pln`) and `/api/schedules` (scope `sch`) endpoints are not
-available, this module reconstructs the typology from `responses/list` alone by:
+The Reports API does not label a push as "automated" or "recurring". This skill uses
+**only the Reports + Content APIs** (it never calls `/api/pipelines` or `/api/schedules`),
+so this module reconstructs the typology from `responses/list` alone by:
   1. normalizing each push's message name (stripping date/version/id tokens),
   2. grouping pushes by `group_id` first, else by normalized name,
   3. detecting a regular cadence (daily / weekly / monthly) across occurrences.
@@ -11,8 +11,8 @@ available, this module reconstructs the typology from `responses/list` alone by:
 A group seen on a regular cadence (or with many occurrences) is tagged
 `automated_recurring`; a unique, single-occurrence send is tagged `one_shot`.
 
-This is a HEURISTIC. Prefer `/api/pipelines` + `/api/schedules` when their scopes are
-granted; use this as the reports-only fallback (and to corroborate). No network / MCP.
+This is the reports-only HEURISTIC for typology (pipelines/schedules are out of scope).
+No network / MCP.
 
 API:
   normalize_name(name) -> str
