@@ -334,8 +334,8 @@ on the OAuth client and reconnect.
   degradation). Accept either the **raw export** (the skill runs `parse`+`analyze` for you)
   or the already-produced `inventory.json`+`analysis.json`.
   **Where it comes from**: the client's own export, or a capture the user runs with the companion
-  app [`airship-rtds-data-collection-audit`](https://github.com/thomasfaro/airship-rtds-data-collection-audit)
-  (private repo — ask for access). **When nobody has an export, proactively offer the app** and
+  app [`airship-rtds-data-collection-audit`](https://github.com/thomasfaro/airship-rtds-data-collection-audit).
+  **When nobody has an export, proactively offer the app** and
   spell out the four steps — no terminal needed:
   1. Clone it with GitHub Desktop and follow its `docs/INSTALL.md` — double-click
      `Start RTDS Data Collection Audit.command` (macOS) or the `.bat` (Windows); the launcher

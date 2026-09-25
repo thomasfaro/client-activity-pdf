@@ -263,7 +263,7 @@ Ask the client for their export, or produce one yourself with the companion app 
 needed:
 
 1. Get [airship-rtds-data-collection-audit](https://github.com/thomasfaro/airship-rtds-data-collection-audit)
-   (private repo — ask for access) and follow its `docs/INSTALL.md`: clone it with GitHub
+   and follow its `docs/INSTALL.md`: clone it with GitHub
    Desktop, then double-click `Start RTDS Data Collection Audit.command` on macOS or the `.bat`
    on Windows. It installs whatever is missing, Node.js included.
 2. Add the project's RTDS bearer token under **Projects**, then start a capture from
