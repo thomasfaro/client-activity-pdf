@@ -1,0 +1,1187 @@
+{
+  "meta": {
+    "source": "Airship User Engagement (UA) Benchmarks",
+    "file": "Q2_2026_UA_Benchmarks_07.09.2026.xlsx",
+    "published": "2026-Q2",
+    "region": "global",
+    "percentiles": {
+      "low": "p10 (10th)",
+      "median": "p50 (50th)",
+      "high": "p90 (90th)"
+    },
+    "imported": "2026-07-10",
+    "notes": "Percentiles per Airship Overview legend: Low=10th, Medium=50th (median), High=90th. Opt-in/open/sends split by device family (ios/android/web); message_center_read_rate is vertical-only. sends_per_user_month is PER MONTH (multiply a weekly client pressure by ~4.33 to compare). Global sample; no region/locale split."
+  },
+  "metric_keys": {
+    "optin_rate": {
+      "label": "Push opt-in rate",
+      "unit": "pct",
+      "by": "device_family"
+    },
+    "direct_open_rate": {
+      "label": "Direct open rate (directly tapped push / sends)",
+      "unit": "pct",
+      "by": "device_family"
+    },
+    "influenced_open_rate": {
+      "label": "Influenced open rate (app opened <=12h of push / sends)",
+      "unit": "pct",
+      "by": "device_family"
+    },
+    "sends_per_user_month": {
+      "label": "Push sends per user per MONTH",
+      "unit": "sends_per_user_per_month",
+      "by": "device_family"
+    },
+    "message_center_read_rate": {
+      "label": "Message Center / rich page read rate",
+      "unit": "pct",
+      "by": "vertical_only"
+    }
+  },
+  "verticals": {
+    "all_verticals": {
+      "label": "All_verticals",
+      "aliases": [
+        "all",
+        "overall",
+        "cross-industry",
+        "baseline",
+        "global"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.253,
+            "p50": 0.503,
+            "p90": 0.739
+          },
+          "ios": {
+            "p10": 0.295,
+            "p50": 0.494,
+            "p90": 0.735
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.008,
+            "p50": 0.031,
+            "p90": 0.098
+          },
+          "ios": {
+            "p10": 0.006,
+            "p50": 0.025,
+            "p90": 0.068
+          },
+          "web": {
+            "p10": 0.0,
+            "p50": 0.004,
+            "p90": 0.013
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.038,
+            "p50": 0.199,
+            "p90": 0.756
+          },
+          "ios": {
+            "p10": 0.033,
+            "p50": 0.141,
+            "p90": 0.699
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.5,
+            "p50": 4.6,
+            "p90": 192.1
+          },
+          "ios": {
+            "p10": 0.7,
+            "p50": 7.7,
+            "p90": 214.0
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.003,
+            "p50": 0.148,
+            "p90": 0.413
+          }
+        }
+      }
+    },
+    "business": {
+      "label": "Business",
+      "aliases": [
+        "b2b",
+        "professional",
+        "enterprise",
+        "saas"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.259,
+            "p50": 0.549,
+            "p90": 0.792
+          },
+          "ios": {
+            "p10": 0.341,
+            "p50": 0.562,
+            "p90": 0.792
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.008,
+            "p50": 0.042,
+            "p90": 0.133
+          },
+          "ios": {
+            "p10": 0.004,
+            "p50": 0.03,
+            "p90": 0.105
+          },
+          "web": {
+            "p10": 0.0,
+            "p50": 0.004,
+            "p90": 0.011
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.072,
+            "p50": 0.291,
+            "p90": 1.655
+          },
+          "ios": {
+            "p10": 0.037,
+            "p50": 0.2,
+            "p90": 1.368
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.4,
+            "p50": 4.7,
+            "p90": 51.5
+          },
+          "ios": {
+            "p10": 0.5,
+            "p50": 7.3,
+            "p90": 100.4
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.005,
+            "p50": 0.039,
+            "p90": 0.214
+          }
+        }
+      }
+    },
+    "charities_foundations_and_non_profit": {
+      "label": "Charities, Foundations, and Non-Profit",
+      "aliases": [
+        "non-profit",
+        "nonprofit",
+        "charity",
+        "foundation",
+        "ngo"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.445,
+            "p50": 0.571,
+            "p90": 0.629
+          },
+          "ios": {
+            "p10": 0.316,
+            "p50": 0.537,
+            "p90": 0.61
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.051,
+            "p50": 0.119,
+            "p90": 0.142
+          },
+          "ios": {
+            "p10": 0.03,
+            "p50": 0.086,
+            "p90": 0.172
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.18,
+            "p50": 0.261,
+            "p90": 0.428
+          },
+          "ios": {
+            "p10": 0.078,
+            "p50": 0.267,
+            "p90": 0.414
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.4,
+            "p50": 1.1,
+            "p90": 2.3
+          },
+          "ios": {
+            "p10": 0.6,
+            "p50": 1.4,
+            "p90": 4.3
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.007,
+            "p50": 0.014,
+            "p90": 0.14
+          }
+        }
+      }
+    },
+    "education": {
+      "label": "Education",
+      "aliases": [
+        "edtech",
+        "school",
+        "university",
+        "learning",
+        "e-learning"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.182,
+            "p50": 0.306,
+            "p90": 0.72
+          },
+          "ios": {
+            "p10": 0.321,
+            "p50": 0.755,
+            "p90": 0.878
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.009,
+            "p50": 0.032,
+            "p90": 0.059
+          },
+          "ios": {
+            "p10": 0.003,
+            "p50": 0.024,
+            "p90": 0.079
+          },
+          "web": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.053,
+            "p50": 0.303,
+            "p90": 0.487
+          },
+          "ios": {
+            "p10": 0.01,
+            "p50": 0.182,
+            "p90": 0.551
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.7,
+            "p50": 2.2,
+            "p90": 29.9
+          },
+          "ios": {
+            "p10": 0.9,
+            "p50": 10.6,
+            "p90": 30.4
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.058,
+            "p50": 0.155,
+            "p90": 0.266
+          }
+        }
+      }
+    },
+    "entertainment": {
+      "label": "Entertainment",
+      "aliases": [
+        "streaming",
+        "ott",
+        "vod",
+        "music",
+        "video",
+        "movies"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.277,
+            "p50": 0.47,
+            "p90": 0.585
+          },
+          "ios": {
+            "p10": 0.252,
+            "p50": 0.478,
+            "p90": 0.639
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.004,
+            "p50": 0.017,
+            "p90": 0.092
+          },
+          "ios": {
+            "p10": 0.004,
+            "p50": 0.013,
+            "p90": 0.056
+          },
+          "web": {
+            "p10": 0.002,
+            "p50": 0.003,
+            "p90": 0.008
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.025,
+            "p50": 0.145,
+            "p90": 1.032
+          },
+          "ios": {
+            "p10": 0.033,
+            "p50": 0.131,
+            "p90": 0.673
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.5,
+            "p50": 4.2,
+            "p90": 84.3
+          },
+          "ios": {
+            "p10": 0.2,
+            "p50": 4.2,
+            "p90": 136.1
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.001,
+            "p50": 0.023,
+            "p90": 0.39
+          }
+        }
+      }
+    },
+    "finance_insurance": {
+      "label": "Finance & Insurance",
+      "aliases": [
+        "bank",
+        "banking",
+        "insurance",
+        "assurance",
+        "fintech",
+        "finance",
+        "banque"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.361,
+            "p50": 0.538,
+            "p90": 0.709
+          },
+          "ios": {
+            "p10": 0.451,
+            "p50": 0.563,
+            "p90": 0.712
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.023,
+            "p50": 0.034,
+            "p90": 0.065
+          },
+          "ios": {
+            "p10": 0.025,
+            "p50": 0.037,
+            "p90": 0.057
+          },
+          "web": {
+            "p10": 0.001,
+            "p50": 0.008,
+            "p90": 0.018
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.246,
+            "p50": 0.378,
+            "p90": 0.539
+          },
+          "ios": {
+            "p10": 0.263,
+            "p50": 0.474,
+            "p90": 0.653
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.5,
+            "p50": 1.2,
+            "p90": 5.2
+          },
+          "ios": {
+            "p10": 0.6,
+            "p50": 2.1,
+            "p90": 7.5
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.001,
+            "p50": 0.052,
+            "p90": 0.229
+          }
+        }
+      }
+    },
+    "food_drink": {
+      "label": "Food & Drink",
+      "aliases": [
+        "qsr",
+        "restaurant",
+        "food",
+        "drink",
+        "delivery",
+        "fast food"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.308,
+            "p50": 0.546,
+            "p90": 0.839
+          },
+          "ios": {
+            "p10": 0.304,
+            "p50": 0.59,
+            "p90": 0.757
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.006,
+            "p50": 0.025,
+            "p90": 0.085
+          },
+          "ios": {
+            "p10": 0.008,
+            "p50": 0.022,
+            "p90": 0.073
+          },
+          "web": {
+            "p10": 0.013,
+            "p50": 0.015,
+            "p90": 0.018
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.005,
+            "p50": 0.131,
+            "p90": 0.504
+          },
+          "ios": {
+            "p10": 0.069,
+            "p50": 0.171,
+            "p90": 0.488
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.3,
+            "p50": 2.6,
+            "p90": 12.4
+          },
+          "ios": {
+            "p10": 0.8,
+            "p50": 3.9,
+            "p90": 15.7
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.023,
+            "p50": 0.067,
+            "p90": 0.213
+          }
+        }
+      }
+    },
+    "gambling_gaming": {
+      "label": "Gambling, Gaming",
+      "aliases": [
+        "gaming",
+        "games",
+        "casino",
+        "betting",
+        "gambling",
+        "igaming"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.264,
+            "p50": 0.557,
+            "p90": 0.723
+          },
+          "ios": {
+            "p10": 0.227,
+            "p50": 0.413,
+            "p90": 0.635
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.009,
+            "p50": 0.026,
+            "p90": 0.063
+          },
+          "ios": {
+            "p10": 0.002,
+            "p50": 0.016,
+            "p90": 0.048
+          },
+          "web": {
+            "p10": 0.003,
+            "p50": 0.01,
+            "p90": 0.025
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.071,
+            "p50": 0.555,
+            "p90": 2.04
+          },
+          "ios": {
+            "p10": 0.11,
+            "p50": 0.492,
+            "p90": 1.713
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.3,
+            "p50": 1.6,
+            "p90": 29.1
+          },
+          "ios": {
+            "p10": 0.4,
+            "p50": 2.7,
+            "p90": 33.5
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.004,
+            "p50": 0.03,
+            "p90": 0.248
+          }
+        }
+      }
+    },
+    "government": {
+      "label": "Government",
+      "aliases": [
+        "public sector",
+        "gov",
+        "administration",
+        "civic"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.276,
+            "p50": 0.634,
+            "p90": 0.787
+          },
+          "ios": {
+            "p10": 0.391,
+            "p50": 0.595,
+            "p90": 0.832
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.008,
+            "p50": 0.042,
+            "p90": 0.236
+          },
+          "ios": {
+            "p10": 0.007,
+            "p50": 0.085,
+            "p90": 0.204
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.037,
+            "p50": 0.162,
+            "p90": 1.628
+          },
+          "ios": {
+            "p10": 0.031,
+            "p50": 0.22,
+            "p90": 0.776
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.4,
+            "p50": 4.8,
+            "p90": 20.7
+          },
+          "ios": {
+            "p10": 0.1,
+            "p50": 1.8,
+            "p90": 15.8
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.005,
+            "p50": 0.022,
+            "p90": 0.031
+          }
+        }
+      }
+    },
+    "media": {
+      "label": "Media",
+      "aliases": [
+        "news",
+        "publishing",
+        "broadcaster",
+        "press",
+        "journalism",
+        "tv",
+        "magazine"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.169,
+            "p50": 0.389,
+            "p90": 0.579
+          },
+          "ios": {
+            "p10": 0.297,
+            "p50": 0.392,
+            "p90": 0.608
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.005,
+            "p50": 0.024,
+            "p90": 0.058
+          },
+          "ios": {
+            "p10": 0.008,
+            "p50": 0.019,
+            "p90": 0.04
+          },
+          "web": {
+            "p10": 0.0,
+            "p50": 0.003,
+            "p90": 0.007
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.028,
+            "p50": 0.08,
+            "p90": 0.193
+          },
+          "ios": {
+            "p10": 0.028,
+            "p50": 0.065,
+            "p90": 0.142
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 7.5,
+            "p50": 157.4,
+            "p90": 415.9
+          },
+          "ios": {
+            "p10": 12.7,
+            "p50": 130.8,
+            "p90": 407.5
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.001,
+            "p50": 0.002,
+            "p90": 0.048
+          }
+        }
+      }
+    },
+    "medical_health_fitness": {
+      "label": "Medical, Health & Fitness",
+      "aliases": [
+        "health",
+        "fitness",
+        "medical",
+        "wellness",
+        "healthcare",
+        "pharma"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.262,
+            "p50": 0.559,
+            "p90": 0.757
+          },
+          "ios": {
+            "p10": 0.266,
+            "p50": 0.511,
+            "p90": 0.706
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.004,
+            "p50": 0.071,
+            "p90": 0.26
+          },
+          "ios": {
+            "p10": 0.009,
+            "p50": 0.058,
+            "p90": 0.203
+          },
+          "web": {
+            "p10": 0.006,
+            "p50": 0.006,
+            "p90": 0.006
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.071,
+            "p50": 0.291,
+            "p90": 1.326
+          },
+          "ios": {
+            "p10": 0.057,
+            "p50": 0.236,
+            "p90": 1.083
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.3,
+            "p50": 1.3,
+            "p90": 9.3
+          },
+          "ios": {
+            "p10": 0.3,
+            "p50": 1.0,
+            "p90": 8.3
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.001,
+            "p50": 0.003,
+            "p90": 0.027
+          }
+        }
+      }
+    },
+    "retail": {
+      "label": "Retail",
+      "aliases": [
+        "ecommerce",
+        "e-commerce",
+        "grocery",
+        "distribution",
+        "fashion",
+        "shopping",
+        "fmcg",
+        "supermarket",
+        "commerce",
+        "marketplace"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.22,
+            "p50": 0.475,
+            "p90": 0.664
+          },
+          "ios": {
+            "p10": 0.192,
+            "p50": 0.43,
+            "p90": 0.643
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.01,
+            "p50": 0.026,
+            "p90": 0.099
+          },
+          "ios": {
+            "p10": 0.005,
+            "p50": 0.017,
+            "p90": 0.056
+          },
+          "web": {
+            "p10": 0.002,
+            "p50": 0.004,
+            "p90": 0.01
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.044,
+            "p50": 0.12,
+            "p90": 0.578
+          },
+          "ios": {
+            "p10": 0.036,
+            "p50": 0.102,
+            "p90": 0.379
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.8,
+            "p50": 8.4,
+            "p90": 25.3
+          },
+          "ios": {
+            "p10": 1.1,
+            "p50": 8.6,
+            "p90": 29.9
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.001,
+            "p50": 0.021,
+            "p90": 0.153
+          }
+        }
+      }
+    },
+    "social": {
+      "label": "Social",
+      "aliases": [
+        "social network",
+        "dating",
+        "community",
+        "messaging"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.175,
+            "p50": 0.54,
+            "p90": 0.607
+          },
+          "ios": {
+            "p10": 0.17,
+            "p50": 0.395,
+            "p90": 0.753
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.011,
+            "p50": 0.057,
+            "p90": 0.067
+          },
+          "ios": {
+            "p10": 0.014,
+            "p50": 0.026,
+            "p90": 0.078
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.042,
+            "p50": 0.134,
+            "p90": 0.242
+          },
+          "ios": {
+            "p10": 0.021,
+            "p50": 0.149,
+            "p90": 0.333
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 1.8,
+            "p50": 21.5,
+            "p90": 116.8
+          },
+          "ios": {
+            "p10": 1.4,
+            "p50": 11.9,
+            "p90": 105.8
+          }
+        }
+      }
+    },
+    "sports_recreation": {
+      "label": "Sports & Recreation",
+      "aliases": [
+        "sports",
+        "recreation",
+        "outdoor",
+        "league"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.316,
+            "p50": 0.544,
+            "p90": 0.664
+          },
+          "ios": {
+            "p10": 0.327,
+            "p50": 0.493,
+            "p90": 0.657
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.007,
+            "p50": 0.022,
+            "p90": 0.043
+          },
+          "ios": {
+            "p10": 0.005,
+            "p50": 0.017,
+            "p90": 0.039
+          },
+          "web": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.008
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.027,
+            "p50": 0.085,
+            "p90": 0.275
+          },
+          "ios": {
+            "p10": 0.022,
+            "p50": 0.067,
+            "p90": 0.23
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 2.3,
+            "p50": 15.8,
+            "p90": 212.0
+          },
+          "ios": {
+            "p10": 2.3,
+            "p50": 14.1,
+            "p90": 209.7
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.09,
+            "p50": 0.277,
+            "p90": 0.474
+          }
+        }
+      }
+    },
+    "travel_transportation": {
+      "label": "Travel & Transportation",
+      "aliases": [
+        "travel",
+        "transport",
+        "airline",
+        "hospitality",
+        "mobility",
+        "hotel",
+        "transportation"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.202,
+            "p50": 0.568,
+            "p90": 0.747
+          },
+          "ios": {
+            "p10": 0.264,
+            "p50": 0.572,
+            "p90": 0.78
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.02,
+            "p50": 0.06,
+            "p90": 0.167
+          },
+          "ios": {
+            "p10": 0.009,
+            "p50": 0.032,
+            "p90": 0.108
+          },
+          "web": {
+            "p10": 0.006,
+            "p50": 0.011,
+            "p90": 0.02
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.109,
+            "p50": 0.409,
+            "p90": 1.455
+          },
+          "ios": {
+            "p10": 0.059,
+            "p50": 0.286,
+            "p90": 1.693
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.1,
+            "p50": 1.8,
+            "p90": 11.2
+          },
+          "ios": {
+            "p10": 0.1,
+            "p50": 2.0,
+            "p90": 17.7
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.003,
+            "p50": 0.073,
+            "p90": 0.243
+          }
+        }
+      }
+    },
+    "utility_productivity": {
+      "label": "Utility & Productivity",
+      "aliases": [
+        "utility",
+        "productivity",
+        "tools",
+        "telecom",
+        "telco",
+        "operator",
+        "carrier"
+      ],
+      "metrics": {
+        "optin_rate": {
+          "android": {
+            "p10": 0.273,
+            "p50": 0.61,
+            "p90": 0.842
+          },
+          "ios": {
+            "p10": 0.305,
+            "p50": 0.604,
+            "p90": 0.832
+          }
+        },
+        "direct_open_rate": {
+          "android": {
+            "p10": 0.008,
+            "p50": 0.062,
+            "p90": 0.171
+          },
+          "ios": {
+            "p10": 0.006,
+            "p50": 0.036,
+            "p90": 0.122
+          },
+          "web": {
+            "p10": 0.001,
+            "p50": 0.002,
+            "p90": 0.053
+          }
+        },
+        "influenced_open_rate": {
+          "android": {
+            "p10": 0.051,
+            "p50": 0.223,
+            "p90": 0.884
+          },
+          "ios": {
+            "p10": 0.05,
+            "p50": 0.25,
+            "p90": 1.301
+          }
+        },
+        "sends_per_user_month": {
+          "android": {
+            "p10": 0.1,
+            "p50": 1.6,
+            "p90": 20.4
+          },
+          "ios": {
+            "p10": 0.3,
+            "p50": 3.3,
+            "p90": 54.8
+          }
+        },
+        "message_center_read_rate": {
+          "all": {
+            "p10": 0.002,
+            "p50": 0.048,
+            "p90": 0.184
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1838 @@
+{
+  "meta": {
+    "source": "Airship engagement-review skill — CRM campaign playbook (best-practice campaign levers per pillar x vertical)",
+    "created": "2026-07-22",
+    "notes": "Maps a client's campaigns to a strategic PILLAR + standard campaign LEVER so the report can show what the client already does, how mature each pillar is, and which new campaigns to recommend. Detection is name-first (bilingual EN/FR token/alias overlap) with an optional content fallback (decoded perpush/pushbody notif text / MC HTML). Relevance per vertical: relevance(lever, vertical) = levers[].verticals.get(vertical, levers[].base); a lever is 'recommended for the vertical' when relevance >= 3. This catalog is guidance, not the client's data. Reports API only — content used for detection comes from decoded pushbodies, never the Content API."
+  },
+  "pillars": [
+    {
+      "key": "editorial",
+      "order": 1,
+      "label": "Editorial & Content",
+      "label_fr": "Éditoriale",
+      "goal": "Maximise content volume & discovery",
+      "goal_fr": "Maximiser le volume",
+      "verb": "Surface"
+    },
+    {
+      "key": "onboarding_adoption",
+      "order": 2,
+      "label": "Onboarding & Adoption",
+      "label_fr": "Adoption & Onboarding",
+      "goal": "Activate new users; drive first value & feature adoption",
+      "goal_fr": "Activer & faire adopter",
+      "verb": "Activate"
+    },
+    {
+      "key": "service",
+      "order": 3,
+      "label": "Service & Transactional",
+      "label_fr": "Servicielle",
+      "goal": "Anchor usage with useful, real-time & transactional messaging",
+      "goal_fr": "Ancrer l'usage",
+      "verb": "Assist"
+    },
+    {
+      "key": "lifecycle",
+      "order": 4,
+      "label": "Lifecycle & Retention",
+      "label_fr": "Cycle de vie",
+      "goal": "Retain: reactivate, prevent churn, renew",
+      "goal_fr": "Retenir",
+      "verb": "Retain"
+    },
+    {
+      "key": "engagement_data",
+      "order": 5,
+      "label": "Engagement & Data",
+      "label_fr": "Engagement",
+      "goal": "Grow value: collect zero/first-party data, gamify, qualify audience",
+      "goal_fr": "Valoriser l'audience",
+      "verb": "Qualify"
+    },
+    {
+      "key": "commercial",
+      "order": 6,
+      "label": "Commercial & Monetization",
+      "label_fr": "Commerciale",
+      "goal": "Convert: upsell, cross-sell, promote, subscribe",
+      "goal_fr": "Convertir",
+      "verb": "Convert"
+    }
+  ],
+  "vertical_map": {
+    "all": "all_verticals",
+    "retail": "retail",
+    "ecommerce": "retail",
+    "e-commerce": "retail",
+    "grocery": "retail",
+    "commerce": "retail",
+    "media": "media",
+    "news": "media",
+    "publishing": "media",
+    "broadcaster": "media",
+    "entertainment": "entertainment",
+    "streaming": "entertainment",
+    "ott": "entertainment",
+    "vod": "entertainment",
+    "svod": "entertainment",
+    "finance_insurance": "finance_insurance",
+    "finance": "finance_insurance",
+    "bank": "finance_insurance",
+    "banking": "finance_insurance",
+    "insurance": "finance_insurance",
+    "fintech": "finance_insurance",
+    "food_drink": "food_drink",
+    "qsr": "food_drink",
+    "restaurant": "food_drink",
+    "food": "food_drink",
+    "gambling_gaming": "gambling_gaming",
+    "gaming": "gambling_gaming",
+    "casino": "gambling_gaming",
+    "betting": "gambling_gaming",
+    "media_gaming": "gambling_gaming",
+    "government": "government",
+    "medical_health_fitness": "medical_health_fitness",
+    "health": "medical_health_fitness",
+    "fitness": "medical_health_fitness",
+    "social": "social",
+    "dating": "social",
+    "community": "social",
+    "sports_recreation": "sports_recreation",
+    "sports": "sports_recreation",
+    "sport": "sports_recreation",
+    "travel_transportation": "travel_transportation",
+    "travel": "travel_transportation",
+    "transport": "travel_transportation",
+    "airline": "travel_transportation",
+    "hospitality": "travel_transportation",
+    "utility_productivity": "utility_productivity",
+    "utility": "utility_productivity",
+    "productivity": "utility_productivity",
+    "telecom": "utility_productivity",
+    "telco": "utility_productivity",
+    "education": "education",
+    "edtech": "education",
+    "business": "business",
+    "charities_foundations_and_non_profit": "charities_foundations_and_non_profit",
+    "nonprofit": "charities_foundations_and_non_profit"
+  },
+  "levers": [
+    {
+      "key": "new_content_alert",
+      "pillar": "editorial",
+      "label": "New content / release alert",
+      "label_fr": "Alerte nouveau contenu / sortie",
+      "description": "Notify when a new episode, article, product, collection or program drops.",
+      "channels": [
+        "push",
+        "in_app",
+        "email"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "episode",
+        "epsiode",
+        "new",
+        "nouveau",
+        "nouvelle",
+        "nouveaute",
+        "sortie",
+        "release",
+        "drop",
+        "program",
+        "programme",
+        "replay",
+        "saison",
+        "season",
+        "collection",
+        "arrivage",
+        "parution",
+        "article",
+        "actu"
+      ],
+      "base": 3,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "sports_recreation": 4,
+        "retail": 4,
+        "social": 3,
+        "finance_insurance": 2,
+        "utility_productivity": 2
+      }
+    },
+    {
+      "key": "trending_now",
+      "pillar": "editorial",
+      "label": "Trending / most-popular now",
+      "label_fr": "Tendances du moment",
+      "description": "Push the currently trending, most-watched or best-selling items.",
+      "channels": [
+        "push",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "trending",
+        "tendance",
+        "tendances",
+        "popular",
+        "populaire",
+        "top",
+        "buzz",
+        "alaune",
+        "headline",
+        "meilleures",
+        "incontournable"
+      ],
+      "base": 3,
+      "verticals": {
+        "media": 4,
+        "entertainment": 4,
+        "sports_recreation": 4,
+        "retail": 4,
+        "social": 4,
+        "gambling_gaming": 3
+      }
+    },
+    {
+      "key": "editorial_selection",
+      "pillar": "editorial",
+      "label": "Thematic selection / curation",
+      "label_fr": "Sélection thématique / curation",
+      "description": "Editorialised thematic bundles that reduce choice overload.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "selection",
+        "curation",
+        "theme",
+        "thematique",
+        "guide",
+        "bestof",
+        "incontournable",
+        "dossier",
+        "focus",
+        "zoom"
+      ],
+      "base": 3,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "retail": 3,
+        "travel_transportation": 3
+      }
+    },
+    {
+      "key": "personalized_reco",
+      "pillar": "editorial",
+      "label": "Personalised recommendations",
+      "label_fr": "Recommandations personnalisées",
+      "description": "1:1 content/product recommendations from behaviour and affinity.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "reco",
+        "recommandation",
+        "recommandations",
+        "foryou",
+        "pourvous",
+        "suggestion",
+        "aimer",
+        "because",
+        "selectionpourvous",
+        "surmesure"
+      ],
+      "base": 4,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "retail": 5,
+        "sports_recreation": 4,
+        "social": 4,
+        "travel_transportation": 4
+      }
+    },
+    {
+      "key": "newsletter_digest",
+      "pillar": "editorial",
+      "label": "Newsletter / recurring digest",
+      "label_fr": "Newsletter / digest récurrent",
+      "description": "Scheduled digest (daily/weekly) of the best content or offers.",
+      "channels": [
+        "email",
+        "push"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "newsletter",
+        "hebdo",
+        "weekly",
+        "daily",
+        "quotidienne",
+        "digest",
+        "recap",
+        "roundup",
+        "actu",
+        "lettre",
+        "edition",
+        "rdv",
+        "rendezvous",
+        "jeudi",
+        "hebdomadaire"
+      ],
+      "base": 4,
+      "verticals": {
+        "media": 5,
+        "entertainment": 4,
+        "retail": 4,
+        "finance_insurance": 3,
+        "social": 3
+      }
+    },
+    {
+      "key": "last_chance_content",
+      "pillar": "editorial",
+      "label": "Leaving soon / last chance",
+      "label_fr": "Dernière chance / bientôt indisponible",
+      "description": "Content leaving the catalogue soon; drives urgency to consume.",
+      "channels": [
+        "push",
+        "email"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "lastchance",
+        "derniere",
+        "dernierechance",
+        "expire",
+        "quitte",
+        "leaving",
+        "disparait",
+        "bientotindisponible",
+        "plusquequelques"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 4,
+        "entertainment": 5,
+        "retail": 3
+      }
+    },
+    {
+      "key": "coming_soon_teaser",
+      "pillar": "editorial",
+      "label": "Coming soon / teaser",
+      "label_fr": "Prochainement / teasing",
+      "description": "Teasing upcoming releases, previews or pre-orders.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "comingsoon",
+        "prochainement",
+        "bientot",
+        "teaser",
+        "teasing",
+        "avantpremiere",
+        "upcoming",
+        "sortieprochaine",
+        "precommande",
+        "preorder"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 4,
+        "entertainment": 5,
+        "retail": 3,
+        "gambling_gaming": 3
+      }
+    },
+    {
+      "key": "live_companion",
+      "pillar": "editorial",
+      "label": "Live companion / real-time tracking",
+      "label_fr": "Compagnon de direct / live",
+      "description": "Second-screen alerts around a live event (kick-off, goals, results).",
+      "channels": [
+        "push",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "live",
+        "direct",
+        "match",
+        "score",
+        "enantenne",
+        "suivi",
+        "jourj",
+        "kickoff",
+        "goal",
+        "butteur",
+        "resultat",
+        "final",
+        "milaine",
+        "onair"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 4,
+        "entertainment": 4,
+        "sports_recreation": 5,
+        "gambling_gaming": 4
+      }
+    },
+    {
+      "key": "welcome_onboarding",
+      "pillar": "onboarding_adoption",
+      "label": "Welcome pack / onboarding",
+      "label_fr": "Welcome pack / onboarding",
+      "description": "Welcome series introducing the app to new registrants.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "welcome",
+        "bienvenue",
+        "onboarding",
+        "hello",
+        "decouverte",
+        "demarrage",
+        "premierpas",
+        "getstarted",
+        "start"
+      ],
+      "base": 5,
+      "verticals": {}
+    },
+    {
+      "key": "optin_request",
+      "pillar": "onboarding_adoption",
+      "label": "Push / email opt-in request",
+      "label_fr": "Demande d'opt-in (push & email)",
+      "description": "Prime and request notification/email permission (pre-permission + system).",
+      "channels": [
+        "in_app",
+        "push",
+        "email"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "optin",
+        "notification",
+        "notifications",
+        "autorisation",
+        "permission",
+        "activerlesnotif",
+        "alerte",
+        "restezinforme",
+        "abonnezvous",
+        "activez"
+      ],
+      "base": 5,
+      "verticals": {}
+    },
+    {
+      "key": "reoptin_permission",
+      "pillar": "onboarding_adoption",
+      "label": "Re-opt-in / permission win-back",
+      "label_fr": "Demande de ré-opt-in",
+      "description": "Recover users who declined or disabled notifications/email.",
+      "channels": [
+        "in_app",
+        "email"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "reoptin",
+        "reactivez",
+        "reactiver",
+        "rappelnotif",
+        "reautoriser",
+        "revenez"
+      ],
+      "base": 3,
+      "verticals": {}
+    },
+    {
+      "key": "first_action_activation",
+      "pillar": "onboarding_adoption",
+      "label": "Activation — first key action",
+      "label_fr": "Activation (1re action clé)",
+      "description": "Nudge the first video/purchase/booking/deposit that defines activation.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "premiere",
+        "premier",
+        "first",
+        "activation",
+        "commencer",
+        "essayez",
+        "decouvrez",
+        "premiervisionnage",
+        "premierachat",
+        "firstpurchase",
+        "getstarted"
+      ],
+      "base": 4,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "retail": 4,
+        "gambling_gaming": 5,
+        "finance_insurance": 4
+      }
+    },
+    {
+      "key": "feature_education",
+      "pillar": "onboarding_adoption",
+      "label": "Feature discovery / tutorial",
+      "label_fr": "Présentation fonctionnalités / tuto",
+      "description": "Educate on new or under-used features (how-to, guided tour).",
+      "channels": [
+        "in_app",
+        "push",
+        "email"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "fonctionnalite",
+        "feature",
+        "tuto",
+        "tutoriel",
+        "tutorial",
+        "guide",
+        "astuce",
+        "comment",
+        "decouvrez",
+        "decouvrir",
+        "decouvre",
+        "essentiels",
+        "savoirplus",
+        "ensavoirplus",
+        "minformer",
+        "informe",
+        "nouveaute",
+        "visiteguidee",
+        "tour"
+      ],
+      "base": 4,
+      "verticals": {}
+    },
+    {
+      "key": "account_creation",
+      "pillar": "onboarding_adoption",
+      "label": "Account creation nudge",
+      "label_fr": "Incitation à la création de compte",
+      "description": "Convert anonymous/guest users into registered accounts.",
+      "channels": [
+        "in_app",
+        "push",
+        "email"
+      ],
+      "typology": "automated",
+      "priority": 6,
+      "aliases": [
+        "compte",
+        "account",
+        "inscription",
+        "inscris",
+        "minscris",
+        "inscrire",
+        "creercompte",
+        "register",
+        "signup",
+        "rejoignez",
+        "rejoins",
+        "rejoindre",
+        "creezvotre",
+        "creemacarte",
+        "creemacarteclub",
+        "rattache",
+        "cree",
+        "identifiez"
+      ],
+      "base": 4,
+      "verticals": {
+        "media": 4,
+        "entertainment": 4,
+        "retail": 4,
+        "social": 4
+      }
+    },
+    {
+      "key": "cross_device_adoption",
+      "pillar": "onboarding_adoption",
+      "label": "Cross-device adoption (TV / web-to-app)",
+      "label_fr": "Adoption multi-écran (TV / web-to-app)",
+      "description": "Drive users to the environment with the best experience & retention.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "tv",
+        "box",
+        "ecran",
+        "screen",
+        "telecharger",
+        "app",
+        "multiecran",
+        "secondscreen",
+        "webtoapp",
+        "tvtoapp",
+        "connectez"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "sports_recreation": 3
+      }
+    },
+    {
+      "key": "app_update_prompt",
+      "pillar": "onboarding_adoption",
+      "label": "App update prompt",
+      "label_fr": "Incitation à la mise à jour",
+      "description": "Encourage updating to the latest app version.",
+      "channels": [
+        "push",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "update",
+        "maj",
+        "miseajour",
+        "version",
+        "nouvelleversion",
+        "actualiser",
+        "mettezajour"
+      ],
+      "base": 3,
+      "verticals": {}
+    },
+    {
+      "key": "order_status",
+      "pillar": "service",
+      "label": "Order / booking status & delivery",
+      "label_fr": "Statut commande / livraison",
+      "description": "Real-time order, delivery, pickup (drive/click & collect) status.",
+      "channels": [
+        "push",
+        "email",
+        "sms"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "commande",
+        "order",
+        "livraison",
+        "delivery",
+        "expedie",
+        "shipped",
+        "suivi",
+        "tracking",
+        "pret",
+        "ready",
+        "retrait",
+        "clickandcollect",
+        "drive",
+        "colis",
+        "encours"
+      ],
+      "base": 3,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 5,
+        "travel_transportation": 4,
+        "media": 1,
+        "entertainment": 1
+      }
+    },
+    {
+      "key": "transactional_confirm",
+      "pillar": "service",
+      "label": "Confirmation / receipt",
+      "label_fr": "Confirmation / reçu",
+      "description": "Confirm a transaction, booking, reservation or subscription.",
+      "channels": [
+        "email",
+        "push",
+        "sms"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "confirmation",
+        "recu",
+        "receipt",
+        "valide",
+        "confirme",
+        "ticket",
+        "reservation",
+        "booking",
+        "commandeconfirmee",
+        "paiement"
+      ],
+      "base": 3,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 4,
+        "travel_transportation": 5,
+        "finance_insurance": 4,
+        "gambling_gaming": 3,
+        "media": 2,
+        "entertainment": 2
+      }
+    },
+    {
+      "key": "account_security",
+      "pillar": "service",
+      "label": "Account & security alerts",
+      "label_fr": "Alertes compte & sécurité",
+      "description": "Security, login, password, OTP, fraud and email-validation alerts.",
+      "channels": [
+        "push",
+        "email",
+        "sms"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "securite",
+        "security",
+        "motdepasse",
+        "password",
+        "connexion",
+        "verification",
+        "otp",
+        "code",
+        "fraude",
+        "fraud",
+        "verifiez",
+        "securisez",
+        "validation"
+      ],
+      "base": 3,
+      "verticals": {
+        "finance_insurance": 5,
+        "gambling_gaming": 4,
+        "retail": 3,
+        "social": 3,
+        "media": 2,
+        "entertainment": 2
+      }
+    },
+    {
+      "key": "reminder_service",
+      "pillar": "service",
+      "label": "Reminders (appointment / expiry)",
+      "label_fr": "Rappels (rendez-vous / échéance)",
+      "description": "Useful reminders: appointments, expirations, things to finish.",
+      "channels": [
+        "push",
+        "email",
+        "sms"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "rappel",
+        "reminder",
+        "echeance",
+        "expire",
+        "renouveler",
+        "rendezvous",
+        "appointment",
+        "pensez",
+        "noubliez",
+        "reprendre"
+      ],
+      "base": 3,
+      "verticals": {
+        "finance_insurance": 4,
+        "medical_health_fitness": 5,
+        "travel_transportation": 4,
+        "utility_productivity": 4,
+        "retail": 3
+      }
+    },
+    {
+      "key": "realtime_service_alert",
+      "pillar": "service",
+      "label": "Real-time service alert",
+      "label_fr": "Alerte service temps réel",
+      "description": "Disruption, delay, incident or status alerts on a service.",
+      "channels": [
+        "push",
+        "sms"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "alerte",
+        "alert",
+        "retard",
+        "delay",
+        "perturbation",
+        "incident",
+        "statut",
+        "info",
+        "urgent",
+        "maintenance"
+      ],
+      "base": 2,
+      "verticals": {
+        "travel_transportation": 5,
+        "utility_productivity": 5,
+        "finance_insurance": 3,
+        "sports_recreation": 2
+      }
+    },
+    {
+      "key": "balance_usage_info",
+      "pillar": "service",
+      "label": "Balance / consumption info",
+      "label_fr": "Info conso / solde",
+      "description": "Data/forfait usage, points balance, invoice or statement availability.",
+      "channels": [
+        "push",
+        "email"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "conso",
+        "consommation",
+        "forfait",
+        "data",
+        "solde",
+        "facture",
+        "bill",
+        "kwh",
+        "recharge",
+        "releve",
+        "statement",
+        "points",
+        "cagnotte"
+      ],
+      "base": 2,
+      "verticals": {
+        "utility_productivity": 5,
+        "finance_insurance": 4,
+        "retail": 3
+      }
+    },
+    {
+      "key": "help_support",
+      "pillar": "service",
+      "label": "Help / how-to support",
+      "label_fr": "Aide / prise en main",
+      "description": "Contextual help, FAQ and support to remove friction.",
+      "channels": [
+        "in_app",
+        "email",
+        "push"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "aide",
+        "help",
+        "support",
+        "faq",
+        "assistance",
+        "besoindaide",
+        "priseenmain"
+      ],
+      "base": 2,
+      "verticals": {}
+    },
+    {
+      "key": "inactive_reactivation",
+      "pillar": "lifecycle",
+      "label": "Inactive reactivation",
+      "label_fr": "Relance inactif",
+      "description": "Bring dormant users back before they lapse.",
+      "channels": [
+        "push",
+        "email"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "inactif",
+        "inactive",
+        "relance",
+        "revenez",
+        "onvousmanque",
+        "manque",
+        "retour",
+        "comeback",
+        "reactivation",
+        "absence",
+        "depuisvotredepart"
+      ],
+      "base": 5,
+      "verticals": {}
+    },
+    {
+      "key": "winback",
+      "pillar": "lifecycle",
+      "label": "Win-back lapsed / churned",
+      "label_fr": "Win-back / reconquête",
+      "description": "Reconquer users who churned or unsubscribed, often with an incentive.",
+      "channels": [
+        "email",
+        "push"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "winback",
+        "reconquete",
+        "offreretour",
+        "onvousmanque",
+        "reviens",
+        "revenez",
+        "perdu",
+        "resilie"
+      ],
+      "base": 4,
+      "verticals": {
+        "media": 4,
+        "entertainment": 5,
+        "finance_insurance": 4,
+        "retail": 4,
+        "gambling_gaming": 4
+      }
+    },
+    {
+      "key": "anti_churn",
+      "pillar": "lifecycle",
+      "label": "Anti-churn / at-risk",
+      "label_fr": "Anti-churn / à risque",
+      "description": "Proactively retain at-risk or cancelling subscribers.",
+      "channels": [
+        "email",
+        "push",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "churn",
+        "resiliation",
+        "retention",
+        "retenir",
+        "annulation",
+        "cancel",
+        "rester",
+        "risque",
+        "atrisk",
+        "nepartez"
+      ],
+      "base": 3,
+      "verticals": {
+        "media": 4,
+        "entertainment": 5,
+        "finance_insurance": 5,
+        "utility_productivity": 4,
+        "gambling_gaming": 4
+      }
+    },
+    {
+      "key": "renewal",
+      "pillar": "lifecycle",
+      "label": "Subscription / policy renewal",
+      "label_fr": "Renouvellement",
+      "description": "Drive on-time renewal of a subscription, policy or membership.",
+      "channels": [
+        "email",
+        "push",
+        "sms"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "renouvellement",
+        "renewal",
+        "renouveler",
+        "abonnement",
+        "expire",
+        "echeance",
+        "reconduction",
+        "prolongez",
+        "policy",
+        "contrat"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 4,
+        "entertainment": 4,
+        "finance_insurance": 5,
+        "utility_productivity": 3
+      }
+    },
+    {
+      "key": "birthday_anniversary",
+      "pillar": "lifecycle",
+      "label": "Birthday / account anniversary",
+      "label_fr": "Anniversaire (client / compte)",
+      "description": "Celebrate a birthday or account anniversary, often with a gift.",
+      "channels": [
+        "email",
+        "push"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "anniversaire",
+        "birthday",
+        "anniv",
+        "fete",
+        "unan",
+        "celebration",
+        "cadeauanniversaire"
+      ],
+      "base": 3,
+      "verticals": {
+        "retail": 4,
+        "food_drink": 4,
+        "travel_transportation": 3
+      }
+    },
+    {
+      "key": "abandonment_recovery",
+      "pillar": "lifecycle",
+      "label": "Abandonment recovery (cart / viewing)",
+      "label_fr": "Relance abandon (panier / visionnage)",
+      "description": "Recover an abandoned cart, booking or unfinished viewing/reading.",
+      "channels": [
+        "email",
+        "push",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "abandon",
+        "panier",
+        "cart",
+        "abandonne",
+        "reprendre",
+        "resume",
+        "continuer",
+        "terminervotre",
+        "oubli",
+        "reprisevisionnage",
+        "poursuivre"
+      ],
+      "base": 3,
+      "verticals": {
+        "retail": 5,
+        "media": 4,
+        "entertainment": 5,
+        "travel_transportation": 4,
+        "gambling_gaming": 3
+      }
+    },
+    {
+      "key": "milestone_retrospective",
+      "pillar": "lifecycle",
+      "label": "Milestone / retrospective",
+      "label_fr": "Étape clé / rétrospective",
+      "description": "Yearly wrap-up, usage milestone or personalised retrospective.",
+      "channels": [
+        "email",
+        "push",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "retrospective",
+        "bilan",
+        "recap",
+        "wrapped",
+        "milestone",
+        "etape",
+        "felicitations",
+        "bravo",
+        "votreannee",
+        "recapitulatif"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 3,
+        "entertainment": 3,
+        "social": 4,
+        "sports_recreation": 3,
+        "medical_health_fitness": 4
+      }
+    },
+    {
+      "key": "survey_nps",
+      "pillar": "engagement_data",
+      "label": "Satisfaction / NPS survey",
+      "label_fr": "Enquête satisfaction / NPS",
+      "description": "Measure satisfaction and collect qualitative feedback.",
+      "channels": [
+        "in_app",
+        "email",
+        "push"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "sondage",
+        "survey",
+        "nps",
+        "satisfaction",
+        "avis",
+        "feedback",
+        "questionnaire",
+        "note",
+        "evaluer",
+        "votreavis",
+        "enquete"
+      ],
+      "base": 4,
+      "verticals": {}
+    },
+    {
+      "key": "progressive_profiling",
+      "pillar": "engagement_data",
+      "label": "Progressive profiling / interests",
+      "label_fr": "Progressive profiling / intérêts",
+      "description": "Enrich the profile with declared interests and preferences over time.",
+      "channels": [
+        "in_app",
+        "email",
+        "push"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "preference",
+        "interet",
+        "interets",
+        "centres",
+        "profiling",
+        "gouts",
+        "suivez",
+        "choisir",
+        "personnaliser",
+        "voscentres"
+      ],
+      "base": 4,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "retail": 4,
+        "sports_recreation": 4,
+        "social": 4
+      }
+    },
+    {
+      "key": "gamification",
+      "pillar": "engagement_data",
+      "label": "Games / quiz / gamification",
+      "label_fr": "Jeux / quiz / gamification",
+      "description": "Interactive games, quizzes and challenges that drive engagement + data.",
+      "channels": [
+        "in_app",
+        "push",
+        "email"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "jeu",
+        "quiz",
+        "game",
+        "challenge",
+        "defi",
+        "gagner",
+        "tentezvotrechance",
+        "tente",
+        "tentez",
+        "chance",
+        "gratter",
+        "roue",
+        "instantgagnant",
+        "calendrier",
+        "joueurs"
+      ],
+      "base": 3,
+      "verticals": {
+        "retail": 4,
+        "food_drink": 4,
+        "gambling_gaming": 5,
+        "sports_recreation": 4,
+        "media": 3,
+        "social": 4
+      }
+    },
+    {
+      "key": "contest_sweepstake",
+      "pillar": "engagement_data",
+      "label": "Contest / prize draw",
+      "label_fr": "Concours / tirage au sort",
+      "description": "Sweepstakes and contests to boost participation and lead capture.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "concours",
+        "tirage",
+        "sweepstake",
+        "cadeau",
+        "prize",
+        "jeuconcours",
+        "remporter",
+        "agagner",
+        "gagnez",
+        "participe",
+        "participer",
+        "participez"
+      ],
+      "base": 3,
+      "verticals": {
+        "retail": 4,
+        "food_drink": 4,
+        "sports_recreation": 4,
+        "gambling_gaming": 4,
+        "media": 3
+      }
+    },
+    {
+      "key": "interactive_vote",
+      "pillar": "engagement_data",
+      "label": "Interactive vote / poll / prediction",
+      "label_fr": "Vote / sondage / pronostic",
+      "description": "Live votes, polls and predictions tied to content or events.",
+      "channels": [
+        "in_app",
+        "push"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "vote",
+        "votez",
+        "poll",
+        "sondage",
+        "elire",
+        "pronostic",
+        "prediction",
+        "choisissez",
+        "quipreferez"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 4,
+        "entertainment": 4,
+        "sports_recreation": 5,
+        "gambling_gaming": 4,
+        "social": 4
+      }
+    },
+    {
+      "key": "referral_engagement",
+      "pillar": "engagement_data",
+      "label": "Refer a friend / share",
+      "label_fr": "Parrainage / partage",
+      "description": "Encourage sharing and friend referrals to grow the base virally.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "parrainage",
+        "referral",
+        "parrain",
+        "invite",
+        "ami",
+        "friend",
+        "partage",
+        "share",
+        "recommander",
+        "filleul"
+      ],
+      "base": 3,
+      "verticals": {
+        "finance_insurance": 4,
+        "retail": 4,
+        "social": 5,
+        "gambling_gaming": 4,
+        "food_drink": 3
+      }
+    },
+    {
+      "key": "upsell_premium",
+      "pillar": "commercial",
+      "label": "Upsell to premium / ad-free",
+      "label_fr": "Upsell premium / sans pub",
+      "description": "Upgrade to a premium, ad-free or higher tier.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "upsell",
+        "premium",
+        "sanspub",
+        "adfree",
+        "passez",
+        "upgrade",
+        "debloquer",
+        "illimite",
+        "integrale",
+        "avantpremiere",
+        "suiteimmediate",
+        "horsligne"
+      ],
+      "base": 3,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "utility_productivity": 3,
+        "social": 3,
+        "gambling_gaming": 3
+      }
+    },
+    {
+      "key": "free_trial",
+      "pillar": "commercial",
+      "label": "Free trial offer",
+      "label_fr": "Offre d'essai gratuit",
+      "description": "Offer a free trial to convert to a paid subscription.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "essai",
+        "trial",
+        "gratuit",
+        "free",
+        "testez",
+        "offert",
+        "joursoffert",
+        "essaigratuit",
+        "decouvrezgratuitement"
+      ],
+      "base": 2,
+      "verticals": {
+        "media": 5,
+        "entertainment": 5,
+        "finance_insurance": 3,
+        "utility_productivity": 3,
+        "gambling_gaming": 4
+      }
+    },
+    {
+      "key": "promotion_offer",
+      "pillar": "commercial",
+      "label": "Promotion / flash sale",
+      "label_fr": "Promotion / vente flash",
+      "description": "Time-boxed promotions, discounts and flash sales.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "promo",
+        "promotion",
+        "solde",
+        "sale",
+        "reduction",
+        "remise",
+        "offre",
+        "deal",
+        "flash",
+        "prix",
+        "moins",
+        "bonplan",
+        "destockage"
+      ],
+      "base": 3,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 5,
+        "travel_transportation": 4,
+        "gambling_gaming": 3,
+        "media": 2,
+        "entertainment": 2
+      }
+    },
+    {
+      "key": "cross_sell_product",
+      "pillar": "commercial",
+      "label": "Cross-sell / complementary",
+      "label_fr": "Cross-sell / produits complémentaires",
+      "description": "Recommend complementary products or services after a purchase.",
+      "channels": [
+        "email",
+        "push",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "crosssell",
+        "complement",
+        "assorti",
+        "associe",
+        "completez",
+        "ajouter",
+        "avecca",
+        "aussiaime",
+        "pouraller",
+        "assurance",
+        "souscrivant",
+        "souscrire"
+      ],
+      "base": 2,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 4,
+        "travel_transportation": 4,
+        "finance_insurance": 3
+      }
+    },
+    {
+      "key": "abandoned_cart_commercial",
+      "pillar": "commercial",
+      "label": "Abandoned cart with incentive",
+      "label_fr": "Panier abandonné avec incitation",
+      "description": "Recover a checkout abandonment with a targeted incentive.",
+      "channels": [
+        "email",
+        "push"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "panierabandonne",
+        "abandonpanier",
+        "reprenez",
+        "codepromo",
+        "remisepanier",
+        "finalisez",
+        "votrepanier"
+      ],
+      "base": 2,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 4,
+        "travel_transportation": 4,
+        "gambling_gaming": 3
+      }
+    },
+    {
+      "key": "seasonal_campaign",
+      "pillar": "commercial",
+      "label": "Seasonal / event campaign",
+      "label_fr": "Campagne saisonnière / temps fort",
+      "description": "Seasonal peaks: sales, holidays, back-to-school, big events.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "one_shot",
+      "aliases": [
+        "noel",
+        "soldes",
+        "blackfriday",
+        "saintvalentin",
+        "fetedesmeres",
+        "rentree",
+        "ete",
+        "saison",
+        "event",
+        "printemps",
+        "halloween",
+        "frenchdays"
+      ],
+      "base": 2,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 4,
+        "travel_transportation": 4,
+        "media": 2,
+        "entertainment": 2
+      }
+    },
+    {
+      "key": "coupon_couponing",
+      "pillar": "commercial",
+      "label": "Coupon / voucher",
+      "label_fr": "Coupon / bon de réduction",
+      "description": "Personalised coupons, cashback and vouchers.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "coupon",
+        "bon",
+        "voucher",
+        "code",
+        "reduction",
+        "cashback",
+        "remise",
+        "bonreduction",
+        "eanticket"
+      ],
+      "base": 1,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 5,
+        "travel_transportation": 2
+      }
+    },
+    {
+      "key": "loyalty_offer",
+      "pillar": "commercial",
+      "label": "Loyalty-tier / reward offer",
+      "label_fr": "Offre fidélité / récompense",
+      "description": "Reward loyal members: tiers, exclusive perks and status offers.",
+      "channels": [
+        "push",
+        "email",
+        "in_app"
+      ],
+      "typology": "automated",
+      "aliases": [
+        "fidelite",
+        "reward",
+        "recompense",
+        "palier",
+        "statut",
+        "avantage",
+        "exclusif",
+        "membre",
+        "cagnotte",
+        "vipclub",
+        "club",
+        "carte",
+        "carteclub"
+      ],
+      "base": 2,
+      "verticals": {
+        "retail": 5,
+        "food_drink": 5,
+        "travel_transportation": 4,
+        "finance_insurance": 3
+      }
+    }
+  ],
+  "vertical_stakes": {
+    "all_verticals": {
+      "editorial": {
+        "stake": "Maximise reach & discovery of what you offer",
+        "key_figure": "Relevant, editorialised discovery lifts engagement vs a raw catalogue",
+        "stake_fr": "Maximiser la portée & la découverte de votre offre",
+        "key_figure_fr": "Une découverte pertinente et éditorialisée engage plus qu’un catalogue brut"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate new users to first value",
+        "key_figure": "Users who complete onboarding retain markedly better",
+        "stake_fr": "Activer les nouveaux utilisateurs jusqu’à la première valeur",
+        "key_figure_fr": "Les utilisateurs qui terminent l’onboarding se rétiennent nettement mieux"
+      },
+      "service": {
+        "stake": "Anchor daily usage with useful messaging",
+        "key_figure": "Transactional/service messages earn the highest open & trust",
+        "stake_fr": "Ancrer l’usage quotidien par un message utile",
+        "key_figure_fr": "Les messages transactionnels et de service obtiennent la meilleure ouverture et la meilleure confiance"
+      },
+      "lifecycle": {
+        "stake": "Retain the base you already acquired",
+        "key_figure": "Acquiring a user costs 5-25x more than retaining one",
+        "stake_fr": "Retenir la base déjà acquise",
+        "key_figure_fr": "Acquérir un utilisateur coûte 5 à 25 fois plus que le retenir"
+      },
+      "engagement_data": {
+        "stake": "Qualify the audience with first-party data",
+        "key_figure": "Targeted campaigns can drive ~2.5x clicks and ~6x conversions vs generic",
+        "stake_fr": "Qualifier l’audience avec de la donnée first-party",
+        "key_figure_fr": "Les campagnes ciblées peuvent générer ~2,5x de clics et ~6x de conversions vs générique"
+      },
+      "commercial": {
+        "stake": "Convert engagement into revenue",
+        "key_figure": "Personalised offers outperform mass promotions on ROI",
+        "stake_fr": "Transformer l’engagement en chiffre d’affaires",
+        "key_figure_fr": "Les offres personnalisées surperforment les promotions de masse sur le ROI"
+      }
+    },
+    "media": {
+      "editorial": {
+        "stake": "Maximise content volume & discovery",
+        "key_figure": "~60% of users feel choice-overload without strong editorialisation"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to first view & drive account creation",
+        "key_figure": "Logged-in, activated users are far more retainable & monetisable"
+      },
+      "service": {
+        "stake": "Anchor usage across screens (Mobile + TV)",
+        "key_figure": "+30% LTV on users active on 2 screens (Mobile + TV)"
+      },
+      "lifecycle": {
+        "stake": "Retain viewers & subscribers",
+        "key_figure": "Acquiring a viewer costs 5-25x more than retaining one"
+      },
+      "engagement_data": {
+        "stake": "Grow logged, segmentable audience value",
+        "key_figure": "Segmented (logged-in) ad inventory sells 2-3x higher CPM"
+      },
+      "commercial": {
+        "stake": "Convert free to premium/ad-free",
+        "key_figure": "Subscription is a niche - only ~38% of users reject ads"
+      }
+    },
+    "entertainment": {
+      "editorial": {
+        "stake": "Maximise catalogue discovery & tune-in",
+        "key_figure": "Personalised discovery drives session starts vs raw browse"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to first stream fast",
+        "key_figure": "First-week viewing strongly predicts subscription survival"
+      },
+      "service": {
+        "stake": "Anchor viewing across devices",
+        "key_figure": "Cross-device viewers churn less than single-device"
+      },
+      "lifecycle": {
+        "stake": "Retain subscribers & recover lapsed",
+        "key_figure": "Voluntary churn is the top threat to SVOD LTV"
+      },
+      "engagement_data": {
+        "stake": "Enrich taste profiles for better reco",
+        "key_figure": "Richer interest data lifts recommendation CTR"
+      },
+      "commercial": {
+        "stake": "Convert trials & upsell tiers",
+        "key_figure": "Trial-to-paid conversion is the core SVOD growth lever"
+      }
+    },
+    "retail": {
+      "editorial": {
+        "stake": "Drive product & catalogue discovery",
+        "key_figure": "Personalised product discovery lifts basket size",
+        "stake_fr": "Susciter la découverte produit & catalogue",
+        "key_figure_fr": "Une découverte produit personnalisée augmente le panier moyen"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to first purchase & loyalty sign-up",
+        "key_figure": "First purchase and loyalty enrolment define activation",
+        "stake_fr": "Activer jusqu’au premier achat & à l’inscription fidélité",
+        "key_figure_fr": "Le premier achat et l’adhésion au programme fidélité définissent l’activation"
+      },
+      "service": {
+        "stake": "Anchor with order, drive & loyalty service",
+        "key_figure": "Order/pickup status messages earn the highest engagement",
+        "stake_fr": "Ancrer l’usage par le service commande, drive & fidélité",
+        "key_figure_fr": "Les messages de statut de commande et de retrait obtiennent le meilleur engagement"
+      },
+      "lifecycle": {
+        "stake": "Retain shoppers & recover carts",
+        "key_figure": "Acquiring a shopper costs 5-25x more than retaining one",
+        "stake_fr": "Retenir les clients & récupérer les paniers",
+        "key_figure_fr": "Acquérir un client coûte 5 à 25 fois plus que le retenir"
+      },
+      "engagement_data": {
+        "stake": "Grow loyalty & first-party data",
+        "key_figure": "Loyalty members shop more often and share more data",
+        "stake_fr": "Développer la fidélité & la donnée first-party",
+        "key_figure_fr": "Les membres fidélité achètent plus souvent et partagent plus de données"
+      },
+      "commercial": {
+        "stake": "Convert with personalised offers",
+        "key_figure": "Targeted coupons beat mass promotions on margin",
+        "stake_fr": "Convertir par des offres personnalisées",
+        "key_figure_fr": "Les coupons ciblés battent les promotions de masse sur la marge"
+      }
+    },
+    "finance_insurance": {
+      "editorial": {
+        "stake": "Educate on products & guidance",
+        "key_figure": "Financial education content builds trust and cross-sell"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate first key action (fund / enrol)",
+        "key_figure": "Early activation predicts long-term account value"
+      },
+      "service": {
+        "stake": "Anchor with secure, useful alerts",
+        "key_figure": "Security & balance alerts are the most-valued messages"
+      },
+      "lifecycle": {
+        "stake": "Retain policyholders & renew on time",
+        "key_figure": "On-time renewal is the core retention lever"
+      },
+      "engagement_data": {
+        "stake": "Qualify needs & risk profile",
+        "key_figure": "Better profiling enables relevant cross-sell"
+      },
+      "commercial": {
+        "stake": "Convert cross-sell & upsell",
+        "key_figure": "Existing customers convert cross-sell far above cold prospects"
+      }
+    },
+    "food_drink": {
+      "editorial": {
+        "stake": "Drive menu & new-item discovery",
+        "key_figure": "New-item and reco pushes drive incremental visits"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to first order & app payment",
+        "key_figure": "App-order activation raises visit frequency"
+      },
+      "service": {
+        "stake": "Anchor with order & pickup status",
+        "key_figure": "Order-ready alerts drive satisfaction and repeat"
+      },
+      "lifecycle": {
+        "stake": "Retain & lift visit frequency",
+        "key_figure": "Frequency is the main lever of QSR value"
+      },
+      "engagement_data": {
+        "stake": "Grow loyalty & gamified engagement",
+        "key_figure": "Gamified loyalty lifts app open frequency"
+      },
+      "commercial": {
+        "stake": "Convert with offers & coupons",
+        "key_figure": "Personalised offers drive incremental visits"
+      }
+    },
+    "travel_transportation": {
+      "editorial": {
+        "stake": "Inspire destinations & offers",
+        "key_figure": "Inspirational content seeds future bookings"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to first booking",
+        "key_figure": "Early booking activation predicts repeat travel"
+      },
+      "service": {
+        "stake": "Anchor with real-time trip service",
+        "key_figure": "Trip status & disruption alerts are the most-valued messages"
+      },
+      "lifecycle": {
+        "stake": "Retain travellers & recover carts",
+        "key_figure": "Booking abandonment recovery is a major revenue lever"
+      },
+      "engagement_data": {
+        "stake": "Qualify travel intent & preferences",
+        "key_figure": "Intent data enables relevant, timely offers"
+      },
+      "commercial": {
+        "stake": "Convert with timely, targeted offers",
+        "key_figure": "Ancillary & timely offers lift booking value"
+      }
+    },
+    "sports_recreation": {
+      "editorial": {
+        "stake": "Maximise live & match discovery",
+        "key_figure": "Live alerts drive the most session starts"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to follow teams & first content",
+        "key_figure": "Following teams/competitions drives retention"
+      },
+      "service": {
+        "stake": "Anchor with real-time match service",
+        "key_figure": "Live score & kick-off alerts are the core utility"
+      },
+      "lifecycle": {
+        "stake": "Retain fans across seasons",
+        "key_figure": "Off-season re-engagement protects the base"
+      },
+      "engagement_data": {
+        "stake": "Grow fan data via votes & predictions",
+        "key_figure": "Predictions & votes generate rich first-party data"
+      },
+      "commercial": {
+        "stake": "Convert to premium & betting/commerce",
+        "key_figure": "Engaged fans convert best to premium & partners"
+      }
+    },
+    "gambling_gaming": {
+      "editorial": {
+        "stake": "Surface events, odds & new games",
+        "key_figure": "Timely event/odds alerts drive session starts"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to first deposit/bet",
+        "key_figure": "First deposit is the defining activation event"
+      },
+      "service": {
+        "stake": "Anchor with account & responsible-play service",
+        "key_figure": "Security & balance alerts build trust and compliance"
+      },
+      "lifecycle": {
+        "stake": "Retain & recover at-risk players",
+        "key_figure": "Reactivation and anti-churn protect player value"
+      },
+      "engagement_data": {
+        "stake": "Grow engagement via gamification",
+        "key_figure": "Gamified mechanics lift frequency and data capture"
+      },
+      "commercial": {
+        "stake": "Convert with targeted bonuses",
+        "key_figure": "Personalised bonuses outperform blanket promos"
+      }
+    },
+    "utility_productivity": {
+      "editorial": {
+        "stake": "Educate on features & value",
+        "key_figure": "Feature education lifts adoption of paid capabilities"
+      },
+      "onboarding_adoption": {
+        "stake": "Activate to the core habit",
+        "key_figure": "Reaching the aha-moment early predicts retention"
+      },
+      "service": {
+        "stake": "Anchor with real-time usage & alerts",
+        "key_figure": "Usage/consumption & incident alerts are core utility"
+      },
+      "lifecycle": {
+        "stake": "Retain and renew",
+        "key_figure": "Habitual usage and renewal drive lifetime value"
+      },
+      "engagement_data": {
+        "stake": "Qualify needs & preferences",
+        "key_figure": "Preference data enables relevant nudges"
+      },
+      "commercial": {
+        "stake": "Convert to paid tiers",
+        "key_figure": "Feature-gated upsell converts engaged users"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+ "_note": "Example of the routing acceptance fixture read by `probe_sweep.py --expect`. Copy it to `probe_sweep_expected.json` (git-ignored) and replace these placeholder names with the MCP project names on your machine, so the account list stays local.",
+ "_how_to_establish": "Fully paginate three spread days per project and record which regime the day lands in. `firehose` matches either flavour: whether an account reads as grouped or unattributed depends on how many of its pushes carry a group_id, and that legitimately moves between windows. What must never move is affordable vs intractable.",
+ "_run": "python probe_sweep.py 2026-08-10 2026-08-20 --expect probe_sweep_expected.json",
+ "Example Retail PROD": "firehose",
+ "Example Pharmacy PROD": "firehose",
+ "Example Telco PROD": "firehose",
+ "Example Sports Media PROD": "firehose",
+ "Example Broadcaster PROD": "dashboard",
+ "Example Football Club PROD": "dashboard",
+ "Example Federation PROD": "dashboard",
+ "Example Luxury PROD": "dashboard"
+}

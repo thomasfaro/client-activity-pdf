@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "purpose": "Sourced outcomes from other Airship accounts, keyed to playbook levers, so a recommendation can say what the work produces elsewhere instead of only that the client is not doing it.",
+    "rule": "Nothing here may be written by a model. Every entry needs a real source document, a date, and a figure quoted from it. A lever with no entry renders no proof point — that is the intended behaviour, not a gap to fill. See reference.md, 'Proof points'.",
+    "audience": "These reviews are marked internal Airship use, prepared for the account team. An entry cleared for that is not automatically cleared for a client-facing deck; check before lifting one out.",
+    "updated": "2026-09-09",
+    "lever_keys": "Must match campaign_playbook.json levers[].key — an unknown key silently never matches."
+  },
+  "points": [
+    {
+      "id": "live_activities_sessions_lift",
+      "levers": ["live_companion"],
+      "pillars": ["editorial", "service"],
+      "claim_en": "+188% app sessions among users who enabled Live Activities",
+      "claim_fr": "+188 % de sessions app chez les utilisateurs ayant activé les Live Activities",
+      "client": null,
+      "client_note_en": "client not named in the source",
+      "client_note_fr": "client non nommé dans la source",
+      "source": "Airship, « Art of the Possible » deck (British Airways), 25 August 2026",
+      "date": "2026-08-25",
+      "status": "confirmed"
+    },
+    {
+      "id": "hawaiian_live_activity_sessions",
+      "levers": ["live_companion"],
+      "pillars": ["service", "editorial"],
+      "claim_en": "4.6\u00d7 more sessions among Live Activity recipients",
+      "claim_fr": "4,6\u00d7 plus de sessions chez les destinataires de Live Activities",
+      "client": "Hawaiian Airlines",
+      "source": "Airship, « Art of the Possible » deck (British Airways), 25 August 2026",
+      "date": "2026-08-25",
+      "status": "confirmed"
+    },
+    {
+      "id": "hawaiian_day_of_travel_optin",
+      "levers": ["optin_request", "reoptin_permission"],
+      "pillars": ["onboarding_adoption"],
+      "claim_en": "+23% push opt-in lift from a day-of-travel programme",
+      "claim_fr": "+23 % d'opt-in push gr\u00e2ce \u00e0 un programme day-of-travel",
+      "client": "Hawaiian Airlines",
+      "source": "Airship, « Art of the Possible » deck (British Airways), 25 August 2026",
+      "date": "2026-08-25",
+      "status": "confirmed"
+    }
+  ]
+}

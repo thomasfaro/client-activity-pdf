@@ -1,0 +1,379 @@
+{
+  "kind": "airship-goal-sources",
+  "version": 1,
+  "language": "en",
+  "source": "https://www.airship.com/docs/guides/reports/goals/ + https://www.airship.com/docs/reference/data-collection/events/",
+  "note": "What can become an Airship Goal, split into the three families the light 'Goals review' report never mixes. Family A (collected) comes from the client's tagging-plan JSON, not from this file. Family B (nativeSignals) needs zero client instrumentation. predefinedArchetypes is a MATCHER and a naming standard for families A and C — it is never itself a source of activatable candidates: an Airship predefined event the client does not track is a gap, not a goal. Written in English; the only French strings are archetype aliases, used for fuzzy-matching French event names, never for prose.",
+
+  "funnelStages": [
+    {"id": "acquisition", "order": 1, "label": "Acquisition",
+     "question": "Does the app reach and register the user at all?"},
+    {"id": "activation", "order": 2, "label": "Activation",
+     "question": "Does the new user reach the first moment of value, and become reachable?"},
+    {"id": "consideration", "order": 3, "label": "Consideration",
+     "question": "Does the user show intent short of committing?"},
+    {"id": "conversion", "order": 4, "label": "Conversion",
+     "question": "Does the user complete the act the business is paid for?"},
+    {"id": "loyalty", "order": 5, "label": "Loyalty",
+     "question": "Does the user come back and deepen the relationship?"},
+    {"id": "retention", "order": 6, "label": "Retention",
+     "question": "Does the user keep the app, the permission and the subscription?"}
+  ],
+
+  "configModes": [
+    {
+      "id": "count",
+      "label": "Count",
+      "shortLabel": "Count",
+      "description": "Number of times the event, tag change or list subscription fires. The default and always-available mode.",
+      "whenToUse": "Any goal whose act is meaningful once. Start here unless you have a reason not to.",
+      "requires": "nothing beyond the source itself",
+      "airshipUi": "Goal type: count of occurrences"
+    },
+    {
+      "id": "frequency",
+      "label": "Frequency over a period",
+      "shortLabel": "Frequency",
+      "description": "Reaching a number of occurrences within a fixed period — daily, weekly or monthly.",
+      "whenToUse": "Habit and depth-of-usage goals, where doing the act once says little and doing it repeatedly is the business outcome (sessions, content consumption, repeat purchase).",
+      "requires": "enough volume for the threshold to separate users rather than include everyone",
+      "periods": [
+        {"id": "daily", "label": "Daily",
+         "fits": "acts a healthy user performs most days (app open, content consumed)"},
+        {"id": "weekly", "label": "Weekly",
+         "fits": "acts on a weekly rhythm (grocery run, weekly episode, weekly fixture)"},
+        {"id": "monthly", "label": "Monthly",
+         "fits": "acts on a monthly or slower rhythm (bill payment, subscription renewal, big-ticket purchase)"}
+      ],
+      "airshipUi": "Goal type: frequency, with the period and the target count"
+    },
+    {
+      "id": "numeric_property",
+      "label": "Threshold on a numeric property",
+      "shortLabel": "Numeric threshold",
+      "description": "The goal is met when a number-typed property (or an Airship-native numeric such as time in app) crosses a threshold.",
+      "whenToUse": "When the act is not binary and its size is the point: basket over a value, session over a duration, points balance over a tier boundary.",
+      "requires": "a property whose collected values are genuinely numeric (kind number or amount in the tagging-plan analysis), or an Airship-native numeric property",
+      "airshipUi": "Goal type: numeric property, with the property and the threshold"
+    }
+  ],
+
+  "nativeSignals": [
+    {
+      "id": "channel_registration",
+      "name": "Channel registration",
+      "alsoKnownAs": ["first_seen"],
+      "funnelStage": "acquisition",
+      "description": "A new device or web channel registers with Airship — the platform-side equivalent of an install that produced an addressable channel.",
+      "whyItMatters": "The only acquisition-stage goal available with no client instrumentation at all. It measures whether a campaign produced reachable channels, not just downloads.",
+      "configModes": ["count"],
+      "setupRequired": "none",
+      "caveat": "Counts channels, not people: one user with a phone and a tablet registers twice."
+    },
+    {
+      "id": "first_open",
+      "name": "First app open",
+      "alsoKnownAs": ["first_open"],
+      "funnelStage": "activation",
+      "description": "The first time a given channel opens the app.",
+      "whyItMatters": "Separates 'installed' from 'actually started', which is where most onboarding journeys are judged.",
+      "configModes": ["count"],
+      "setupRequired": "none",
+      "caveat": "Fires once per channel, so frequency modes are meaningless on it."
+    },
+    {
+      "id": "app_open",
+      "name": "App open",
+      "alsoKnownAs": ["app_open"],
+      "funnelStage": "retention",
+      "description": "Any app open, from any origin (direct, push, deep link).",
+      "whyItMatters": "The cheapest habit metric there is, and the one goal every project can configure on day one.",
+      "configModes": ["count", "frequency"],
+      "recommendedConfig": {"mode": "frequency", "period": "weekly"},
+      "setupRequired": "none",
+      "caveat": "As a plain count it is close to universal and discriminates almost nothing — use a frequency threshold, or it becomes a vanity goal."
+    },
+    {
+      "id": "notification_opt_in",
+      "name": "Notification opt-in",
+      "alsoKnownAs": ["opt_in", "push opt-in"],
+      "funnelStage": "activation",
+      "description": "The user grants push notification permission.",
+      "whyItMatters": "Turns the permission ask into a measurable outcome, so a priming in-app or an opt-in journey can be attributed instead of argued about.",
+      "configModes": ["count"],
+      "setupRequired": "none"
+    },
+    {
+      "id": "first_opt_in",
+      "name": "First notification opt-in",
+      "alsoKnownAs": ["first_opt_in"],
+      "funnelStage": "activation",
+      "description": "The first time a channel ever opts in, as opposed to a re-opt-in after a lapse.",
+      "whyItMatters": "The right denominator for onboarding permission work: it excludes users who toggled the permission back on later.",
+      "configModes": ["count"],
+      "setupRequired": "none"
+    },
+    {
+      "id": "named_user_association",
+      "name": "Named user association",
+      "alsoKnownAs": ["contact association", "account link"],
+      "funnelStage": "activation",
+      "description": "A channel is associated with a named user — the user logs in, links an account, or creates one.",
+      "whyItMatters": "Identity is the precondition for cross-channel messaging, CRM data and any contact-level personalisation. It is usually the single most under-measured step in the funnel.",
+      "configModes": ["count"],
+      "setupRequired": "none",
+      "caveat": "Measures the association, not the account creation itself — a client who needs to tell signup apart from login has to track those as custom events."
+    },
+    {
+      "id": "web_session",
+      "name": "Web session",
+      "alsoKnownAs": ["web_session"],
+      "funnelStage": "retention",
+      "description": "A session on a web channel.",
+      "whyItMatters": "The web equivalent of app open, for projects with a web push or web channel presence.",
+      "configModes": ["count", "frequency"],
+      "setupRequired": "none",
+      "caveat": "Only meaningful when the project actually has web channels."
+    },
+    {
+      "id": "uninstall",
+      "name": "Uninstall",
+      "alsoKnownAs": ["uninstall"],
+      "funnelStage": "retention",
+      "description": "Airship detects that the app was removed from a channel.",
+      "whyItMatters": "The clearest negative outcome available with no instrumentation — useful as a guardrail metric alongside a pressure goal.",
+      "configModes": ["count"],
+      "setupRequired": "none",
+      "negativeSignal": true,
+      "caveat": "A negative signal: it belongs in a guardrail, not in the shortlist of goals a campaign is optimised toward."
+    },
+    {
+      "id": "nps_score",
+      "name": "NPS score",
+      "alsoKnownAs": ["nps", "net promoter score"],
+      "funnelStage": "loyalty",
+      "description": "The score a user gives in an Airship Scene NPS survey.",
+      "whyItMatters": "Turns sentiment into a goal, and gives a loyalty-stage outcome to brands whose conversion happens off-app.",
+      "configModes": ["count", "numeric_property"],
+      "setupRequired": "add_scene_survey",
+      "caveat": "Requires an NPS survey to be published in Scene — no client SDK work, but not zero effort either."
+    }
+  ],
+
+  "nativeNumericProperties": [
+    {
+      "id": "time_in_app",
+      "name": "Time in app",
+      "unit": "seconds",
+      "source": "airship_native",
+      "description": "Session duration collected by the SDK with no client instrumentation.",
+      "goalUse": "Threshold goal for depth of session — 'user spent more than N seconds in app'.",
+      "fits": ["media", "gaming", "content", "engagement"]
+    }
+  ],
+
+  "predefinedArchetypes": [
+    {
+      "name": "registered_account", "funnelStage": "activation", "category": "Account registration",
+      "nativeProperties": ["category", "source", "type", "id"],
+      "aliases": {
+        "en": ["register", "registration", "signup", "sign_up", "create_account", "account_created", "onboarding_complete"],
+        "fr": ["inscription", "creation_compte", "compte_cree", "adhesion", "enregistrement"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "logged_in", "funnelStage": "activation", "category": "Login",
+      "nativeProperties": ["source", "type", "id"],
+      "aliases": {
+        "en": ["login", "log_in", "sign_in", "signin", "authenticated", "auth_success"],
+        "fr": ["connexion", "identification", "authentification"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "logged_out", "funnelStage": "retention", "category": "Logout",
+      "nativeProperties": ["source", "type", "id"],
+      "aliases": {
+        "en": ["logout", "log_out", "sign_out", "signout"],
+        "fr": ["deconnexion"]
+      },
+      "valueBearing": false,
+      "negativeSignal": true
+    },
+    {
+      "name": "browsed", "funnelStage": "consideration", "category": "Browse content/product",
+      "nativeProperties": ["category", "type", "id", "description"],
+      "aliases": {
+        "en": ["browse", "browsed", "product_view", "viewed_product", "view_item", "pdp_view", "list_view"],
+        "fr": ["consultation", "produit_vu", "fiche_produit", "parcours_catalogue"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "browsed_content", "funnelStage": "consideration", "category": "Browse content/product",
+      "nativeProperties": ["category", "type", "id", "description", "author", "published_date"],
+      "aliases": {
+        "en": ["content_view", "article_view", "viewed_article", "page_view_content", "video_view", "title_view", "programme_view", "show_view", "detail_view"],
+        "fr": ["article_vu", "contenu_vu", "lecture_page", "fiche_detail", "fiche_programme", "fiche_contenu", "detail_programme", "page_programme", "programme_consulte", "contenu_consulte"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "consumed_content", "funnelStage": "conversion", "category": "Consume content/product",
+      "nativeProperties": ["category", "type", "id", "description", "author", "published_date"],
+      "aliases": {
+        "en": ["watched", "played", "read", "listened", "stream", "video_complete", "episode_complete", "consume", "video_start", "playback_start", "play_started", "stream_start", "watched_content", "programme_watched"],
+        "fr": ["visionnage", "lecture", "ecoute", "video_terminee", "episode_termine", "programme_vu", "programme_regarde", "programme_visionne", "video_vue", "lecture_video", "contenu_visionne", "visionnage_programme", "replay_vu", "direct_vu", "emission_vue"]
+      },
+      "valueBearing": true,
+      "valueMeaning": "duration or completion weight, not currency"
+    },
+    {
+      "name": "starred_content", "funnelStage": "loyalty", "category": "Save content/product",
+      "nativeProperties": ["category", "type", "id", "description"],
+      "aliases": {
+        "en": ["favorite_content", "save_article", "bookmark", "starred", "follow_topic", "add_to_watchlist", "watchlist_add", "my_list_add"],
+        "fr": ["favori_contenu", "enregistrer_article", "suivre_theme", "programme_favori", "contenu_favori", "ajout_favori", "mes_favoris", "ajout_ma_liste"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "shared_content", "funnelStage": "loyalty", "category": "Share content/product",
+      "nativeProperties": ["category", "type", "id", "source", "medium"],
+      "aliases": {
+        "en": ["share_article", "share_content", "shared"],
+        "fr": ["partage_contenu", "partager_article"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "starred_product", "funnelStage": "consideration", "category": "Save content/product",
+      "nativeProperties": ["category", "type", "id", "description"],
+      "aliases": {
+        "en": ["favorite_product", "save_product", "star_product"],
+        "fr": ["favori_produit", "produit_enregistre"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "shared_product", "funnelStage": "consideration", "category": "Share content/product",
+      "nativeProperties": ["category", "type", "id", "source", "medium"],
+      "aliases": {
+        "en": ["share_product", "product_shared"],
+        "fr": ["partage_produit"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "added_to_cart", "funnelStage": "consideration", "category": "Add to cart",
+      "nativeProperties": ["category", "type", "id", "description", "brand", "quantity"],
+      "aliases": {
+        "en": ["add_to_cart", "addtocart", "cart_add", "add_to_bag", "add_to_basket", "item_to_bag", "item_to_cart", "item_to_basket", "bag_add", "basket_add"],
+        "fr": ["ajout_panier", "panier_ajout", "ajouter_au_panier"]
+      },
+      "valueBearing": true,
+      "valueMeaning": "line or basket amount"
+    },
+    {
+      "name": "add_to_wishlist", "funnelStage": "consideration", "category": "Add to wishlist",
+      "nativeProperties": ["category", "type", "id", "description", "brand"],
+      "aliases": {
+        "en": ["wishlist_add", "add_wishlist", "save_for_later"],
+        "fr": ["liste_envies", "ajout_favoris", "envie_ajoutee"]
+      },
+      "valueBearing": false
+    },
+    {
+      "name": "remove_from_wishlist", "funnelStage": "consideration", "category": "Remove from wishlist",
+      "nativeProperties": ["category", "type", "id", "description", "brand"],
+      "aliases": {
+        "en": ["wishlist_remove", "remove_wishlist"],
+        "fr": ["retrait_favoris", "envie_supprimee"]
+      },
+      "valueBearing": false,
+      "negativeSignal": true
+    },
+    {
+      "name": "purchased", "funnelStage": "conversion", "category": "Purchase",
+      "nativeProperties": ["category", "type", "id", "description", "brand", "quantity", "currency"],
+      "aliases": {
+        "en": ["purchase", "order", "order_placed", "checkout_complete", "transaction", "payment_success", "booking_confirmed", "buy"],
+        "fr": ["achat", "achat_valide", "commande", "commande_validee", "paiement_valide", "transaction", "reservation_confirmee"]
+      },
+      "valueBearing": true,
+      "valueMeaning": "order amount in a major currency unit"
+    },
+    {
+      "name": "search", "funnelStage": "consideration", "category": "Search",
+      "nativeProperties": ["query", "type", "category", "results"],
+      "aliases": {
+        "en": ["searched", "search_performed", "query_submitted", "search_terms", "keyword_search"],
+        "fr": ["recherche", "recherche_effectuee", "mots_recherches", "termes_recherches", "recherche_mots", "mot_cle_recherche"]
+      },
+      "valueBearing": false
+    }
+  ],
+
+  "antipatternRules": [
+    {
+      "id": "technical_or_debug",
+      "label": "Technical / debug event",
+      "reason": "Instrumentation plumbing, not a business outcome — a goal on it measures the app talking to itself.",
+      "tokens": ["debug", "dummy", "_test", "test_", "staging", "sample", "sdk_", "_sdk", "init", "initialis", "initializ", "config", "error", "crash", "exception", "timeout", "retry", "heartbeat", "ping", "cache", "logger", "logging", "log_event", "trace", "deeplink_received", "background_", "foreground_service", "migration", "urlchange", "url_change", "forceupdate", "force_update", "maintenance", "launchpage"]
+    },
+    {
+      "id": "descriptive_state",
+      "label": "Descriptive state, not an act",
+      "reason": "Describes what the device or the app is, not something the user did. Excellent for segmentation, meaningless as a goal.",
+      "tokens": ["device_", "_device", "platform", "os_version", "app_version", "build_number", "darkmode", "dark_mode", "screen_size", "carrier", "user_agent"],
+      "exactNames": ["device", "devices", "os", "locale", "timezone", "language", "langue", "theme", "app_version", "version", "model", "brand", "title", "url", "image_url", "imageurl"]
+    },
+    {
+      "id": "screen_or_impression_noise",
+      "label": "Screen view / impression",
+      "reason": "Fires on nearly every session, so almost every user meets it — a goal that everyone reaches ranks nothing.",
+      "tokens": ["screen_view", "screenview", "page_view", "pageview", "impression", "displayed", "shown", "banner_view", "carousel_view", "scroll", "swipe", "dismiss"]
+    },
+    {
+      "id": "negative_signal",
+      "label": "Negative signal",
+      "reason": "The act is an outcome you want to reduce. Track it as a guardrail; optimising campaigns toward it is backwards.",
+      "tokens": ["unsubscribe", "desabonn", "opt_out", "optout", "logout", "log_out", "deconnexion", "cancel", "annul", "delete_account", "suppression_compte", "remove_from_cart", "retrait_panier", "remove_wishlist", "retrait_favoris", "uninstall", "churn", "refund", "remboursement", "abandon"]
+    },
+    {
+      "id": "consent_plumbing",
+      "label": "Consent / CMP plumbing",
+      "reason": "A regulatory dialogue every user passes through, not a business outcome — the opt-in native signal covers the part that matters.",
+      "tokens": ["cmp", "gdpr", "rgpd", "cookie", "consent_screen", "tcf", "privacy_prompt"]
+    }
+  ],
+
+  "productLimits": {
+    "eventsPerProject": {
+      "value": 1000,
+      "note": "Airship keeps up to 1 000 distinct custom event names per project. A taxonomy that sprays event names hits this ceiling and starts dropping the tail."
+    },
+    "propertiesPerEvent": {
+      "value": 100,
+      "note": "Up to 100 properties per custom event."
+    },
+    "goalsPerProject": {
+      "value": null,
+      "note": "A per-project ceiling on configured goals exists but the figure moves between releases. Do not quote a number in the report — check Reports > Goals in the dashboard for the project before promising a shortlist size. The prioritisation in this report is a hierarchy, not a quota."
+    },
+    "valueSemantics": {
+      "field": "value",
+      "type": "single numeric",
+      "note": "The reserved per-event `value` field takes ONE number. Currency symbols and thousands separators are stripped, so `value` never carries a currency by itself — the currency has to travel as its own property. Treat `value` as a client-declared counter until the collected amounts prove otherwise (decimals, a spread of amounts)."
+    }
+  },
+
+  "goalReports": [
+    {"name": "Goal", "gives": "occurrences of the goal over time"},
+    {"name": "Channels per goal", "gives": "how many distinct channels reached the goal — the unique-user view a tagging plan cannot give"},
+    {"name": "Goal frequency per channel", "gives": "how often a single channel reaches the goal, i.e. depth rather than reach"},
+    {"name": "Goals per platform", "gives": "the same split by iOS / Android / web"},
+    {"name": "Goal attribution", "gives": "direct and influenced goal completions attributed to each message, journey and Scene"}
+  ]
+}

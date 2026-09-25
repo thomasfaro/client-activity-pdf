@@ -1,0 +1,75 @@
+{
+  "_": [
+    "The shape of work/<client>/brand.json, as a machine-readable copy of the schema in",
+    ".cursor/agents/airship-brand-research.md. The agent file is written for a reader; this",
+    "one is what check_brand.py enforces. If they ever disagree, the agent file is the",
+    "source of truth for wording and this file is the source of truth for structure.",
+    "",
+    "The shape is FLAT and the key names are not free. goal_candidates.resolve_context()",
+    "reads name, vertical, business_model, description, markets, conversion_meaning, notes,",
+    "sources, not_applicable_archetypes and not_applicable_attributes directly off this",
+    "object. Nesting them, or renaming one, breaks mode B silently: the engine falls back to",
+    "the tagging-plan inference and nothing reports that it did. A draft of this schema",
+    "grouped the same facts into sixteen nested blocks and would have done exactly that.",
+    "",
+    "The caps are not style. They are what the report renders: a fifth priority is written",
+    "and then dropped by the §3c card grid, and a 60-word business_model is truncated by the",
+    "§1 layout. Writing past a cap is cost with no reader."
+  ],
+  "version": 2,
+
+  "budget": {
+    "_": "Hard stops. Wave 0 gates nothing, so it must never become the long pole.",
+    "agents": 1,
+    "passes": 1,
+    "max_searches": 10,
+    "max_fetches": 6,
+    "max_sources": 12,
+    "downstream_verification_agents": 0
+  },
+
+  "required": [
+    "name", "vertical", "country", "business_model", "description", "app_role",
+    "conversion_meaning", "priorities", "sources"
+  ],
+
+  "fields": {
+    "name":               {"type": "str",  "_": "legal or trading name"},
+    "vertical":           {"type": "str",  "_": "free-text industry; feeds resolve_vertical"},
+    "country":            {"type": "str",  "max_len": 2, "_": "ISO-3166 alpha-2, primary market"},
+    "region":             {"type": "str",  "enum": ["eu", "us", "apac", "latam"],
+                           "_": "only when country is genuinely unclear"},
+    "markets":            {"type": "list", "items": "str", "_": "ISO-3166 alpha-2 codes"},
+    "app_name":           {"type": "str",  "_": "App Store / Play name, or Android package id"},
+    "app_store_country":  {"type": "str",  "max_len": 2, "_": "store code for the icon fetch"},
+    "business_model":     {"type": "str",  "max_words": 40},
+    "description":        {"type": "str",  "max_words": 40},
+    "app_role":           {"type": "str",  "max_words": 25,
+                           "_": "transactional|media|loyalty|support, plus one clause"},
+    "conversion_meaning": {"type": "str",  "max_words": 25},
+    "loyalty":            {"type": "str",  "max_words": 40, "nullable": true},
+    "seasonality":        {"type": "list", "items": "str", "max_items": 4,
+                           "_": "commercial moment + when; a moment inside the window changes how the whole calendar reads"},
+    "priorities":         {"type": "list", "items": "str", "max_items": 4, "max_words_each": 20,
+                           "_": "§3c renders 3-4 cards"},
+    "news":               {"type": "list", "items": "str", "max_items": 5, "max_words_each": 20,
+                           "_": "YYYY-MM — event; last 12 months only, an older item cannot explain a spike in the window"},
+    "competitors":        {"type": "list", "items": "str", "max_items": 3},
+    "notes":              {"type": "str",  "max_words": 60,
+                           "_": "anything the sections must not get wrong"},
+    "not_found":          {"type": "list", "items": "str",
+                           "_": "'<field>: <where you looked>' — a blank is information, a silent omission is not"},
+    "sources":            {"type": "list", "items": "obj", "item_keys": ["title", "url"]},
+    "not_applicable_archetypes": {"type": "list", "items": "str",
+                           "_": "vertical archetypes this business cannot have; no script can infer these"},
+    "not_applicable_attributes": {"type": "list", "items": "str"}
+  },
+
+  "read_programmatically_by": {
+    "goal_candidates.resolve_context": [
+      "name", "vertical", "business_model", "description", "markets",
+      "conversion_meaning", "notes", "sources",
+      "not_applicable_archetypes", "not_applicable_attributes"
+    ]
+  }
+}
