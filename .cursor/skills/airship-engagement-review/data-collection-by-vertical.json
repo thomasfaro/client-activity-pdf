@@ -1,0 +1,3445 @@
+{
+  "kind": "airship-data-collection-by-vertical",
+  "version": 1,
+  "source": "Data Collection by Vertical.xlsx",
+  "verticals": {
+    "all verticals": {
+      "label": "all verticals",
+      "key": "all verticals",
+      "attributes": [
+        {
+          "name": "First Name",
+          "id": "first_name",
+          "description": "User's first name for message templates.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Last Name",
+          "id": "last_name",
+          "description": "User's last name.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Birthdate",
+          "id": "birthdate",
+          "description": "User's birthday for automated birthday offers.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Zipcode / Postal Code",
+          "id": "zipcode",
+          "description": "User's postal code for local promotions.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "City",
+          "id": "city",
+          "description": "User's current city.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Country",
+          "id": "country",
+          "description": "User's country.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Loyalty Tier",
+          "id": "loyalty_tier",
+          "description": "Loyalty program status tier (e.g. Gold, Silver).",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Loyalty Points Balance",
+          "id": "loyalty_points",
+          "description": "The current rewards/loyalty points balance.",
+          "type": "number",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Account registration",
+          "name": "account_created",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "registration_channel",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Login",
+          "name": "logged_in",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Logout",
+          "name": "logged_out",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "In-session Experience",
+          "name": "preferences_changed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "preference_category",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "action",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Add to cart",
+          "name": "added_to_cart",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "SKU",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "category",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "total_amount",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "cart_abandoned",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "cart_items_json",
+              "type": "JSON",
+              "description": ""
+            },
+            {
+              "name": "total_amount",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "purchased",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "transaction_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "total_amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "items_count",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "loyalty_created",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Loyalty",
+          "name": "loyalty_tier_upgrade",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "previous_tier",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "new_tier",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "free_or_paid",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "tier_expiry_date",
+              "type": "Date",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "points_redeemed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "points_spent",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "reward_item",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "Travel": {
+      "label": "Travel",
+      "key": "travel",
+      "attributes": [
+        {
+          "name": "Last Booking Date",
+          "id": "last_booking_date",
+          "description": "",
+          "type": "date",
+          "source": ""
+        },
+        {
+          "name": "Last Booking Route",
+          "id": "last_booking_route",
+          "description": "",
+          "type": "text",
+          "source": ""
+        },
+        {
+          "name": "Last Booking Ticket Value",
+          "id": "last_booking_ticket_value",
+          "description": "",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Total Booking Value",
+          "id": "total_booking_value",
+          "description": "",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Total Booking",
+          "id": "total_booking",
+          "description": "",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Nationality",
+          "id": "nationality",
+          "description": "",
+          "type": "text",
+          "source": ""
+        },
+        {
+          "name": "Cities Visited",
+          "id": "cities_visited",
+          "description": "",
+          "type": "text",
+          "source": ""
+        },
+        {
+          "name": "Flight Ticket",
+          "id": "flight_ticket",
+          "description": "",
+          "type": "json",
+          "source": ""
+        },
+        {
+          "name": "Total Miles flown",
+          "id": "total_miles_flown",
+          "description": "",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Passport on file",
+          "id": "passport_on_file",
+          "description": "",
+          "type": "boolean",
+          "source": ""
+        },
+        {
+          "name": "Touchless",
+          "id": "touchless",
+          "description": "",
+          "type": "boolean",
+          "source": ""
+        },
+        {
+          "name": "TSA precheck on file",
+          "id": "tsa_precheck_on_file",
+          "description": "",
+          "type": "boolean",
+          "source": ""
+        },
+        {
+          "name": "Loyalty member id",
+          "id": "loyalty_member_id",
+          "description": "",
+          "type": "text",
+          "source": ""
+        },
+        {
+          "name": "Home airport",
+          "id": "home_airport",
+          "description": "",
+          "type": "text",
+          "source": ""
+        },
+        {
+          "name": "Loyalty anniversary",
+          "id": "loyalty_anniversary",
+          "description": "",
+          "type": "date",
+          "source": ""
+        },
+        {
+          "name": "Cardmember anniversary",
+          "id": "cardmember_anniversary",
+          "description": "",
+          "type": "date",
+          "source": ""
+        },
+        {
+          "name": "Miles expiry date",
+          "id": "Miles expiry date",
+          "description": "",
+          "type": "date",
+          "source": ""
+        },
+        {
+          "name": "Points expiry date",
+          "id": "Points expiry date",
+          "description": "",
+          "type": "date",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Purchase",
+          "name": "booking",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "departure_location",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "arrival_location",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "departure_date",
+              "type": "Date",
+              "description": ""
+            },
+            {
+              "name": "arrival_date",
+              "type": "Date",
+              "description": ""
+            },
+            {
+              "name": "one way / round trip / multi",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "currency",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "total",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "seat_upgrade_purchase",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "total",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "priority_upgrade_purchase",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "total",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "bag_check_purchase",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "total",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "food_purchase",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "total",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "loyalty_upgrade",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "upgrade type",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "original seating class",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "new seating class",
+              "type": "text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "loyalty_enrollment",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "date registered",
+              "type": "date",
+              "description": ""
+            },
+            {
+              "name": "free or paid",
+              "type": "text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "loyalty_sign_in",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Loyalty",
+          "name": "loyalty_redemption",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "points value redeemed",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction success",
+          "name": "check_in_completed",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Loyalty",
+          "name": "credits_added",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "credit type",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "expiry date",
+              "type": "date",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update profile",
+          "name": "home_airport_changed",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Update profile",
+          "name": "subscription_preferences_added",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Update profile",
+          "name": "subscription_preferences_changed",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "self_service_check_in",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "self_service_print_bag_tag",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "self_service_rebook",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "self_service_seat_change",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "self_service_special_meal_selected",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "self_service_infant_in_arms_selected",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "self_service_airport_services_selected",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "travel_documents_complete",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "passport_scanned",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "touchless_registered",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "tsa_precheck_added",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Transaction success",
+          "name": "download_mobile_boarding_pass",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "departure location",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "departure date",
+              "type": "date",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction failure",
+          "name": "flight_delayed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "original_departure",
+              "type": "Date",
+              "description": ""
+            },
+            {
+              "name": "new_departure",
+              "type": "Date",
+              "description": ""
+            },
+            {
+              "name": "delay_duration_minutes",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "gate_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction failure",
+          "name": "flight_cancelled",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "flight_number",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "has_vouchers_issued",
+              "type": "Boolean",
+              "description": ""
+            },
+            {
+              "name": "travel_credits_value",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Location/Geofence",
+          "name": "gate_changed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "original_gate",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "new_gate",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "terminal_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "baggage_carousel_assigned",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "flight_number",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "baggage_claim_id",
+              "type": "text",
+              "description": ""
+            },
+            {
+              "name": "carousel_number",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "inflight_wifi_purchased",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "price_usd",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "device_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "access_duration",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Offer",
+          "name": "cobrand_cc_offer_exposed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "offer_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "mileage_bonus",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "placement_location",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "",
+          "name": "terminal_navigation_exposed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "terminal_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "concourse_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "security_line_wait_minutes",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update profile",
+          "name": "set_home_airport",
+          "description": "Logged when a user sets or changes their preferred home airport.",
+          "source": "",
+          "properties": [
+            {
+              "name": "airport_code",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_airport_code",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update profile",
+          "name": "city_visited",
+          "description": "Logged when a user adds a new city to their visited cities list.",
+          "source": "",
+          "properties": [
+            {
+              "name": "city_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "country",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Name",
+          "name": "ID",
+          "description": "Description",
+          "source": "",
+          "properties": [
+            {
+              "name": "Type",
+              "type": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Category",
+          "name": "Name",
+          "description": "",
+          "source": "Source (API, Client side, Server side, etc)?",
+          "properties": []
+        },
+        {
+          "category": "Purchase",
+          "name": "cart_recovery_purchase",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "Purchase",
+          "name": "cart_recovery_app",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "",
+          "name": "return_flight_app",
+          "description": "",
+          "source": "",
+          "properties": []
+        },
+        {
+          "category": "",
+          "name": "cart_recovery_web",
+          "description": "Description / Notes",
+          "source": "",
+          "properties": [
+            {
+              "name": "Custom JSON Properties",
+              "type": "",
+              "description": ""
+            },
+            {
+              "name": "currency",
+              "type": "",
+              "description": "3-letter currency code (e.g., USD, MXN)"
+            },
+            {
+              "name": "destination_airport_eng",
+              "type": "",
+              "description": "Name of destination city/airport in English"
+            },
+            {
+              "name": "destination_airport_esp",
+              "type": "",
+              "description": "Name of destination city/airport in Spanish"
+            },
+            {
+              "name": "dni",
+              "type": "",
+              "description": "National ID number (use \"0\" if none)"
+            },
+            {
+              "name": "first_name",
+              "type": "",
+              "description": "First name of primary passenger"
+            },
+            {
+              "name": "flight_type",
+              "type": "",
+              "description": "Type of trip: Oneway or Roundtrip"
+            },
+            {
+              "name": "from_airport",
+              "type": "",
+              "description": "3-letter IATA departure airport code"
+            },
+            {
+              "name": "language_code",
+              "type": "",
+              "description": "User locale (e.g., en-US, es-MX)"
+            },
+            {
+              "name": "name",
+              "type": "",
+              "description": "Full name of primary passenger"
+            },
+            {
+              "name": "num_pax_adults",
+              "type": "",
+              "description": "Integer: Total count of adult passengers"
+            },
+            {
+              "name": "num_pax_children",
+              "type": "",
+              "description": "Integer: Total count of children (2–12)"
+            },
+            {
+              "name": "num_pax_infants",
+              "type": "",
+              "description": "Integer: Total count of infants (under 2)"
+            },
+            {
+              "name": "origin_airport_eng",
+              "type": "",
+              "description": "Name of origin city/airport in English"
+            },
+            {
+              "name": "origin_airport_esp",
+              "type": "",
+              "description": "Name of origin city/airport in Spanish"
+            },
+            {
+              "name": "origin_date",
+              "type": "",
+              "description": "Departure date in DD/MM/YYYY format"
+            },
+            {
+              "name": "promo_code",
+              "type": "",
+              "description": "Promotional or discount code applied"
+            },
+            {
+              "name": "return_date",
+              "type": "",
+              "description": "Return date in DD/MM/YYYY format"
+            },
+            {
+              "name": "to_airport",
+              "type": "",
+              "description": "3-letter IATA destination airport code"
+            }
+          ]
+        },
+        {
+          "category": "Name",
+          "name": "ID",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "Description",
+              "type": "",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "Media": {
+      "label": "Media",
+      "key": "media",
+      "attributes": [
+        {
+          "name": "Subscription Status",
+          "id": "subscription_status",
+          "description": "Active, Cancelled, Paired, or Suspended status.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Subscription Level",
+          "id": "subscription_level",
+          "description": "Free, Premium, Ad-Free tier.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Subscription Start Date",
+          "id": "subscription_start_date",
+          "description": "When the subscriber first initiated billing.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Subscription Expiry Date",
+          "id": "subscription_expiry_date",
+          "description": "The billing/term expiration date.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Reader Habit Score",
+          "id": "reader_habit_score",
+          "description": "Calculated index of active reading days per week.",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Piano User ID",
+          "id": "piano_user_id",
+          "description": "Adobe/Piano unified identity identifier.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Adobe Experience ID",
+          "id": "adobe_id",
+          "description": "Unified Experience ID for cross-channel tracking.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Favorite Content Genre",
+          "id": "favorite_genre",
+          "description": "Derived preference based on content views.",
+          "type": "Text",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Activation",
+          "name": "subscription_started",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "subscription_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "currency",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Activation",
+          "name": "subscription_renewal",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "renewal_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "completed_video_event",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "video_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "duration_watched_seconds",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "category",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "read_article_completed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "article_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "category",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "topic_followed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "topic_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "action",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "live_story_followed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "story_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "headline",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "paid_access_prompt_exposed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "triggering_article_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "prompt_layout",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Activation",
+          "name": "trial_activated",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "trial_duration_days",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "payment_method_on_file",
+              "type": "Boolean",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update profile",
+          "name": "genre_preference_updated",
+          "description": "Logged when the user's favorite or preferred content genre changes.",
+          "source": "",
+          "properties": [
+            {
+              "name": "genre_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_genre",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "habit_score_calculated",
+          "description": "Logged when the reader habit score is updated or calculated.",
+          "source": "",
+          "properties": [
+            {
+              "name": "score",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "previous_score",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Activation",
+          "name": "subscription_cancelled",
+          "description": "Logged when a user cancels their active subscription.",
+          "source": "",
+          "properties": [
+            {
+              "name": "subscription_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "cancellation_reason",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Activation",
+          "name": "subscription_suspended",
+          "description": "Logged when a subscription is suspended due to payment or other issues.",
+          "source": "",
+          "properties": [
+            {
+              "name": "reason",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "Sport & Gaming": {
+      "label": "Sport & Gaming",
+      "key": "sport & gaming",
+      "attributes": [
+        {
+          "name": "Favorite Sports Team",
+          "id": "favorite_sports_team",
+          "description": "Captured via in-app onboarding preferences.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Favorite Sports League",
+          "id": "favorite_league",
+          "description": "Captured via in-app onboarding preferences.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Sports Betting Limit",
+          "id": "sports_betting_limit",
+          "description": "Weekly/Monthly deposit and betting limit.",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Player Rewards Tier",
+          "id": "player_rewards_tier",
+          "description": "Loyalty program status tier.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "User Experience Preference",
+          "id": "user_experience_preference",
+          "description": "Kiosk vs App preferred UI layout.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Last Game Watched",
+          "id": "last_game_watched",
+          "description": "ID of the most recently streamed/viewed game.",
+          "type": "Text",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Purchase",
+          "name": "bet_placed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "odds",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "sport_category",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "bets_started",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "odds",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Location/Geofence",
+          "name": "stadium_push_triggered",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "stadium_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "event_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "score_update_received",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "time_elapsed_seconds",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "survey_response_captured",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "survey_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "question",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "answer",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "media_interaction",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "content_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "topic",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "rewards_redeemed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "reward_item",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "points_spent",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "game_watched",
+          "description": "Logged when a user streams or watches a game in the app.",
+          "source": "",
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "sport_category",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "team_home",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "team_away",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "league_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "duration_watched_seconds",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "favorite_team_updated",
+          "description": "Logged when a user changes or sets their favorite sports team.",
+          "source": "",
+          "properties": [
+            {
+              "name": "team_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_team",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "sport_category",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "favorite_league_updated",
+          "description": "Logged when a user changes or sets their favorite sports league.",
+          "source": "",
+          "properties": [
+            {
+              "name": "league_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_league",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "sport_category",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update profile",
+          "name": "betting_limit_updated",
+          "description": "Logged when a user updates their weekly or monthly betting limits.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_limit",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "previous_limit",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "period",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "rewards_tier_changed",
+          "description": "Logged when a player's rewards tier changes.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_tier",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_tier",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "ux_preference_updated",
+          "description": "Logged when the user changes their layout or UI preference.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_preference",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "Retail": {
+      "label": "Retail",
+      "key": "retail",
+      "attributes": [
+        {
+          "name": "Account Creation Date",
+          "id": "account_creation",
+          "description": "The date the user created their account.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Favorite Store",
+          "id": "favorite_store",
+          "description": "The user's preferred retail outlet location.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Last Order Date",
+          "id": "last_order",
+          "description": "The date of the most recent completed order.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Payment Method",
+          "id": "payment_method",
+          "description": "Stored payment method (Apple Pay/Card).",
+          "type": "Text",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Purchase",
+          "name": "very_pay_finance_initiated",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "credit_limit_shown",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "status",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "cross_category_promoted",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "from_category",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "to_category",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "promo_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Acquisition",
+          "name": "web_to_app_prompt_clicked",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "source_page",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "survey_response_captured",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "survey_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "question",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "answer",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "Low stock in basket",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "SKU",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Engagement",
+          "name": "Price drop in basket",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "original_price",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "new_reduced_price",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Add to wishlist",
+          "name": "add_to_wishlist",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "SKU",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "favorite_store_updated",
+          "description": "Logged when a user changes or sets their preferred store location.",
+          "source": "",
+          "properties": [
+            {
+              "name": "store_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "store_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_store_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update profile",
+          "name": "payment_method_updated",
+          "description": "Logged when a user adds, removes, or updates a payment method.",
+          "source": "",
+          "properties": [
+            {
+              "name": "payment_method_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "action",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "points_earned",
+          "description": "Logged when a user earns loyalty points from a purchase or action.",
+          "source": "",
+          "properties": [
+            {
+              "name": "points_gained",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "new_balance",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "reason",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "points_spent",
+          "description": "Logged when a user redeems or spends loyalty points.",
+          "source": "",
+          "properties": [
+            {
+              "name": "points_spent",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "new_balance",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "reward_item",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "Restaurant & QSR": {
+      "label": "Restaurant & QSR",
+      "key": "restaurant & qsr",
+      "attributes": [
+        {
+          "name": "Account Creation Date",
+          "id": "account_creation",
+          "description": "The date the user created their account.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Loyalty Tier",
+          "id": "loyalty_tier",
+          "description": "Loyalty programme tier / status (e.g. Kingdom level).",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Loyalty Points Balance",
+          "id": "loyalty_points",
+          "description": "Current loyalty points / rewards-currency balance (e.g. crowns).",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Favorite Restaurant",
+          "id": "favorite_restaurant",
+          "description": "The user's preferred / home restaurant location.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Preferred Order Channel",
+          "id": "preferred_order_channel",
+          "description": "Dine-in, click & collect, delivery or drive-through preference.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Last Order Date",
+          "id": "last_order_date",
+          "description": "The date of the most recent completed order.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Total Orders",
+          "id": "total_orders",
+          "description": "Lifetime number of completed orders.",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Average Order Value",
+          "id": "average_order_value",
+          "description": "Average basket value across the user's orders.",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Dietary Preference",
+          "id": "dietary_preference",
+          "description": "Vegetarian, vegan, halal and similar declared preferences.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Birthdate",
+          "id": "birthdate",
+          "description": "The user's date of birth (birthday offers).",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "City",
+          "id": "city",
+          "description": "The user's city.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Postal Code",
+          "id": "zipcode",
+          "description": "The user's postal / zip code.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Delivery Aggregator Linked",
+          "id": "delivery_aggregator",
+          "description": "Linked third-party aggregator account(s) (Uber Eats, Deliveroo…).",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Marketing Opt-in",
+          "id": "marketing_optin",
+          "description": "Consent to marketing communications.",
+          "type": "Boolean",
+          "source": ""
+        },
+        {
+          "name": "Preferred Language",
+          "id": "preferred_language",
+          "description": "Preferred communication language.",
+          "type": "Text",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Account registration",
+          "name": "account_created",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "registration_channel",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Login",
+          "name": "logged_in",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "method",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Browse content/product",
+          "name": "menu_category_viewed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "category_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "category_name",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Browse content/product",
+          "name": "product_viewed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "product_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "category",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "price",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Add to cart",
+          "name": "add_to_cart",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "product_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "quantity",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "price",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "modifiers",
+              "type": "JSON",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Remove from cart",
+          "name": "remove_from_cart",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "quantity",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update cart",
+          "name": "product_customized",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "modifiers",
+              "type": "JSON",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "checkout_started",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "cart_value",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "item_count",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "order_channel",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "order_completed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "order_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "currency",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "order_channel",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "restaurant_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "item_count",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "payment_method",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "loyalty_earning",
+              "type": "Boolean",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction failure",
+          "name": "payment_failed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "order_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "reason",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Confirmation",
+          "name": "order_confirmed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "order_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Cancellation",
+          "name": "order_cancelled",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "order_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "reason",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Delivery",
+          "name": "order_status_updated",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "order_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "status",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "loyalty_points_earned",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "points",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "order_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "reward_redeemed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "reward_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "points_spent",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "product_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Offer",
+          "name": "coupon_redeemed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "coupon_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "order_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "discount_value",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Offer",
+          "name": "offer_viewed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "offer_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Location/Geofence",
+          "name": "restaurant_geofence_entered",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "restaurant_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "distance",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "restaurant_locator_used",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "search_type",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Preorder",
+          "name": "order_ahead_scheduled",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "restaurant_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "pickup_time",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Reservation",
+          "name": "table_booked",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "restaurant_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "party_size",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "datetime",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "FinTech": {
+      "label": "FinTech",
+      "key": "fintech",
+      "attributes": [
+        {
+          "name": "Account Type",
+          "id": "account_type",
+          "description": "Checking, savings, investment, etc.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Currency",
+          "id": "currency",
+          "description": "Default currency (EUR/USD/GBP etc).",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Card Type",
+          "id": "card_type",
+          "description": "Debit/Credit/Virtual.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Last Transaction Date",
+          "id": "last_transaction_date",
+          "description": "When they last completed a transaction.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Last Transaction Amount",
+          "id": "last_transaction_amount",
+          "description": "Details of most recent financial action.",
+          "type": "Number",
+          "source": ""
+        },
+        {
+          "name": "Account Status",
+          "id": "account_status",
+          "description": "Active/Dormant/Restricted/Suspended.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Account Number/Member #",
+          "id": "account_number",
+          "description": "User's account or membership number.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "First Account Sign In Date",
+          "id": "first_account_signin",
+          "description": "The date of first onboarding sign-in.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Last Account Sign In Date",
+          "id": "last_account_signin",
+          "description": "The date of most recent sign-in.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Preferred Contact Channel",
+          "id": "preferred_contact_channel",
+          "description": "Email, SMS, or Push preference.",
+          "type": "Text",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Loyalty",
+          "name": "wallet_pass_downloaded",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "pass_type",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "check_deposited_via_mobile",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "check_amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "status",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Account registration",
+          "name": "kyc_submitted",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "document_type",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Account registration",
+          "name": "kyc_verified",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "verification_date",
+              "type": "Date",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "fraud_alert_confirmed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "confirm",
+              "type": "Boolean",
+              "description": ""
+            },
+            {
+              "name": "deny",
+              "type": "Boolean",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Location/Geofence",
+          "name": "unusual_login_attempt",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "device",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "location",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction success",
+          "name": "high_risk_transaction",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "details",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "amount",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "account_status_changed",
+          "description": "Logged when an account changes status (e.g., active, dormant, suspended).",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_status",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_status",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "reason",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "card_activated",
+          "description": "Logged when a user activates a debit, credit, or virtual card.",
+          "source": "",
+          "properties": [
+            {
+              "name": "card_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "card_network",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "contact_preference_updated",
+          "description": "Logged when a user updates their preferred communication channels.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_channel",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_channel",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction success",
+          "name": "transaction_completed",
+          "description": "Logged when any standard transaction is completed.",
+          "source": "",
+          "properties": [
+            {
+              "name": "transaction_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "currency",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "transaction_type",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "EV Charging & Fuel": {
+      "label": "EV Charging & Fuel",
+      "key": "ev charging & fuel",
+      "attributes": [
+        {
+          "name": "Preferred Station Location",
+          "id": "preferred_station",
+          "description": "The station location they visit most frequently.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Car Manufacturer",
+          "id": "car_manufacturer",
+          "description": "User's EV/vehicle brand (e.g. Volvo, Tesla).",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "EV Charge Type Preference",
+          "id": "ev_charge_type",
+          "description": "AC/DC Fast Charge preferred standard.",
+          "type": "Text",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Location/Geofence",
+          "name": "lock_screen_loyalty_prompt",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "store_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "interaction_type",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Loyalty",
+          "name": "points_balance_updated",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "transaction_value",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "new_points_total",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "points_earned",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Offer",
+          "name": "pos_signup_prompt",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "offer_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "charge_session_started",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "charger_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "charge_duration_minutes",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "total_kwh",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "fuel_purchase",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "fuel_type",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "volume_liters",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "total_amount",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "preferred_station_updated",
+          "description": "Logged when a user updates their preferred station location.",
+          "source": "",
+          "properties": [
+            {
+              "name": "station_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "station_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_station_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "vehicle_registered",
+          "description": "Logged when a user adds or registers their vehicle.",
+          "source": "",
+          "properties": [
+            {
+              "name": "manufacturer",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "model",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "year",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "fuel_type",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "charge_preference_updated",
+          "description": "Logged when a user updates their EV charging standard preference.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_preference",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "charge_session_completed",
+          "description": "Logged when an EV charge session completes successfully.",
+          "source": "",
+          "properties": [
+            {
+              "name": "charger_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "charge_duration_minutes",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "total_kwh",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "total_amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "currency",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "Casino & Gaming": {
+      "label": "Casino & Gaming",
+      "key": "casino & gaming",
+      "attributes": [
+        {
+          "name": "Rewards Member Tier",
+          "id": "rewards_member_tier",
+          "description": "Caesars/William Hill rewards status tier.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Available Wagering Credits",
+          "id": "wagering_credits",
+          "description": "Current account balance available for betting.",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Preferred Gaming Type",
+          "id": "preferred_gaming_type",
+          "description": "Slots, Sports Betting, Table Games preference.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Last Visit Date",
+          "id": "last_visit_date",
+          "description": "The last date the player checked into a casino/app.",
+          "type": "Date",
+          "source": ""
+        },
+        {
+          "name": "Assigned VIP Host",
+          "id": "assigned_vip_host",
+          "description": "Name/ID of dedicated account VIP host.",
+          "type": "Text",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Location/Geofence",
+          "name": "stadium_push_triggered",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "stadium_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "event_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "bet_placed",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "odds",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "sport_category",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Purchase",
+          "name": "bets_started",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "odds",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction success",
+          "name": "winnings_withdrawn",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "amount",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Transaction success",
+          "name": "winnings_reinvested",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "amount",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "review_prompt_sent",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "user_sentiment",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "gaming_session_started",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "total_win_loss",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "gaming_preference_updated",
+          "description": "Logged when a player updates their preferred gaming type.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_preference",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "vip_host_assigned",
+          "description": "Logged when a VIP host is assigned to the player's account.",
+          "source": "",
+          "properties": [
+            {
+              "name": "host_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "host_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_host_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Feature usage",
+          "name": "gaming_session_completed",
+          "description": "Logged when a casino game session ends.",
+          "source": "",
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "duration_minutes",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "final_win_loss_amount",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "Recipes & Cooking": {
+      "label": "Recipes & Cooking",
+      "key": "recipes & cooking",
+      "attributes": [
+        {
+          "name": "Dietary Preference",
+          "id": "dietary_preference",
+          "description": "Vegetarian, Keto, Gluten-Free, Vegan choices.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Allergen List",
+          "id": "allergies",
+          "description": "User declared allergies list.",
+          "type": "JSON",
+          "source": ""
+        },
+        {
+          "name": "Preferred Meal Type",
+          "id": "preferred_meal_type",
+          "description": "Dinner, Lunch, Breakfast preference.",
+          "type": "Text",
+          "source": ""
+        },
+        {
+          "name": "Recipes Saved Count",
+          "id": "recipes_saved",
+          "description": "Total number of recipes saved to cookbook.",
+          "type": "number",
+          "source": ""
+        },
+        {
+          "name": "Last Recipe Cooked Date",
+          "id": "last_cooked_date",
+          "description": "The date the user last marked a recipe as cooked.",
+          "type": "Date",
+          "source": ""
+        }
+      ],
+      "events": [
+        {
+          "category": "Save content/product",
+          "name": "menu_plan_saved",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "number_of_recipes",
+              "type": "number",
+              "description": ""
+            },
+            {
+              "name": "servings_multiplier",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Update wishlist",
+          "name": "ingredients_exported_to_list",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "number_of_ingredients",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Consume content/product",
+          "name": "recipe_cooked",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "serving_size",
+              "type": "number",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Offer",
+          "name": "grocer_coupon_clipped",
+          "description": "",
+          "source": "",
+          "properties": [
+            {
+              "name": "coupon_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "grocer_name",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "dietary_preference_updated",
+          "description": "Logged when a user changes their dietary preference.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_preference",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "allergies_updated",
+          "description": "Logged when a user modifies their allergy list.",
+          "source": "",
+          "properties": [
+            {
+              "name": "added_allergies",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "removed_allergies",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "In-session Experience",
+          "name": "meal_preference_updated",
+          "description": "Logged when a user changes their meal type preference.",
+          "source": "",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "previous_preference",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Save content/product",
+          "name": "recipe_saved",
+          "description": "Logged when a user saves a recipe to their cookbook.",
+          "source": "",
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "recipe_name",
+              "type": "Text",
+              "description": ""
+            },
+            {
+              "name": "cuisine_type",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "category": "Save content/product",
+          "name": "recipe_unsaved",
+          "description": "Logged when a user removes a recipe from their cookbook.",
+          "source": "",
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "Text",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "eventCategories": [
+    "Account registration",
+    "Ad display",
+    "Add to cart",
+    "Add to wishlist",
+    "Browse content/product",
+    "Cancellation",
+    "Click",
+    "Confirmation",
+    "Consume content/product",
+    "Delivery",
+    "Expiration",
+    "Feature usage",
+    "Location/Geofence",
+    "Login",
+    "Logout",
+    "Loyalty",
+    "Offer",
+    "Preorder",
+    "Purchase",
+    "Remove from cart",
+    "Remove from wishlist",
+    "Reservation",
+    "Save content/product",
+    "Share content/product",
+    "Star content/product",
+    "Transaction failure",
+    "Transaction success",
+    "Update cart",
+    "Update profile",
+    "Update wishlist",
+    "View"
+  ]
+}

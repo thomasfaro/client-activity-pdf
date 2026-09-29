@@ -1,0 +1,2882 @@
+{
+  "meta": {
+    "source": "Airship — Data Collection by Vertical (best-practice event & attribute catalog)",
+    "file": "Data Collection by Vertical.xlsx",
+    "imported": "2026-07-29",
+    "notes": "Best-practice custom events & attributes per vertical. 'Category' is the use-case grouping used in the workbook (Purchase, Loyalty, Engagement, In-session Experience, ...), distinct from the canonical 'categories' list. value_property = the event's monetary property (amount/value/price/...) when one exists; has_currency_property flags an explicit 'currency' property. kpi_kind/is_conversion are derived from the category (see import script). This catalog is guidance, not the client's data."
+  },
+  "categories": [
+    "Account registration",
+    "Ad display",
+    "Add to cart",
+    "Add to wishlist",
+    "Browse content/product",
+    "Cancellation",
+    "Click",
+    "Confirmation",
+    "Consume content/product",
+    "Delivery",
+    "Expiration",
+    "Feature usage",
+    "Location/Geofence",
+    "Login",
+    "Logout",
+    "Loyalty",
+    "Offer",
+    "Preorder",
+    "Purchase",
+    "Remove from cart",
+    "Remove from wishlist",
+    "Reservation",
+    "Save content/product",
+    "Share content/product",
+    "Star content/product",
+    "Transaction failure",
+    "Transaction success",
+    "Update cart",
+    "Update profile",
+    "Update wishlist",
+    "View"
+  ],
+  "vertical_map": {
+    "retail": "retail",
+    "media": "media",
+    "entertainment": "media",
+    "finance_insurance": "fintech",
+    "gambling_gaming": "casino_gaming",
+    "sports_recreation": "sport_gaming",
+    "travel_transportation": "travel",
+    "food_drink": "recipes_cooking"
+  },
+  "verticals": {
+    "all_verticals": {
+      "attributes": [
+        {
+          "name": "First Name",
+          "id": "first_name",
+          "type": "text",
+          "description": "User's first name for message templates."
+        },
+        {
+          "name": "Last Name",
+          "id": "last_name",
+          "type": "text",
+          "description": "User's last name."
+        },
+        {
+          "name": "Birthdate",
+          "id": "birthdate",
+          "type": "date",
+          "description": "User's birthday for automated birthday offers."
+        },
+        {
+          "name": "Zipcode / Postal Code",
+          "id": "zipcode",
+          "type": "text",
+          "description": "User's postal code for local promotions."
+        },
+        {
+          "name": "City",
+          "id": "city",
+          "type": "text",
+          "description": "User's current city."
+        },
+        {
+          "name": "Country",
+          "id": "country",
+          "type": "text",
+          "description": "User's country."
+        },
+        {
+          "name": "Loyalty Tier",
+          "id": "loyalty_tier",
+          "type": "text",
+          "description": "Loyalty program status tier (e.g. Gold, Silver)."
+        },
+        {
+          "name": "Loyalty Points Balance",
+          "id": "loyalty_points",
+          "type": "number",
+          "description": "The current rewards/loyalty points balance."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "account_created",
+          "category": "Account registration",
+          "description": null,
+          "properties": [
+            {
+              "name": "registration_channel",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "logged_in",
+          "category": "Login",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "logged_out",
+          "category": "Logout",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "preferences_changed",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "preference_category",
+              "type": "text"
+            },
+            {
+              "name": "action",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "added_to_cart",
+          "category": "Add to cart",
+          "description": null,
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "text"
+            },
+            {
+              "name": "product_id",
+              "type": "text"
+            },
+            {
+              "name": "SKU",
+              "type": "text"
+            },
+            {
+              "name": "category",
+              "type": "text"
+            },
+            {
+              "name": "total_amount",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "total_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "cart_abandoned",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "cart_items_json",
+              "type": "json"
+            },
+            {
+              "name": "total_amount",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": "total_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "purchased",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "transaction_id",
+              "type": "text"
+            },
+            {
+              "name": "total_amount",
+              "type": "number"
+            },
+            {
+              "name": "items_count",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "total_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "loyalty_created",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "loyalty_tier_upgrade",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "previous_tier",
+              "type": "text"
+            },
+            {
+              "name": "new_tier",
+              "type": "text"
+            },
+            {
+              "name": "free_or_paid",
+              "type": "text"
+            },
+            {
+              "name": "tier_expiry_date",
+              "type": "date"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "points_redeemed",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "points_spent",
+              "type": "number"
+            },
+            {
+              "name": "reward_item",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        }
+      ],
+      "label": "all verticals",
+      "key": "all_verticals"
+    },
+    "casino_gaming": {
+      "attributes": [
+        {
+          "name": "Rewards Member Tier",
+          "id": "rewards_member_tier",
+          "type": "text",
+          "description": "Caesars/William Hill rewards status tier."
+        },
+        {
+          "name": "Available Wagering Credits",
+          "id": "wagering_credits",
+          "type": "number",
+          "description": "Current account balance available for betting."
+        },
+        {
+          "name": "Preferred Gaming Type",
+          "id": "preferred_gaming_type",
+          "type": "text",
+          "description": "Slots, Sports Betting, Table Games preference."
+        },
+        {
+          "name": "Last Visit Date",
+          "id": "last_visit_date",
+          "type": "date",
+          "description": "The last date the player checked into a casino/app."
+        },
+        {
+          "name": "Assigned VIP Host",
+          "id": "assigned_vip_host",
+          "type": "text",
+          "description": "Name/ID of dedicated account VIP host."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "stadium_push_triggered",
+          "category": "Location/Geofence",
+          "description": null,
+          "properties": [
+            {
+              "name": "stadium_name",
+              "type": "text"
+            },
+            {
+              "name": "event_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "bet_placed",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number"
+            },
+            {
+              "name": "odds",
+              "type": "number"
+            },
+            {
+              "name": "sport_category",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "bet_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "bets_started",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number"
+            },
+            {
+              "name": "odds",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "bet_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "winnings_withdrawn",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [
+            {
+              "name": "amount",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "winnings_reinvested",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [
+            {
+              "name": "amount",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "review_prompt_sent",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "user_sentiment",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "gaming_session_started",
+          "category": "Feature usage",
+          "description": null,
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "text"
+            },
+            {
+              "name": "total_win_loss",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": "total_win_loss",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "gaming_preference_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a player updates their preferred gaming type.",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "text"
+            },
+            {
+              "name": "previous_preference",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "vip_host_assigned",
+          "category": "In-session Experience",
+          "description": "Logged when a VIP host is assigned to the player's account.",
+          "properties": [
+            {
+              "name": "host_id",
+              "type": "text"
+            },
+            {
+              "name": "host_name",
+              "type": "text"
+            },
+            {
+              "name": "previous_host_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "gaming_session_completed",
+          "category": "Feature usage",
+          "description": "Logged when a casino game session ends.",
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "text"
+            },
+            {
+              "name": "duration_minutes",
+              "type": "number"
+            },
+            {
+              "name": "final_win_loss_amount",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": "final_win_loss_amount",
+          "has_currency_property": false
+        }
+      ],
+      "label": "Casino & Gaming",
+      "key": "casino_gaming"
+    },
+    "ev_charging_fuel": {
+      "attributes": [
+        {
+          "name": "Preferred Station Location",
+          "id": "preferred_station",
+          "type": "text",
+          "description": "The station location they visit most frequently."
+        },
+        {
+          "name": "Car Manufacturer",
+          "id": "car_manufacturer",
+          "type": "text",
+          "description": "User's EV/vehicle brand (e.g. Volvo, Tesla)."
+        },
+        {
+          "name": "EV Charge Type Preference",
+          "id": "ev_charge_type",
+          "type": "text",
+          "description": "AC/DC Fast Charge preferred standard."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "lock_screen_loyalty_prompt",
+          "category": "Location/Geofence",
+          "description": null,
+          "properties": [
+            {
+              "name": "store_id",
+              "type": "text"
+            },
+            {
+              "name": "interaction_type",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "points_balance_updated",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "transaction_value",
+              "type": "number"
+            },
+            {
+              "name": "new_points_total",
+              "type": "number"
+            },
+            {
+              "name": "points_earned",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": "transaction_value",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "pos_signup_prompt",
+          "category": "Offer",
+          "description": null,
+          "properties": [
+            {
+              "name": "offer_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "charge_session_started",
+          "category": "Feature usage",
+          "description": null,
+          "properties": [
+            {
+              "name": "charger_id",
+              "type": "text"
+            },
+            {
+              "name": "charge_duration_minutes",
+              "type": "number"
+            },
+            {
+              "name": "total_kwh",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "fuel_purchase",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "fuel_type",
+              "type": "text"
+            },
+            {
+              "name": "volume_liters",
+              "type": "number"
+            },
+            {
+              "name": "total_amount",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "total_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "preferred_station_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user updates their preferred station location.",
+          "properties": [
+            {
+              "name": "station_id",
+              "type": "text"
+            },
+            {
+              "name": "station_name",
+              "type": "text"
+            },
+            {
+              "name": "previous_station_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "vehicle_registered",
+          "category": "Feature usage",
+          "description": "Logged when a user adds or registers their vehicle.",
+          "properties": [
+            {
+              "name": "manufacturer",
+              "type": "text"
+            },
+            {
+              "name": "model",
+              "type": "text"
+            },
+            {
+              "name": "year",
+              "type": "number"
+            },
+            {
+              "name": "fuel_type",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "charge_preference_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user updates their EV charging standard preference.",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "text"
+            },
+            {
+              "name": "previous_preference",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "charge_session_completed",
+          "category": "Feature usage",
+          "description": "Logged when an EV charge session completes successfully.",
+          "properties": [
+            {
+              "name": "charger_id",
+              "type": "text"
+            },
+            {
+              "name": "charge_duration_minutes",
+              "type": "number"
+            },
+            {
+              "name": "total_kwh",
+              "type": "number"
+            },
+            {
+              "name": "total_amount",
+              "type": "number"
+            },
+            {
+              "name": "currency",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": "total_amount",
+          "has_currency_property": true
+        }
+      ],
+      "label": "EV Charging & Fuel",
+      "key": "ev_charging_fuel"
+    },
+    "fintech": {
+      "attributes": [
+        {
+          "name": "Account Type",
+          "id": "account_type",
+          "type": "text",
+          "description": "Checking, savings, investment, etc."
+        },
+        {
+          "name": "Currency",
+          "id": "currency",
+          "type": "text",
+          "description": "Default currency (EUR/USD/GBP etc)."
+        },
+        {
+          "name": "Card Type",
+          "id": "card_type",
+          "type": "text",
+          "description": "Debit/Credit/Virtual."
+        },
+        {
+          "name": "Last Transaction Date",
+          "id": "last_transaction_date",
+          "type": "date",
+          "description": "When they last completed a transaction."
+        },
+        {
+          "name": "Last Transaction Amount",
+          "id": "last_transaction_amount",
+          "type": "number",
+          "description": "Details of most recent financial action."
+        },
+        {
+          "name": "Account Status",
+          "id": "account_status",
+          "type": "text",
+          "description": "Active/Dormant/Restricted/Suspended."
+        },
+        {
+          "name": "Account Number/Member #",
+          "id": "account_number",
+          "type": "text",
+          "description": "User's account or membership number."
+        },
+        {
+          "name": "First Account Sign In Date",
+          "id": "first_account_signin",
+          "type": "date",
+          "description": "The date of first onboarding sign-in."
+        },
+        {
+          "name": "Last Account Sign In Date",
+          "id": "last_account_signin",
+          "type": "date",
+          "description": "The date of most recent sign-in."
+        },
+        {
+          "name": "Preferred Contact Channel",
+          "id": "preferred_contact_channel",
+          "type": "text",
+          "description": "Email, SMS, or Push preference."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "wallet_pass_downloaded",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "pass_type",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "check_deposited_via_mobile",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "check_amount",
+              "type": "number"
+            },
+            {
+              "name": "status",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": "check_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "kyc_submitted",
+          "category": "Account registration",
+          "description": null,
+          "properties": [
+            {
+              "name": "document_type",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "kyc_verified",
+          "category": "Account registration",
+          "description": null,
+          "properties": [
+            {
+              "name": "verification_date",
+              "type": "date"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "fraud_alert_confirmed",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "confirm",
+              "type": "boolean"
+            },
+            {
+              "name": "deny",
+              "type": "boolean"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "unusual_login_attempt",
+          "category": "Location/Geofence",
+          "description": null,
+          "properties": [
+            {
+              "name": "device",
+              "type": "text"
+            },
+            {
+              "name": "location",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "high_risk_transaction",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [
+            {
+              "name": "details",
+              "type": "text"
+            },
+            {
+              "name": "amount",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "account_status_changed",
+          "category": "In-session Experience",
+          "description": "Logged when an account changes status (e.g., active, dormant, suspended).",
+          "properties": [
+            {
+              "name": "new_status",
+              "type": "text"
+            },
+            {
+              "name": "previous_status",
+              "type": "text"
+            },
+            {
+              "name": "reason",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "card_activated",
+          "category": "Feature usage",
+          "description": "Logged when a user activates a debit, credit, or virtual card.",
+          "properties": [
+            {
+              "name": "card_type",
+              "type": "text"
+            },
+            {
+              "name": "card_network",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "contact_preference_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user updates their preferred communication channels.",
+          "properties": [
+            {
+              "name": "new_channel",
+              "type": "text"
+            },
+            {
+              "name": "previous_channel",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "transaction_completed",
+          "category": "Transaction success",
+          "description": "Logged when any standard transaction is completed.",
+          "properties": [
+            {
+              "name": "transaction_id",
+              "type": "text"
+            },
+            {
+              "name": "amount",
+              "type": "number"
+            },
+            {
+              "name": "currency",
+              "type": "text"
+            },
+            {
+              "name": "transaction_type",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "amount",
+          "has_currency_property": true
+        }
+      ],
+      "label": "FinTech",
+      "key": "fintech"
+    },
+    "media": {
+      "attributes": [
+        {
+          "name": "Subscription Status",
+          "id": "subscription_status",
+          "type": "text",
+          "description": "Active, Cancelled, Paired, or Suspended status."
+        },
+        {
+          "name": "Subscription Level",
+          "id": "subscription_level",
+          "type": "text",
+          "description": "Free, Premium, Ad-Free tier."
+        },
+        {
+          "name": "Subscription Start Date",
+          "id": "subscription_start_date",
+          "type": "date",
+          "description": "When the subscriber first initiated billing."
+        },
+        {
+          "name": "Subscription Expiry Date",
+          "id": "subscription_expiry_date",
+          "type": "date",
+          "description": "The billing/term expiration date."
+        },
+        {
+          "name": "Reader Habit Score",
+          "id": "reader_habit_score",
+          "type": "number",
+          "description": "Calculated index of active reading days per week."
+        },
+        {
+          "name": "Piano User ID",
+          "id": "piano_user_id",
+          "type": "text",
+          "description": "Adobe/Piano unified identity identifier."
+        },
+        {
+          "name": "Adobe Experience ID",
+          "id": "adobe_id",
+          "type": "text",
+          "description": "Unified Experience ID for cross-channel tracking."
+        },
+        {
+          "name": "Favorite Content Genre",
+          "id": "favorite_genre",
+          "type": "text",
+          "description": "Derived preference based on content views."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "subscription_started",
+          "category": "Activation",
+          "description": null,
+          "properties": [
+            {
+              "name": "subscription_type",
+              "type": "text"
+            },
+            {
+              "name": "value",
+              "type": "number"
+            },
+            {
+              "name": "currency",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "value",
+          "has_currency_property": true
+        },
+        {
+          "custom_name": "subscription_renewal",
+          "category": "Activation",
+          "description": null,
+          "properties": [
+            {
+              "name": "renewal_type",
+              "type": "text"
+            },
+            {
+              "name": "value",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "value",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "completed_video_event",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "video_id",
+              "type": "text"
+            },
+            {
+              "name": "duration_watched_seconds",
+              "type": "number"
+            },
+            {
+              "name": "category",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "read_article_completed",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "article_id",
+              "type": "text"
+            },
+            {
+              "name": "category",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "topic_followed",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "topic_name",
+              "type": "text"
+            },
+            {
+              "name": "action",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "live_story_followed",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "story_id",
+              "type": "text"
+            },
+            {
+              "name": "headline",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "paid_access_prompt_exposed",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "triggering_article_id",
+              "type": "text"
+            },
+            {
+              "name": "prompt_layout",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "trial_activated",
+          "category": "Activation",
+          "description": null,
+          "properties": [
+            {
+              "name": "trial_duration_days",
+              "type": "number"
+            },
+            {
+              "name": "payment_method_on_file",
+              "type": "boolean"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "genre_preference_updated",
+          "category": "Update profile",
+          "description": "Logged when the user's favorite or preferred content genre changes.",
+          "properties": [
+            {
+              "name": "genre_name",
+              "type": "text"
+            },
+            {
+              "name": "previous_genre",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "habit_score_calculated",
+          "category": "Engagement",
+          "description": "Logged when the reader habit score is updated or calculated.",
+          "properties": [
+            {
+              "name": "score",
+              "type": "number"
+            },
+            {
+              "name": "previous_score",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "subscription_cancelled",
+          "category": "Activation",
+          "description": "Logged when a user cancels their active subscription.",
+          "properties": [
+            {
+              "name": "subscription_type",
+              "type": "text"
+            },
+            {
+              "name": "cancellation_reason",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "subscription_suspended",
+          "category": "Activation",
+          "description": "Logged when a subscription is suspended due to payment or other issues.",
+          "properties": [
+            {
+              "name": "reason",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        }
+      ],
+      "label": "Media",
+      "key": "media"
+    },
+    "recipes_cooking": {
+      "attributes": [
+        {
+          "name": "Dietary Preference",
+          "id": "dietary_preference",
+          "type": "text",
+          "description": "Vegetarian, Keto, Gluten-Free, Vegan choices."
+        },
+        {
+          "name": "Allergen List",
+          "id": "allergies",
+          "type": "json",
+          "description": "User declared allergies list."
+        },
+        {
+          "name": "Preferred Meal Type",
+          "id": "preferred_meal_type",
+          "type": "text",
+          "description": "Dinner, Lunch, Breakfast preference."
+        },
+        {
+          "name": "Recipes Saved Count",
+          "id": "recipes_saved",
+          "type": "number",
+          "description": "Total number of recipes saved to cookbook."
+        },
+        {
+          "name": "Last Recipe Cooked Date",
+          "id": "last_cooked_date",
+          "type": "date",
+          "description": "The date the user last marked a recipe as cooked."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "menu_plan_saved",
+          "category": "Save content/product",
+          "description": null,
+          "properties": [
+            {
+              "name": "number_of_recipes",
+              "type": "number"
+            },
+            {
+              "name": "servings_multiplier",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "ingredients_exported_to_list",
+          "category": "Update wishlist",
+          "description": null,
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "text"
+            },
+            {
+              "name": "number_of_ingredients",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "recipe_cooked",
+          "category": "Consume content/product",
+          "description": null,
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "text"
+            },
+            {
+              "name": "serving_size",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "grocer_coupon_clipped",
+          "category": "Offer",
+          "description": null,
+          "properties": [
+            {
+              "name": "coupon_id",
+              "type": "text"
+            },
+            {
+              "name": "grocer_name",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "dietary_preference_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user changes their dietary preference.",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "text"
+            },
+            {
+              "name": "previous_preference",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "allergies_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user modifies their allergy list.",
+          "properties": [
+            {
+              "name": "added_allergies",
+              "type": "text"
+            },
+            {
+              "name": "removed_allergies",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "meal_preference_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user changes their meal type preference.",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "text"
+            },
+            {
+              "name": "previous_preference",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "recipe_saved",
+          "category": "Save content/product",
+          "description": "Logged when a user saves a recipe to their cookbook.",
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "text"
+            },
+            {
+              "name": "recipe_name",
+              "type": "text"
+            },
+            {
+              "name": "cuisine_type",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "recipe_unsaved",
+          "category": "Save content/product",
+          "description": "Logged when a user removes a recipe from their cookbook.",
+          "properties": [
+            {
+              "name": "recipe_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        }
+      ],
+      "label": "Recipes & Cooking",
+      "key": "recipes_cooking"
+    },
+    "retail": {
+      "attributes": [
+        {
+          "name": "Account Creation Date",
+          "id": "account_creation",
+          "type": "date",
+          "description": "The date the user created their account."
+        },
+        {
+          "name": "Favorite Store",
+          "id": "favorite_store",
+          "type": "text",
+          "description": "The user's preferred retail outlet location."
+        },
+        {
+          "name": "Last Order Date",
+          "id": "last_order",
+          "type": "date",
+          "description": "The date of the most recent completed order."
+        },
+        {
+          "name": "Payment Method",
+          "id": "payment_method",
+          "type": "text",
+          "description": "Stored payment method (Apple Pay/Card)."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "very_pay_finance_initiated",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "credit_limit_shown",
+              "type": "number"
+            },
+            {
+              "name": "status",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "credit_limit_shown",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "cross_category_promoted",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "from_category",
+              "type": "text"
+            },
+            {
+              "name": "to_category",
+              "type": "text"
+            },
+            {
+              "name": "promo_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "web_to_app_prompt_clicked",
+          "category": "Acquisition",
+          "description": null,
+          "properties": [
+            {
+              "name": "source_page",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "survey_response_captured",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "survey_id",
+              "type": "text"
+            },
+            {
+              "name": "question",
+              "type": "text"
+            },
+            {
+              "name": "answer",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "Low stock in basket",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "text"
+            },
+            {
+              "name": "product_id",
+              "type": "text"
+            },
+            {
+              "name": "SKU",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "Price drop in basket",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "text"
+            },
+            {
+              "name": "original_price",
+              "type": "number"
+            },
+            {
+              "name": "new_reduced_price",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": "original_price",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "add_to_wishlist",
+          "category": "Add to wishlist",
+          "description": null,
+          "properties": [
+            {
+              "name": "product_name",
+              "type": "text"
+            },
+            {
+              "name": "product_id",
+              "type": "text"
+            },
+            {
+              "name": "SKU",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "favorite_store_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user changes or sets their preferred store location.",
+          "properties": [
+            {
+              "name": "store_id",
+              "type": "text"
+            },
+            {
+              "name": "store_name",
+              "type": "text"
+            },
+            {
+              "name": "previous_store_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "payment_method_updated",
+          "category": "Update profile",
+          "description": "Logged when a user adds, removes, or updates a payment method.",
+          "properties": [
+            {
+              "name": "payment_method_type",
+              "type": "text"
+            },
+            {
+              "name": "action",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "points_earned",
+          "category": "Loyalty",
+          "description": "Logged when a user earns loyalty points from a purchase or action.",
+          "properties": [
+            {
+              "name": "points_gained",
+              "type": "number"
+            },
+            {
+              "name": "new_balance",
+              "type": "number"
+            },
+            {
+              "name": "reason",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "points_spent",
+          "category": "Loyalty",
+          "description": "Logged when a user redeems or spends loyalty points.",
+          "properties": [
+            {
+              "name": "points_spent",
+              "type": "number"
+            },
+            {
+              "name": "new_balance",
+              "type": "number"
+            },
+            {
+              "name": "reward_item",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        }
+      ],
+      "label": "Retail",
+      "key": "retail"
+    },
+    "sport_gaming": {
+      "attributes": [
+        {
+          "name": "Favorite Sports Team",
+          "id": "favorite_sports_team",
+          "type": "text",
+          "description": "Captured via in-app onboarding preferences."
+        },
+        {
+          "name": "Favorite Sports League",
+          "id": "favorite_league",
+          "type": "text",
+          "description": "Captured via in-app onboarding preferences."
+        },
+        {
+          "name": "Sports Betting Limit",
+          "id": "sports_betting_limit",
+          "type": "number",
+          "description": "Weekly/Monthly deposit and betting limit."
+        },
+        {
+          "name": "Player Rewards Tier",
+          "id": "player_rewards_tier",
+          "type": "text",
+          "description": "Loyalty program status tier."
+        },
+        {
+          "name": "User Experience Preference",
+          "id": "user_experience_preference",
+          "type": "text",
+          "description": "Kiosk vs App preferred UI layout."
+        },
+        {
+          "name": "Last Game Watched",
+          "id": "last_game_watched",
+          "type": "text",
+          "description": "ID of the most recently streamed/viewed game."
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "bet_placed",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number"
+            },
+            {
+              "name": "odds",
+              "type": "number"
+            },
+            {
+              "name": "sport_category",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "bet_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "bets_started",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "bet_amount",
+              "type": "number"
+            },
+            {
+              "name": "odds",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "bet_amount",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "stadium_push_triggered",
+          "category": "Location/Geofence",
+          "description": null,
+          "properties": [
+            {
+              "name": "stadium_name",
+              "type": "text"
+            },
+            {
+              "name": "event_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "score_update_received",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "text"
+            },
+            {
+              "name": "time_elapsed_seconds",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "survey_response_captured",
+          "category": "In-session Experience",
+          "description": null,
+          "properties": [
+            {
+              "name": "survey_id",
+              "type": "text"
+            },
+            {
+              "name": "question",
+              "type": "text"
+            },
+            {
+              "name": "answer",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "media_interaction",
+          "category": "Engagement",
+          "description": null,
+          "properties": [
+            {
+              "name": "content_type",
+              "type": "text"
+            },
+            {
+              "name": "topic",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "rewards_redeemed",
+          "category": "Feature usage",
+          "description": null,
+          "properties": [
+            {
+              "name": "reward_item",
+              "type": "text"
+            },
+            {
+              "name": "points_spent",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "game_watched",
+          "category": "Engagement",
+          "description": "Logged when a user streams or watches a game in the app.",
+          "properties": [
+            {
+              "name": "game_id",
+              "type": "text"
+            },
+            {
+              "name": "sport_category",
+              "type": "text"
+            },
+            {
+              "name": "team_home",
+              "type": "text"
+            },
+            {
+              "name": "team_away",
+              "type": "text"
+            },
+            {
+              "name": "league_name",
+              "type": "text"
+            },
+            {
+              "name": "duration_watched_seconds",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "favorite_team_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user changes or sets their favorite sports team.",
+          "properties": [
+            {
+              "name": "team_name",
+              "type": "text"
+            },
+            {
+              "name": "previous_team",
+              "type": "text"
+            },
+            {
+              "name": "sport_category",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "favorite_league_updated",
+          "category": "In-session Experience",
+          "description": "Logged when a user changes or sets their favorite sports league.",
+          "properties": [
+            {
+              "name": "league_name",
+              "type": "text"
+            },
+            {
+              "name": "previous_league",
+              "type": "text"
+            },
+            {
+              "name": "sport_category",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "betting_limit_updated",
+          "category": "Update profile",
+          "description": "Logged when a user updates their weekly or monthly betting limits.",
+          "properties": [
+            {
+              "name": "new_limit",
+              "type": "number"
+            },
+            {
+              "name": "previous_limit",
+              "type": "number"
+            },
+            {
+              "name": "period",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "rewards_tier_changed",
+          "category": "Loyalty",
+          "description": "Logged when a player's rewards tier changes.",
+          "properties": [
+            {
+              "name": "new_tier",
+              "type": "text"
+            },
+            {
+              "name": "previous_tier",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "ux_preference_updated",
+          "category": "In-session Experience",
+          "description": "Logged when the user changes their layout or UI preference.",
+          "properties": [
+            {
+              "name": "new_preference",
+              "type": "text"
+            },
+            {
+              "name": "previous_preference",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        }
+      ],
+      "label": "Sport & Gaming",
+      "key": "sport_gaming"
+    },
+    "travel": {
+      "attributes": [
+        {
+          "name": "Last Booking Date",
+          "id": "last_booking_date",
+          "type": "date",
+          "description": null
+        },
+        {
+          "name": "Last Booking Route",
+          "id": "last_booking_route",
+          "type": "text",
+          "description": null
+        },
+        {
+          "name": "Last Booking Ticket Value",
+          "id": "last_booking_ticket_value",
+          "type": "number",
+          "description": null
+        },
+        {
+          "name": "Total Booking Value",
+          "id": "total_booking_value",
+          "type": "number",
+          "description": null
+        },
+        {
+          "name": "Total Booking",
+          "id": "total_booking",
+          "type": "number",
+          "description": null
+        },
+        {
+          "name": "Nationality",
+          "id": "nationality",
+          "type": "text",
+          "description": null
+        },
+        {
+          "name": "Cities Visited",
+          "id": "cities_visited",
+          "type": "text",
+          "description": null
+        },
+        {
+          "name": "Flight Ticket",
+          "id": "flight_ticket",
+          "type": "json",
+          "description": null
+        },
+        {
+          "name": "Total Miles flown",
+          "id": "total_miles_flown",
+          "type": "number",
+          "description": null
+        },
+        {
+          "name": "Passport on file",
+          "id": "passport_on_file",
+          "type": "boolean",
+          "description": null
+        },
+        {
+          "name": "Touchless",
+          "id": "touchless",
+          "type": "boolean",
+          "description": null
+        },
+        {
+          "name": "TSA precheck on file",
+          "id": "tsa_precheck_on_file",
+          "type": "boolean",
+          "description": null
+        },
+        {
+          "name": "Loyalty member id",
+          "id": "loyalty_member_id",
+          "type": "text",
+          "description": null
+        },
+        {
+          "name": "Home airport",
+          "id": "home_airport",
+          "type": "text",
+          "description": null
+        },
+        {
+          "name": "Loyalty anniversary",
+          "id": "loyalty_anniversary",
+          "type": "date",
+          "description": null
+        },
+        {
+          "name": "Cardmember anniversary",
+          "id": "cardmember_anniversary",
+          "type": "date",
+          "description": null
+        }
+      ],
+      "events": [
+        {
+          "custom_name": "booking",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "departure_location",
+              "type": "text"
+            },
+            {
+              "name": "arrival_location",
+              "type": "text"
+            },
+            {
+              "name": "departure_date",
+              "type": "date"
+            },
+            {
+              "name": "arrival_date",
+              "type": "date"
+            },
+            {
+              "name": "one way / round trip / multi",
+              "type": "text"
+            },
+            {
+              "name": "currency",
+              "type": "text"
+            },
+            {
+              "name": "total",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": true
+        },
+        {
+          "custom_name": "seat_upgrade_purchase",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text"
+            },
+            {
+              "name": "total",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": true
+        },
+        {
+          "custom_name": "priority_upgrade_purchase",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text"
+            },
+            {
+              "name": "total",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": true
+        },
+        {
+          "custom_name": "bag_check_purchase",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text"
+            },
+            {
+              "name": "total",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": true
+        },
+        {
+          "custom_name": "food_purchase",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "currency",
+              "type": "text"
+            },
+            {
+              "name": "total",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": true
+        },
+        {
+          "custom_name": "loyalty_upgrade",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "upgrade type",
+              "type": "text"
+            },
+            {
+              "name": "original seating class",
+              "type": "text"
+            },
+            {
+              "name": "new seating class",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "loyalty_enrollment",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "date registered",
+              "type": "date"
+            },
+            {
+              "name": "free or paid",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "loyalty_sign_in",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "loyalty_redemption",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "points value redeemed",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "check_in_completed",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "credits_added",
+          "category": "Loyalty",
+          "description": null,
+          "properties": [
+            {
+              "name": "credit type",
+              "type": "text"
+            },
+            {
+              "name": "expiry date",
+              "type": "date"
+            }
+          ],
+          "kpi_kind": "loyalty",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "home_airport_changed",
+          "category": "Update profile",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "subscription_preferences_added",
+          "category": "Update profile",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "subscription_preferences_changed",
+          "category": "Update profile",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "self_service_check_in",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "self_service_print_bag_tag",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "self_service_rebook",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "self_service_seat_change",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "self_service_special_meal_selected",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "self_service_infant_in_arms_selected",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "self_service_airport_services_selected",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "travel_documents_complete",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "passport_scanned",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "touchless_registered",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "tsa_precheck_added",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "download_mobile_boarding_pass",
+          "category": "Transaction success",
+          "description": null,
+          "properties": [
+            {
+              "name": "departure location",
+              "type": "text"
+            },
+            {
+              "name": "departure date",
+              "type": "date"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "flight_delayed",
+          "category": "Transaction failure",
+          "description": null,
+          "properties": [
+            {
+              "name": "original_departure",
+              "type": "date"
+            },
+            {
+              "name": "new_departure",
+              "type": "date"
+            },
+            {
+              "name": "delay_duration_minutes",
+              "type": "number"
+            },
+            {
+              "name": "gate_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "flight_cancelled",
+          "category": "Transaction failure",
+          "description": null,
+          "properties": [
+            {
+              "name": "flight_number",
+              "type": "text"
+            },
+            {
+              "name": "has_vouchers_issued",
+              "type": "boolean"
+            },
+            {
+              "name": "travel_credits_value",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": "travel_credits_value",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "gate_changed",
+          "category": "Location/Geofence",
+          "description": null,
+          "properties": [
+            {
+              "name": "original_gate",
+              "type": "text"
+            },
+            {
+              "name": "new_gate",
+              "type": "text"
+            },
+            {
+              "name": "terminal_id",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "baggage_carousel_assigned",
+          "category": "Feature usage",
+          "description": null,
+          "properties": [
+            {
+              "name": "flight_number",
+              "type": "text"
+            },
+            {
+              "name": "baggage_claim_id",
+              "type": "text"
+            },
+            {
+              "name": "carousel_number",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "inflight_wifi_purchased",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "price_usd",
+              "type": "number"
+            },
+            {
+              "name": "device_type",
+              "type": "text"
+            },
+            {
+              "name": "access_duration",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": "price_usd",
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "cobrand_cc_offer_exposed",
+          "category": "Offer",
+          "description": null,
+          "properties": [
+            {
+              "name": "offer_id",
+              "type": "text"
+            },
+            {
+              "name": "mileage_bonus",
+              "type": "number"
+            },
+            {
+              "name": "placement_location",
+              "type": "text"
+            },
+            {
+              "name": "terminal_id",
+              "type": "text"
+            },
+            {
+              "name": "concourse_id",
+              "type": "text"
+            },
+            {
+              "name": "security_line_wait_minutes",
+              "type": "number"
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "set_home_airport",
+          "category": "Update profile",
+          "description": "Logged when a user sets or changes their preferred home airport.",
+          "properties": [
+            {
+              "name": "airport_code",
+              "type": "text"
+            },
+            {
+              "name": "previous_airport_code",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "city_visited",
+          "category": "Update profile",
+          "description": "Logged when a user adds a new city to their visited cities list.",
+          "properties": [
+            {
+              "name": "city_name",
+              "type": "text"
+            },
+            {
+              "name": "country",
+              "type": "text"
+            }
+          ],
+          "kpi_kind": "usage",
+          "is_conversion": false,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "cart_recovery_purchase",
+          "category": "Purchase",
+          "description": null,
+          "properties": [],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": false
+        },
+        {
+          "custom_name": "cart_recovery_app",
+          "category": "Purchase",
+          "description": null,
+          "properties": [
+            {
+              "name": "Custom JSON Properties",
+              "type": null
+            },
+            {
+              "name": "currency",
+              "type": null
+            },
+            {
+              "name": "destination_airport_eng",
+              "type": null
+            },
+            {
+              "name": "destination_airport_esp",
+              "type": null
+            },
+            {
+              "name": "dni",
+              "type": null
+            },
+            {
+              "name": "first_name",
+              "type": null
+            },
+            {
+              "name": "flight_type",
+              "type": null
+            },
+            {
+              "name": "from_airport",
+              "type": null
+            },
+            {
+              "name": "language_code",
+              "type": null
+            },
+            {
+              "name": "name",
+              "type": null
+            },
+            {
+              "name": "num_pax_adults",
+              "type": null
+            },
+            {
+              "name": "num_pax_children",
+              "type": null
+            },
+            {
+              "name": "num_pax_infants",
+              "type": null
+            },
+            {
+              "name": "origin_airport_eng",
+              "type": null
+            },
+            {
+              "name": "origin_airport_esp",
+              "type": null
+            },
+            {
+              "name": "origin_date",
+              "type": null
+            },
+            {
+              "name": "promo_code",
+              "type": null
+            },
+            {
+              "name": "return_date",
+              "type": null
+            },
+            {
+              "name": "to_airport",
+              "type": null
+            }
+          ],
+          "kpi_kind": "business",
+          "is_conversion": true,
+          "value_property": null,
+          "has_currency_property": true
+        }
+      ],
+      "label": "Travel",
+      "key": "travel"
+    }
+  }
+}

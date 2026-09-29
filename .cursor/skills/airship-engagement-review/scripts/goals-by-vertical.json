@@ -1,0 +1,789 @@
+{
+  "kind": "airship-goals-by-vertical",
+  "version": 1,
+  "language": "en",
+  "note": "Which goal archetypes matter, and in what order, for a given vertical and business model. Vertical keys mirror data-collection-by-vertical.json so the vertical the tagging-plan analyzer chose (analysis.chosenVertical) resolves directly. `aliases` catches free text and benchmarks.json keys. This file is the main contextualisation lever of the light Goals review: it decides which collected event becomes the north star and which funnel stage counts as blind.",
+  "aliases": {
+    "retail": "Retail",
+    "ecommerce": "Retail",
+    "e-commerce": "Retail",
+    "grocery": "Retail",
+    "commerce": "Retail",
+    "media": "Media",
+    "entertainment": "Media",
+    "news": "Media",
+    "broadcast": "Media",
+    "streaming": "Media",
+    "publisher": "Media",
+    "travel": "Travel",
+    "travel_transportation": "Travel",
+    "transport": "Travel",
+    "airline": "Travel",
+    "hospitality": "Travel",
+    "mobility": "Travel",
+    "fintech": "FinTech",
+    "finance": "FinTech",
+    "finance_insurance": "FinTech",
+    "banking": "FinTech",
+    "bank": "FinTech",
+    "insurance": "FinTech",
+    "assurance": "FinTech",
+    "sport": "Sport & Gaming",
+    "sports": "Sport & Gaming",
+    "sports_recreation": "Sport & Gaming",
+    "football": "Sport & Gaming",
+    "gaming": "Sport & Gaming",
+    "casino": "Casino & Gaming",
+    "gambling": "Casino & Gaming",
+    "gambling_gaming": "Casino & Gaming",
+    "betting": "Casino & Gaming",
+    "restaurant": "Restaurant & QSR",
+    "qsr": "Restaurant & QSR",
+    "food_drink": "Restaurant & QSR",
+    "fastfood": "Restaurant & QSR",
+    "recipes": "Recipes & Cooking",
+    "cooking": "Recipes & Cooking",
+    "ev": "EV Charging & Fuel",
+    "fuel": "EV Charging & Fuel",
+    "charging": "EV Charging & Fuel",
+    "energy": "EV Charging & Fuel",
+    "telecom": "all verticals",
+    "telco": "all verticals",
+    "operator": "all verticals",
+    "utility_productivity": "all verticals",
+    "all_verticals": "all verticals",
+    "health": "all verticals",
+    "medical_health_fitness": "all verticals",
+    "education": "all verticals",
+    "government": "all verticals",
+    "business": "all verticals",
+    "social": "all verticals",
+    "charities_foundations_and_non_profit": "all verticals"
+  },
+  "businessModels": [
+    {
+      "id": "transactional",
+      "label": "Transactional",
+      "description": "Revenue lands on a discrete purchase, order or booking.",
+      "conversionMeaning": "a completed, paid transaction",
+      "defaultPeriod": "weekly",
+      "boostStages": {
+        "conversion": 1.25,
+        "consideration": 1.1,
+        "loyalty": 1.0
+      },
+      "requiresMonetaryValue": true,
+      "northStarPreference": [
+        "purchased",
+        "added_to_cart"
+      ]
+    },
+    {
+      "id": "subscription",
+      "label": "Subscription",
+      "description": "Revenue is recurring; the fight is activation then churn, not the single sale.",
+      "conversionMeaning": "a started, renewed or retained subscription",
+      "defaultPeriod": "monthly",
+      "boostStages": {
+        "conversion": 1.2,
+        "retention": 1.25,
+        "activation": 1.15
+      },
+      "requiresMonetaryValue": true,
+      "northStarPreference": [
+        "purchased",
+        "consumed_content"
+      ]
+    },
+    {
+      "id": "ad_funded",
+      "label": "Ad-funded",
+      "description": "Revenue follows attention: sessions, content consumed, inventory served.",
+      "conversionMeaning": "depth of consumption, not a payment",
+      "defaultPeriod": "daily",
+      "boostStages": {
+        "conversion": 1.15,
+        "retention": 1.3,
+        "loyalty": 1.1
+      },
+      "requiresMonetaryValue": false,
+      "northStarPreference": [
+        "consumed_content",
+        "app_open",
+        "browsed_content"
+      ]
+    },
+    {
+      "id": "service_account",
+      "label": "Service / account management",
+      "description": "The app services an existing contract; success is self-service completion and reachability, not a sale.",
+      "conversionMeaning": "a self-service task completed in the app instead of in a call centre",
+      "defaultPeriod": "monthly",
+      "boostStages": {
+        "activation": 1.3,
+        "retention": 1.2,
+        "conversion": 1.0
+      },
+      "requiresMonetaryValue": false,
+      "northStarPreference": [
+        "named_user_association",
+        "registered_account",
+        "app_open"
+      ]
+    },
+    {
+      "id": "marketplace",
+      "label": "Marketplace",
+      "description": "Two-sided; the platform is paid on matched transactions.",
+      "conversionMeaning": "a completed match or booking between the two sides",
+      "defaultPeriod": "weekly",
+      "boostStages": {
+        "conversion": 1.25,
+        "consideration": 1.15
+      },
+      "requiresMonetaryValue": true,
+      "northStarPreference": [
+        "purchased",
+        "search"
+      ]
+    }
+  ],
+  "defaultBusinessModel": "transactional",
+  "verticals": {
+    "all verticals": {
+      "label": "All verticals",
+      "key": "all_verticals",
+      "businessModel": "service_account",
+      "conversionMeaning": "the single act the brand is judged on — confirm it with the client before configuring anything",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "notification_opt_in",
+          "named_user_association"
+        ],
+        "consideration": [
+          "browsed",
+          "search",
+          "added_to_cart"
+        ],
+        "conversion": [
+          "purchased",
+          "consumed_content"
+        ],
+        "loyalty": [
+          "starred_content",
+          "shared_content"
+        ],
+        "retention": [
+          "app_open",
+          "logged_out"
+        ]
+      },
+      "priorityArchetypes": [
+        "purchased",
+        "registered_account",
+        "named_user_association",
+        "app_open"
+      ],
+      "blindStagePitch": {
+        "conversion": "No collected event marks the moment the business is paid. Every campaign report stops at opens.",
+        "activation": "Nothing marks the transition from installed to signed-in, so onboarding cannot be measured or optimised."
+      }
+    },
+    "Retail": {
+      "label": "Retail",
+      "key": "retail",
+      "businessModel": "transactional",
+      "conversionMeaning": "a paid order, in-app or click-and-collect, with its amount",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "named_user_association",
+          "notification_opt_in"
+        ],
+        "consideration": [
+          "browsed",
+          "search",
+          "add_to_wishlist",
+          "added_to_cart"
+        ],
+        "conversion": [
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_product",
+          "shared_product"
+        ],
+        "retention": [
+          "app_open"
+        ]
+      },
+      "priorityArchetypes": [
+        "purchased",
+        "added_to_cart",
+        "registered_account",
+        "browsed"
+      ],
+      "valueCritical": [
+        "purchased",
+        "added_to_cart"
+      ],
+      "blindStagePitch": {
+        "conversion": "Purchase is not tracked, so no campaign can be credited with revenue — the account is measured on opens while the business is measured on baskets.",
+        "consideration": "Cart and wishlist are not tracked, which removes abandonment recovery, the single highest-ROI retail journey."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "purchased",
+          "why": "revenue attribution on every message and Scene",
+          "properties": [
+            "value",
+            "currency",
+            "category",
+            "quantity"
+          ]
+        },
+        {
+          "archetype": "added_to_cart",
+          "why": "unlocks cart-abandonment journeys and a consideration-stage goal",
+          "properties": [
+            "value",
+            "currency",
+            "id",
+            "category"
+          ]
+        },
+        {
+          "archetype": "search",
+          "why": "intent signal for restock and category-affinity messaging",
+          "properties": [
+            "query",
+            "results"
+          ]
+        }
+      ]
+    },
+    "Media": {
+      "label": "Media",
+      "key": "media",
+      "businessModel": "ad_funded",
+      "conversionMeaning": "content actually consumed to a meaningful depth, not merely opened",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "named_user_association",
+          "notification_opt_in"
+        ],
+        "consideration": [
+          "browsed_content",
+          "search"
+        ],
+        "conversion": [
+          "consumed_content",
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_content",
+          "shared_content"
+        ],
+        "retention": [
+          "app_open",
+          "web_session"
+        ]
+      },
+      "priorityArchetypes": [
+        "consumed_content",
+        "browsed_content",
+        "registered_account",
+        "app_open"
+      ],
+      "valueCritical": [
+        "consumed_content"
+      ],
+      "numericPropertyHints": [
+        "duration",
+        "progress",
+        "percent_complete",
+        "time_in_app"
+      ],
+      "blindStagePitch": {
+        "conversion": "Nothing distinguishes a user who watched an episode from one who opened the app and left. Editorial push is optimised on opens, which is the wrong outcome.",
+        "loyalty": "No follow / favourite / share signal, so affinity has to be inferred from browsing alone."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "consumed_content",
+          "why": "separates real consumption from a bounce, and is the only honest conversion for an ad-funded model",
+          "properties": [
+            "id",
+            "category",
+            "duration",
+            "percent_complete"
+          ]
+        },
+        {
+          "archetype": "starred_content",
+          "why": "explicit affinity for topic and series personalisation",
+          "properties": [
+            "id",
+            "category"
+          ]
+        },
+        {
+          "archetype": "purchased",
+          "why": "subscription starts and upgrades, where the model is hybrid",
+          "properties": [
+            "value",
+            "currency",
+            "type"
+          ]
+        }
+      ]
+    },
+    "Sport & Gaming": {
+      "label": "Sport & Gaming",
+      "key": "sport_gaming",
+      "businessModel": "ad_funded",
+      "conversionMeaning": "engagement around a fixture or a match — followed teams, live sessions, content consumed",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "notification_opt_in",
+          "named_user_association"
+        ],
+        "consideration": [
+          "browsed_content",
+          "search"
+        ],
+        "conversion": [
+          "consumed_content",
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_content",
+          "shared_content"
+        ],
+        "retention": [
+          "app_open"
+        ]
+      },
+      "priorityArchetypes": [
+        "starred_content",
+        "consumed_content",
+        "notification_opt_in",
+        "app_open"
+      ],
+      "numericPropertyHints": [
+        "duration",
+        "time_in_app"
+      ],
+      "blindStagePitch": {
+        "loyalty": "Followed team or competition is the personalisation backbone of a sports app; without it every push is generic.",
+        "conversion": "Nothing marks live-session attendance, so match-day campaigns cannot be judged."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "starred_content",
+          "why": "followed team / competition drives every relevant alert",
+          "properties": [
+            "id",
+            "category",
+            "type"
+          ]
+        },
+        {
+          "archetype": "consumed_content",
+          "why": "live and replay attendance, the outcome match-day pushes chase",
+          "properties": [
+            "id",
+            "category",
+            "duration"
+          ]
+        }
+      ]
+    },
+    "Travel": {
+      "label": "Travel",
+      "key": "travel",
+      "businessModel": "transactional",
+      "conversionMeaning": "a confirmed, paid booking",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "named_user_association"
+        ],
+        "consideration": [
+          "search",
+          "browsed",
+          "add_to_wishlist",
+          "added_to_cart"
+        ],
+        "conversion": [
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_product",
+          "shared_product"
+        ],
+        "retention": [
+          "app_open"
+        ]
+      },
+      "priorityArchetypes": [
+        "purchased",
+        "search",
+        "registered_account",
+        "added_to_cart"
+      ],
+      "valueCritical": [
+        "purchased"
+      ],
+      "blindStagePitch": {
+        "consideration": "Search and itinerary browsing are the intent signals a travel brand lives on; untracked, abandoned-search remarketing is impossible.",
+        "conversion": "Booking is not tracked, so no revenue can be attributed to any message."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "search",
+          "why": "route, date and destination intent for abandoned-search journeys",
+          "properties": [
+            "query",
+            "origin",
+            "destination",
+            "date"
+          ]
+        },
+        {
+          "archetype": "purchased",
+          "why": "booking value attribution and post-booking service journeys",
+          "properties": [
+            "value",
+            "currency",
+            "id",
+            "category"
+          ]
+        }
+      ]
+    },
+    "FinTech": {
+      "label": "FinTech",
+      "key": "fintech",
+      "businessModel": "service_account",
+      "conversionMeaning": "a funded account, a completed application, or a self-service task done in-app",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "named_user_association",
+          "notification_opt_in"
+        ],
+        "consideration": [
+          "browsed",
+          "search"
+        ],
+        "conversion": [
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_product"
+        ],
+        "retention": [
+          "app_open",
+          "logged_out"
+        ]
+      },
+      "priorityArchetypes": [
+        "named_user_association",
+        "registered_account",
+        "purchased",
+        "app_open"
+      ],
+      "valueCritical": [
+        "purchased"
+      ],
+      "blindStagePitch": {
+        "activation": "Account opening and KYC completion are the funnel for a financial app; untracked, onboarding drop-off is invisible.",
+        "conversion": "No event marks a funded account, a subscribed product or a completed claim, so the commercial outcome cannot be attributed."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "registered_account",
+          "why": "onboarding and KYC completion, the activation gate",
+          "properties": [
+            "type",
+            "source",
+            "step"
+          ]
+        },
+        {
+          "archetype": "purchased",
+          "why": "product subscription or first funding, with its amount",
+          "properties": [
+            "value",
+            "currency",
+            "type",
+            "id"
+          ]
+        }
+      ]
+    },
+    "Restaurant & QSR": {
+      "label": "Restaurant & QSR",
+      "key": "restaurant_qsr",
+      "businessModel": "transactional",
+      "conversionMeaning": "a placed order, in-store or delivery, with its amount",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "named_user_association"
+        ],
+        "consideration": [
+          "browsed",
+          "added_to_cart"
+        ],
+        "conversion": [
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_product"
+        ],
+        "retention": [
+          "app_open"
+        ]
+      },
+      "priorityArchetypes": [
+        "purchased",
+        "added_to_cart",
+        "registered_account",
+        "app_open"
+      ],
+      "valueCritical": [
+        "purchased",
+        "added_to_cart"
+      ],
+      "blindStagePitch": {
+        "conversion": "Order is not tracked, so the offer pushes that drive the whole programme cannot be credited with a single euro."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "purchased",
+          "why": "order value attribution on offer campaigns",
+          "properties": [
+            "value",
+            "currency",
+            "category",
+            "store"
+          ]
+        },
+        {
+          "archetype": "added_to_cart",
+          "why": "basket abandonment within a short delivery window",
+          "properties": [
+            "value",
+            "currency",
+            "id"
+          ]
+        }
+      ]
+    },
+    "Casino & Gaming": {
+      "label": "Casino & Gaming",
+      "key": "casino_gaming",
+      "businessModel": "transactional",
+      "conversionMeaning": "a deposit or a staked wager",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "named_user_association"
+        ],
+        "consideration": [
+          "browsed",
+          "search"
+        ],
+        "conversion": [
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_content"
+        ],
+        "retention": [
+          "app_open"
+        ]
+      },
+      "priorityArchetypes": [
+        "purchased",
+        "registered_account",
+        "app_open",
+        "logged_in"
+      ],
+      "valueCritical": [
+        "purchased"
+      ],
+      "blindStagePitch": {
+        "conversion": "Deposit and stake are the only outcomes that matter here; untracked, the account is flying blind on revenue.",
+        "activation": "Registration and first deposit are separate steps and both need their own event."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "purchased",
+          "why": "deposit and stake value, the commercial outcome",
+          "properties": [
+            "value",
+            "currency",
+            "type",
+            "category"
+          ]
+        }
+      ]
+    },
+    "Recipes & Cooking": {
+      "label": "Recipes & Cooking",
+      "key": "recipes_cooking",
+      "businessModel": "ad_funded",
+      "conversionMeaning": "a recipe actually saved or cooked, not merely browsed",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "notification_opt_in"
+        ],
+        "consideration": [
+          "browsed_content",
+          "search"
+        ],
+        "conversion": [
+          "consumed_content",
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_content",
+          "shared_content"
+        ],
+        "retention": [
+          "app_open"
+        ]
+      },
+      "priorityArchetypes": [
+        "starred_content",
+        "consumed_content",
+        "search",
+        "app_open"
+      ],
+      "blindStagePitch": {
+        "loyalty": "Saved recipes are the affinity signal the whole personalisation of a cooking app rests on."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "starred_content",
+          "why": "saved recipes drive taste-based recommendation",
+          "properties": [
+            "id",
+            "category"
+          ]
+        },
+        {
+          "archetype": "consumed_content",
+          "why": "separates a browse from a cook-along session",
+          "properties": [
+            "id",
+            "duration"
+          ]
+        }
+      ]
+    },
+    "EV Charging & Fuel": {
+      "label": "EV Charging & Fuel",
+      "key": "ev_charging_fuel",
+      "businessModel": "transactional",
+      "conversionMeaning": "a completed, paid charging or refuelling session",
+      "funnel": {
+        "acquisition": [
+          "channel_registration"
+        ],
+        "activation": [
+          "registered_account",
+          "logged_in",
+          "named_user_association"
+        ],
+        "consideration": [
+          "search",
+          "browsed"
+        ],
+        "conversion": [
+          "purchased"
+        ],
+        "loyalty": [
+          "starred_product"
+        ],
+        "retention": [
+          "app_open"
+        ]
+      },
+      "priorityArchetypes": [
+        "purchased",
+        "search",
+        "registered_account",
+        "app_open"
+      ],
+      "valueCritical": [
+        "purchased"
+      ],
+      "blindStagePitch": {
+        "conversion": "Session start and payment are the transaction; untracked, no campaign can be tied to litres or kilowatt-hours.",
+        "consideration": "Station search is the intent signal for proximity and availability messaging."
+      },
+      "roadmapHints": [
+        {
+          "archetype": "purchased",
+          "why": "session value, energy delivered and station, for revenue attribution",
+          "properties": [
+            "value",
+            "currency",
+            "id",
+            "quantity"
+          ]
+        },
+        {
+          "archetype": "search",
+          "why": "station lookup drives proximity and availability alerts",
+          "properties": [
+            "query",
+            "id"
+          ]
+        }
+      ]
+    }
+  }
+}

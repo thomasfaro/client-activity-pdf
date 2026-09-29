@@ -1,0 +1,24 @@
+# Per-client analyses: real client data (tagging plans, API pulls, reports).
+# Never commit — the skill must stay client-agnostic.
+work/
+
+__pycache__/
+*.pyc
+.DS_Store
+*.pdf
+*.png
+!.cursor/**
+.cursor/**/__pycache__/
+.cursor/**/*.pyc
+
+# Sweep output: real per-client volumes. Regenerable with probe_sweep.py.
+.cursor/skills/airship-engagement-review/scripts/probe_sweep.json
+
+# The routing acceptance fixture: it maps named accounts to their volume regime, which
+# is the account list plus a commercial fact about each. Stays local; the committed
+# `probe_sweep_expected.example.json` documents the format with placeholder names.
+.cursor/skills/airship-engagement-review/scripts/probe_sweep_expected.json
+
+# Internal Airship paperwork (compliance, risk, API change requests). Kept out of the
+# published tree: it is about the skill, not part of it, and it is not ours to publish.
+docs/

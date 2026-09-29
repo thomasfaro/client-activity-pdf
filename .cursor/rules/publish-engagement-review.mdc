@@ -1,0 +1,41 @@
+---
+description: Pre-publish check for the engagement-review skill — run before any git commit or push to GitHub, so no client data, name, figure or identifier reaches the public repository.
+alwaysApply: true
+---
+
+# Publishing the engagement-review skill
+
+The GitHub repository is **public**. Before any `git commit` or `git push` that touches
+`.cursor/skills/airship-engagement-review/`, `.cursor/agents/`, `.cursor/hooks/`,
+`.cursor/rules/`, `README.md` or `install.sh`, do all of the following, in order.
+
+1. **Stage the skill scope only**, never `git add -A`:
+   ```bash
+   git add README.md install.sh .cursor/skills/airship-engagement-review \
+           .cursor/agents .cursor/hooks .cursor/hooks.json .cursor/rules
+   ```
+   Never stage `work/`, `docs/`, `mcp-reporting-skill/`, `probe_sweep*.json` (except the
+   `.example.json`), a stray output folder, or any `.pdf` / `.html` report or screenshot.
+2. **Run the three checks after staging.** The name scanner reads tracked files only, so an
+   unstaged new file is invisible to it. All three must pass:
+   ```bash
+   S=.cursor/skills/airship-engagement-review/scripts
+   python3 $S/check_no_client_names.py   # must end with "ok — no account name, …"
+   python3 $S/run_selftests.py           # must end with "24/24 suite(s) passed" (or N/N)
+   python3 $S/check_links.py             # must print "links: ok"
+   ```
+3. **Read `git diff --cached` for what no scanner can see.** Look for:
+   - an initialism or nickname of a client, a show, product or campaign title copied from an
+     account, a client domain or store URL;
+   - an exact volume under six digits quoted as a measurement (`4,210 sends`), or a sector
+     plus a figure that narrows to one account;
+   - an id, app key, channel, push or group id pasted as an example.
+4. **Fix, never bypass.** Allowed: the mechanism with a sector (`on a telecom account`),
+   round magnitudes (`about 7,000`, `~39M`), placeholders
+   (`11111111-2222-4333-8444-555555555555`, `EXAMPLEuiIdAAAAAAAAAAA`, `Client A PROD`).
+   Not allowed: the name, its exact numbers, its real ids. Re-run step 2 after each fix.
+   If the scanner reports a false positive, fix the scanner and its self-test, don't skip it.
+5. **Push only when steps 2–3 are clean**, and quote the scanner's final line to the user.
+
+If a leak turns out to be **already pushed**, stop and tell the user before anything else:
+it stays in the git history on GitHub, and rewriting that history (force-push) is their call.

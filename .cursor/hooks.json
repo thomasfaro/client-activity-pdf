@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "hooks": {
+    "subagentStart": [
+      { "command": "python3 .cursor/hooks/guard_model.py subagentStart" }
+    ],
+    "subagentStop": [
+      { "command": "python3 .cursor/hooks/log_wave.py subagentStop" }
+    ],
+    "preCompact": [
+      { "command": "python3 .cursor/hooks/log_wave.py preCompact" }
+    ],
+    "stop": [
+      { "command": "python3 .cursor/hooks/guard_model.py stop" },
+      { "command": "python3 .cursor/hooks/log_wave.py stop" }
+    ]
+  }
+}
